@@ -1,0 +1,72 @@
+{% extends "main_layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <section class="col-sm-6 section-send">
+            <h1 class="main-head">Send</h1>
+            <h2 class="main-and"><span>And</span></h2>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <p class="simple-text min color-green text-center block-1">
+                            Send every files ( photo, music, documents, etc.) you want. <br>
+                            Get <sapn class="highlight">direct</sapn> links. <br>
+                            Configure <sapn class="highlight">security</sapn>. <br>
+                            Attach files to <sapn class="highlight">user</sapn>, location, email, time, etc. <br>
+                        </p>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row margin-top-row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <button type="button" id="select-files" class="btn btn-primary btn-lg btn-block">Select files</button>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+            </div>
+        </section>
+        <section class="col-sm-6 section-get">
+            <h1 class="main-head">Get</h1>
+            <h2 class="main-and"><span>And</span></h2>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <p class="simple-text min color-white text-center block-1">
+                            Get files from another <sapn class="highlight">user</sapn>
+                            <br>
+                            Search files in current <sapn class="highlight">location</sapn>
+                            <br>
+                            Find files attached to your <sapn class="highlight">email</sapn>
+                            <br>
+                            Get files by its <sapn class="highlight">file id</sapn>
+                        </p>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row margin-top-row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <button type="button" id="get-files" class="btn btn-primary btn-lg btn-block">Get files</button>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+

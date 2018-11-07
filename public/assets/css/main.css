@@ -1,0 +1,87 @@
+.page-main .content{
+
+}
+.page-main .content .section-send,
+.page-main .content .section-get{
+    min-height: calc(100vh - 40px);
+}
+.page-main .content .section-send{
+    background: rgba(230, 237, 235, 0.41);
+}
+.page-main .content .section-get{
+    background-color: #62a796;
+}
+.page-main .content h1.main-head{
+    text-align: center;
+    line-height: 1;
+    padding: 10px;
+    margin-top: 50px;
+    font-size: 80px;
+    font-family: lobster, sans-serif;
+}
+.page-main .content h2.main-and{
+    font-size: 50px;
+}
+.page-main .content .section-send h1.main-head{
+    color: transparent;
+    text-shadow: 2px 2px 3px rgba(255,255,255,0.5);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    background-color: #4d8376;
+}
+.page-main .content .section-get h1.main-head{
+    color: rgb(245, 248, 247);
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.46);
+}
+
+.page-main .content .section-send h2.main-and{
+    color: transparent;
+    text-shadow: 2px 2px 3px rgba(255,255,255,0.5);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    background-color: #4d8376;
+    margin-right: -15px;
+    text-align: right;
+    overflow: hidden;
+    margin-top: -83px;
+    margin-bottom: 60px;
+}
+
+.page-main .content .section-get h2.main-and{
+    color: rgb(245, 248, 247);
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.46);
+    margin-left: -15px;
+    overflow: hidden;
+    margin-top: -83px;
+    margin-bottom: 60px;
+}
+
+.page-main .content .section-get h2.main-and span{
+    margin-left: -47px;
+}
+
+.page-main .content .section-send h2.main-and span{
+    margin-right: -42px;
+}
+
+.page-main .content .block-1{
+
+}
+
+.page-main .content .margin-top-row{
+    margin-top: 50px;
+}
+
+.page-main .content .margin-top-row #select-files{
+    background-color: rgba(105, 179, 161, 0);
+    border-color: #62a796;
+    color: #62a796;
+}
+
+.page-main .content .margin-top-row #get-files{
+    background-color: rgba(105, 179, 161, 0);
+    border-color: rgb(245, 248, 247);
+    color: rgb(245, 248, 247);
+}

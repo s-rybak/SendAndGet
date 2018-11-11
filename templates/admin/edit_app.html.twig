@@ -1,0 +1,157 @@
+{% extends "admin_layout.html.twig" %}
+
+{% block title %}File{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">App</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="fileName">Site</label>
+                        <input type="text" class="form-control" id="fileName" placeholder="Site">
+                    </div>
+                    <div class="form-group">
+                        <label for="fileName">Ip</label>
+                        <input type="text" class="form-control" id="fileName" placeholder="123.123.123.13">
+                    </div>
+                    <div class="form-group">
+                        <label for="fileName">Contact Email</label>
+                        <input type="text" class="form-control" id="fileName" placeholder="Contact Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="fileName">Live key</label>
+                        <input type="text" class="form-control" id="fileName" placeholder="Contact Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="fileName">Test key</label>
+                        <input type="text" class="form-control" id="fileName" placeholder="Contact Email">
+                    </div>
+                    <div class="form-group">
+
+                        <label for="uploadType">Files list</label>
+                        <table class="table table-striped">
+                            <tbody>
+                            <tr>
+                                <th style="width: 10px">#ID</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th style="width: 168px">Actions</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>File1.tar.gz</td>
+                                <td>tar.gz</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-default">Open</button>
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Block</a></li>
+                                            <li><a href="#">Unblock</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Delete ( soft )</a></li>
+                                            <li><a href="#">Delete ( forever )</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Replace</a></li>
+                                            <li><a href="#">Download</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Actions</h3>
+                </div>
+                <div class="box-body form-horizontal">
+                    <div class="form-group">
+                        <label for="inputStatus" class="col-sm-3 control-label">Status</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <select class="form-control">
+                                <option>Active</option>
+                                <option>Suspended</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Storage</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <input type="text" class="form-control pull-right" value="100mb">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Limits</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <input type="text" class="form-control pull-right" value="1000/10">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Last Call</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker">
+                            </div>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <div class="btn-group" style="width: 100%;">
+                        <button class="btn btn-primary btn-flat" style="width: calc(100% - 25px);">Save</button>
+                        <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Suspend</a></li>
+                            <li><a href="#">Activate</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Create report</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Delete ( soft )</a></li>
+                            <li><a href="#">Delete ( forever )</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <a class="btn btn-app">
+                    <i class="fa fa-thumbs-o-down"></i> Deauthorize
+                </a>
+                <a class="btn btn-app">
+                    <i class="fa fa-refresh"></i> Regenerate keys
+                </a>
+                <a class="btn btn-app">
+                    <i class="fa  fa-trash"></i> Clear storage
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

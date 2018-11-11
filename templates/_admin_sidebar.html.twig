@@ -1,0 +1,86 @@
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">MAIN NAVIGATION</li>
+            <li class="active">
+                <a href="{{ path("admin_dashboard") }}">
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="{{ path("admin_files") }}">
+                    <i class="fa fa-files-o"></i> <span>All Files</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="{{ path("admin_pages") }}">
+                    <i class="fa fa-file-text"></i> <span>Pages</span>
+                </a>
+            </li>
+            <li class="treeview">
+                <a href="{{ path("admin_apps") }}">
+                    <i class="fa fa-gears"></i> <span>Api</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="">
+                        <a href="{{ path("admin_apps") }}"><i class="fa fa-circle-o"></i>All apps</a>
+                    </li>
+                    <li class="">
+                        <a href="{{ path("admin_apps") }}"><i class="fa fa-circle-o"></i>Blocked apps</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="{{ path("admin_reports") }}">
+                    <i class="fa fa-warning"></i> <span>Reports</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="">
+                        <a href="{{ path("admin_reports") }}"><i class="fa fa-circle-o"></i>All</a>
+                    </li>
+                    <li class="">
+                        <a href="{{ path("admin_reports") }}"><i class="fa fa-circle-o"></i>New</a>
+                    </li>
+                    <li class="">
+                        <a href="{{ path("admin_reports") }}"><i class="fa fa-circle-o"></i>System warn</a>
+                    </li>
+                    <li>
+                        <a href="{{ path("admin_reports") }}"><i class="fa fa-circle-o"></i>Waiting for decision</a>
+                    </li>
+                    <li>
+                        <a href="{{ path("admin_reports") }}"><i class="fa fa-circle-o"></i>Resolved</a>
+                    </li>
+                    <li>
+                        <a href="{{ path("admin_reports") }}"><i class="fa fa-circle-o"></i>Blocked IPs</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href="{{ path("admin_languages") }}">
+                    <i class="fa  fa-language"></i> <span>Languages</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="{{ path("admin_config") }}">
+                    <i class="fa  fa-cog"></i> <span>Config</span>
+                </a>
+            </li>
+            <li >
+                <a href="{{ path("logout") }}">
+                    <i class="fa  fa-sign-out"></i> <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

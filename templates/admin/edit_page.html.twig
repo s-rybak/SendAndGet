@@ -1,0 +1,114 @@
+{% extends "admin_layout.html.twig" %}
+
+{% block title %}File{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Page</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="fileName">Title</label>
+                        <input type="text" class="form-control" id="fileName" placeholder="Title" value="{{ pageData.title }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="fileName">Slug</label>
+                        <input type="text" class="form-control" id="fileName" placeholder="slug" value="{{ pageData.slug }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="fileName">Description</label>
+                        <textarea  rows="3" style="width: 100%" cols="80">{{ pageData.excerpt }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="fileName">Content</label>
+                        <textarea name="editor1" rows="10" style="width: 100%" cols="80">{{ pageData.content }}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Actions</h3>
+                </div>
+                <div class="box-body form-horizontal">
+                    <div class="form-group">
+                        <label for="inputStatus" class="col-sm-3 control-label">Status</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <select class="form-control">
+                                <option value="published" {{ pageData.status == "published" ? "selected" : "" }}>Published</option>
+                                <option value="draft" {{ pageData.status == "draft" ? "selected" : "" }}>Draft</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputStatus" class="col-sm-3 control-label">Lang</label>
+
+                        <div class="col-sm-9 pull-right">
+                            {%  if pageData.parent is not null  %}
+                                <a class="form-control" href="{{ path('admin_edit_page',{'id':pageData.parent.id}) }}">Go back to page</a>
+                            {% else  %}
+                            <select class="form-control" onchange="location.href=this.value">
+                                <option value="{{ path('admin_edit_page',{'id':pageData.id}) }}" selected>{{ pageData.lang }}</option>
+                                {%for translation in  pageData.translations%}
+                                <option value="{{ path('admin_edit_page',{'id':translation.id}) }}">{{ translation.lang }}</option>
+                                {% endfor %}
+                            </select>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Updated</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker" value="{{ pageData.updatedAt|date('Y-m-d') }}">
+                            </div>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Created</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker" value="{{ pageData.createdAt|date('Y-m-d') }}">
+                            </div>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <button class="btn btn-primary btn-block">Save</button>
+                </div>
+            </div>
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Image</h3>
+                </div>
+                <div class="box-body form-horizontal">
+                    <img class="img-responsive" src="{{ pageData.image }}" alt="Photo">
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <button class="btn btn-primary btn-block">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

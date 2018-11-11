@@ -1,3 +1,84 @@
 index:
     path: /
     controller: App\Controller\MainController::index
+about_us:
+    path: /about_us
+    controller: App\Controller\MainController::aboutAs
+
+contact_us:
+    path: /contact_us
+    controller: App\Controller\MainController::contuctAs
+
+statistic:
+    path: /statistic
+    controller: App\Controller\MainController::statistic
+
+tos:
+    path: /tos
+    controller: App\Controller\MainController::tos
+
+api:
+    path: /api
+    controller: App\Controller\MainController::api
+
+faq:
+    path: /faq
+    controller: App\Controller\MainController::faq
+
+login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+    methods: [GET, POST]
+
+logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout
+    methods: [GET]
+
+admin_dashboard:
+    path: /admin
+    controller: App\Controller\AdminController::dashboard
+
+admin_files:
+    path: /admin/files
+    controller: App\Controller\AdminController::files
+
+admin_edit_file:
+    path: /admin/file/{id}
+    controller: App\Controller\AdminController::editFile
+
+admin_pages:
+    path: /admin/pages
+    controller: App\Controller\AdminController::pages
+
+admin_edit_page:
+    path: /admin/page/{id}
+    controller: App\Controller\AdminController::editPage
+
+admin_reports:
+    path: /admin/reports
+    controller: App\Controller\AdminController::reports
+
+admin_edit_reports:
+    path: /admin/report/{id}
+    controller: App\Controller\AdminController::editReports
+
+admin_languages:
+    path: /admin/languages
+    controller: App\Controller\AdminController::languages
+
+admin_edit_translation:
+    path: /admin/translation/{id}
+    controller: App\Controller\AdminController::editTranslation
+
+admin_config:
+    path: /admin/config
+    controller: App\Controller\AdminController::config
+
+admin_apps:
+    path: /admin/apps
+    controller: App\Controller\AdminController::apps
+
+admin_edit_app:
+    path: /admin/app/{id}
+    controller: App\Controller\AdminController::editApp

@@ -1,0 +1,68 @@
+{% extends "admin_layout.html.twig" %}
+
+{% block title %}Files{% endblock %}
+
+{% block content %}
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">All pages</h3>
+            <div class="box-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <th style="width: 10px">#ID</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Slug</th>
+                    <th>Updated</th>
+                    <th style="width: 168px">Actions</th>
+                </tr>
+                {% for page in pages %}
+                    <tr>
+                        <td>{{ page.id }}</td>
+                        <td>{{ page.title }}</td>
+                        <td>{{ page.status }}</td>
+                        <td>{{ page.slug }}</td>
+                        <td>{{ page.createdAt|date('Y-m-d') }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="{{ path("admin_edit_page",{"id":page.id}) }}" class="btn btn-default">Edit</a>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a target="_blank" href="{{ path(page.slug) }}">Open</a></li>
+                                    <li><a href="#">Make draft</a></li>
+                                    <li><a href="#">Publish</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer clearfix">
+            {#<ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="#">«</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">»</a></li>
+            </ul>#}
+        </div>
+        <!-- /.box-body -->
+    </div>
+{% endblock %}

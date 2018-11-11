@@ -34,6 +34,16 @@ footer {
     background: #383434;
 }
 
+footer .footer-lang-icon{
+    color: white;
+    font-size: 22px;
+    padding: 9px 10px 0 0;
+}
+
+footer .nav-lang{
+    padding: .5rem 3px;
+}
+
 footer a.nav-link{
     color: rgb(245, 248, 247);
 }

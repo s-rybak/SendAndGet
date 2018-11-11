@@ -1,0 +1,172 @@
+{% extends "admin_layout.html.twig" %}
+
+{% block title %}File{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">App</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="fileName">Name</label>
+                        <input type="text" class="form-control" id="fileName" placeholder="Site">
+                    </div>
+                    <div class="form-group">
+                        <label for="fileName">Contact Email</label>
+                        <input type="text" class="form-control" id="fileName" placeholder="Contact Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="fileName">Reason</label>
+                        <textarea name="editor1" rows="10" style="width: 100%" cols="80"></textarea>
+                    </div>
+                    <div class="form-group">
+
+                        <label for="uploadType">Files list</label>
+                        <table class="table table-striped">
+                            <tbody>
+                            <tr>
+                                <th style="width: 10px">#ID</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th style="width: 168px">Actions</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>File1.tar.gz</td>
+                                <td>tar.gz</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-default">Open</button>
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Block</a></li>
+                                            <li><a href="#">Unblock</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Delete ( soft )</a></li>
+                                            <li><a href="#">Delete ( forever )</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Replace</a></li>
+                                            <li><a href="#">Download</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Actions</h3>
+                </div>
+                <div class="box-body form-horizontal">
+                    <div class="form-group">
+                        <label for="inputStatus" class="col-sm-3 control-label">Status</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <select class="form-control">
+                                <option>Created</option>
+                                <option>In process</option>
+                                <option>Approved</option>
+                                <option>Rejected</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Type</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <input type="text" class="form-control pull-right" value="Type">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Ip</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <input type="text" class="form-control pull-right" value="Ip">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Created</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker">
+                            </div>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Updated</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker">
+                            </div>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Block files</a></li>
+                        <li><a href="#">Unbock files</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Make expired</a></li>
+                        <li><a href="#">Prolong expiration</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Delete ( soft ) files</a></li>
+                        <li><a href="#">Delete ( forever ) files</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Block all files <br> from this IP</a></li>
+                        <li><a href="#">Unblock all files <br> from this IP</a></li>
+                        <li><a href="#">Delete ( soft ) <br> all files  from this IP</a></li>
+                        <li><a href="#">Delete ( forever ) <br> all files from this IP</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Delete ( forever ) <br> all (active) reports from <br> this IP</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Block this IP (files)</a></li>
+                        <li><a href="#">Block this IP (reporter)</a></li>
+                    </ul>
+                </div>
+                <a class="btn btn-app">
+                    <i class="fa fa-thumbs-o-down"></i> Reject
+                </a>
+                <a class="btn btn-app">
+                    <i class="fa fa-thumbs-o-down"></i> Approve
+                </a>
+                <a class="btn btn-app">
+                    <i class="fa fa-thumbs-o-down"></i> Delete
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

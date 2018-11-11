@@ -1,0 +1,36 @@
+.page{
+    background-color: #f4f4f48c;
+}
+.page .breadcrumb{
+    border: 1px solid #c0c0c063;
+}
+.page header .site-name{
+    font-family: lobster;
+    font-size: 32px;
+    color: #aaaaaa;
+}
+.page header .site-name span:nth-of-type(1){
+    color: transparent;
+    text-shadow: 2px 2px 3px rgba(255,255,255,0.5);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    background-color: #4d8376;
+}
+.page header .site-name span:nth-of-type(2){
+    color: #cf6844;
+    text-shadow: 2px 1px 0 rgba(0, 0, 0, 0.58);
+}
+.page .jumbotron{
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.page .content{
+    min-height: calc(100vh - 134px);
+}
+.page .page-content{
+    margin-bottom: 20px;
+}
+.page .page-content .card{
+    min-height: calc(100vh - 483px);
+}

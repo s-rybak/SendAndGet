@@ -1,0 +1,204 @@
+{% extends "admin_layout.html.twig" %}
+
+{% block title %}File{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">File</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="fileName">Name</label>
+                        <input type="text" class="form-control" id="fileName" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="fileName">Path</label>
+                        <input type="text" class="form-control" id="fileName" placeholder="/path/to/file">
+                    </div>
+                    <div class="form-group">
+                        <label for="fileName">Url</label>
+                        <input type="text" class="form-control" id="fileName" placeholder="/url/to/file">
+                    </div>
+                    <div class="form-group">
+                        <label for="userIp">IP</label>
+                        <input type="text" class="form-control" id="userIp" placeholder="Ip">
+                    </div>
+                    <div class="form-group">
+                        <label for="uploadType">Upload Type</label>
+                        <select class="form-control">
+                            <option>Select</option>
+                            <option>User</option>
+                            <option>Api</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="uploadType">Files list</label>
+                        <table class="table table-striped">
+                            <tbody>
+                            <tr>
+                                <th style="width: 10px">#ID</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th style="width: 168px">Actions</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>File1.tar.gz</td>
+                                <td>tar.gz</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-default">Block</button>
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Unblock</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Delete ( soft )</a></li>
+                                            <li><a href="#">Delete ( forever )</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Replace</a></li>
+                                            <li><a href="#">Download</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">File name</h3>
+                </div>
+                <div class="box-body form-horizontal">
+                    <div class="form-group">
+                        <label for="inputStatus" class="col-sm-2 control-label">Status</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <select class="form-control">
+                                <option>Active</option>
+                                <option>Blocked</option>
+                                <option>Deleted</option>
+                                <option>Reported</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputStatus" class="col-sm-2 control-label">Size</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <input type="text" disabled class="form-control pull-right" value="100mb" id="datepicker">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Time left</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <div class="progress progress-xs progress-striped active">
+                                <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
+                            </div>
+                            <span class="badge bg-light-blue">30%</span>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <div class="form-group">
+                        <label for="inputStatus" class="col-sm-2 control-label">Downloaded</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <input type="text" disabled class="form-control pull-right" value="100" id="datepicker">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Updated</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker">
+                            </div>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Uploaded</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker">
+                            </div>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <div class="btn-group" style="width: 100%;">
+                        <button class="btn btn-primary btn-flat" style="width: calc(100% - 25px);">Save</button>
+                        <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Block</a></li>
+                            <li><a href="#">Unblock</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Create report</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Delete ( soft )</a></li>
+                            <li><a href="#">Delete ( forever )</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Replace</a></li>
+                            <li><a href="#">Download</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <a class="btn btn-app">
+                    <i class="fa fa-thumbs-o-up"></i> Prolong expiration
+                </a>
+                <a class="btn btn-app">
+                    <i class="fa fa-thumbs-o-down"></i> Make expired
+                </a>
+
+                <a class="btn btn-app">
+                    <i class="fa fa-download"></i> Download
+                </a>
+            </div>
+           {# <a class="btn btn-app">
+                <i class="fa fa-pause"></i> Create report
+            </a>#}
+            {#
+            <a class="btn btn-app">
+                <i class="fa fa-pause"></i> Block
+            </a>
+            <a class="btn btn-app">
+                <i class="fa fa-pause"></i> Unblock
+            </a>#}
+           {# <a class="btn btn-app">
+                <i class="fa fa-pause"></i> Delete (soft)
+            </a>
+            <a class="btn btn-app">
+                <i class="fa fa-pause"></i> Delete (forever)
+            </a>#}
+        </div>
+    </div>
+
+{% endblock %}

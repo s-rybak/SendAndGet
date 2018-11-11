@@ -1,0 +1,8 @@
+<div class="jumbotron jumbotron-fluid row shadow" {% if page.page.image is defined %} style="background-image:url({{ asset(page.page.image) }}) " {% endif %}>
+    <div class="container">
+        <h1 class="display-4">{{ page.page.title }}</h1>
+        {% if page.page.excerpt is defined %}
+        <p class="lead">{{ page.page.excerpt }}</p>
+        {% endif %}
+    </div>
+</div>

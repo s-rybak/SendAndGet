@@ -1,0 +1,108 @@
+{% extends "admin_layout.html.twig" %}
+
+{% block title %}Files{% endblock %}
+
+{% block content %}
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Reports list</h3>
+
+            <div class="box-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <th style="width: 10px">#ID</th>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>User IP</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th>Contact</th>
+                    <th>Created</th>
+                    <th>Updated</th>
+                    <th style="width: 168px">Actions</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>File</td>
+                    <td>File1.tar.gz</td>
+                    <td>122.122.122.122</td>
+                    <td>My file</td>
+                    <td>Created</td>
+                    <td>qwe@qwe.com</td>
+                    <td>12.12.12</td>
+                    <td>15.12.12</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="{{ path("admin_edit_reports",{'id':'1'}) }}" class="btn btn-default">Show</a>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Process</a></li>
+                                <li><a href="#">Reject</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Block app</a></li>
+                                <li><a href="#">Unblock app</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>App</td>
+                    <td>qwe@qwe.com</td>
+                    <td>122.122.122.122</td>
+                    <td>My file</td>
+                    <td>Created</td>
+                    <td>qwe@qwe.com</td>
+                    <td>12.12.12</td>
+                    <td>15.12.12</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="{{ path("admin_edit_reports",{'id':'1'}) }}" class="btn btn-default">Show</a>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Process</a></li>
+                                <li><a href="#">Reject</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Block app</a></li>
+                                <li><a href="#">Unblock app</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="#">«</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">»</a></li>
+            </ul>
+        </div>
+        <!-- /.box-body -->
+    </div>
+{% endblock %}

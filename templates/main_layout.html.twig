@@ -12,8 +12,27 @@
     {% endblock %}
 
 </head>
-<body class="page page-{% block pageclass %}main{% endblock %}">
+<body class="page page-{% if page is defined and page.slug is defined%}{{ page.slug }}{% else %}main{% endif %}">
+
+{% if includeHeader is defined %}
+
+    {% include '_header.html.twig' %}
+
+{% endif %}
 <div class="content container-fluid">
+
+    {% if page is defined %}
+
+        {% include '_jumbotron.html.twig' %}
+
+    {% endif %}
+
+    {% if page.breadcrumbs is defined %}
+
+        {% include '_breadcrumb.html.twig' %}
+
+    {% endif %}
+
     {% block content %}
 
     {% endblock %}

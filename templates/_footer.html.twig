@@ -1,21 +1,41 @@
 <footer>
-    <div class="content container-fluid">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3">
+                <ul class="nav justify-content-left">
+                    <li class="nav-item">
+                        <i class="fas fa-language footer-lang-icon"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-lang" href="#">Ua</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-lang" href="#">En</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-lang" href="#">De</a>
+                    </li>
+                </ul>
             </div>
             <div class="col-sm-6">
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">About us</a>
+                        <a class="nav-link" href="{{ path("faq") }}">Faq</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact us</a>
+                        <a class="nav-link" href="{{ path("statistic") }}">Statistic</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Statistic</a>
+                        <a class="nav-link" href="{{ path("about_us") }}">About us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Terms and conditions</a>
+                        <a class="nav-link" href="{{ path("contact_us") }}">Contact us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path("api") }}">Developers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path("tos") }}">Terms and conditions</a>
                     </li>
                 </ul>
             </div>

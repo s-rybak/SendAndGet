@@ -2,67 +2,209 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{{ asset('bower_components/Ionicons/css/ionicons.min.css') }}">
+
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet"/>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-
+    <script src="{{ asset("assets/js/TextLoader.js") }}"></script>
+    <script src="{{ asset("assets/js/Files.js") }}"></script>
+    <script src="{{ asset("assets/js/main.js") }}"></script>
+    <script src="{{ asset("bower_components/jquery/dist/jquery.min.js") }}"></script>
+    <!-- FastClick -->
+    <script src="{{ asset("bower_components/fastclick/lib/fastclick.js") }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{{ asset("dist/js/demo.js") }}"></script>
 {% endblock %}
 
 {% block content %}
 
     <div class="row">
         <section class="col-sm-6 section-send">
-            <h1 class="main-head">Send</h1>
-            <h2 class="main-and"><span>And</span></h2>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-8">
-                        <p class="simple-text min color-green text-center block-1">
-                            Send every files ( photo, music, documents, etc.) you want. <br>
-                            Get <sapn class="highlight">direct</sapn> links. <br>
-                            Configure <sapn class="highlight">security</sapn>. <br>
-                            Attach files to <sapn class="highlight">user</sapn>, location, email, time, etc. <br>
-                        </p>
+            <div class="show-row">
+                <div class="left-side">
+                    <h1 class="main-head">Send</h1>
+                    <h2 class="main-and"><span>And</span></h2>
+                    <div class="main-container">
+                        <div class="row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-8">
+                                <p class="simple-text min color-green text-center block-1">
+                                    Send every files ( photo, music, documents, etc.) you want. <br>
+                                    Get
+                                    <sapn class="highlight">direct</sapn>
+                                    links. <br>
+                                    Configure
+                                    <sapn class="highlight">security</sapn>
+                                    . <br>
+                                    Attach files to
+                                    <sapn class="highlight">user</sapn>
+                                    , location, email, time, etc. <br>
+                                </p>
+                            </div>
+                            <div class="col-sm-2"></div>
+                        </div>
+                        <div class="row margin-top-row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6">
+                                <button type="button" id="select-files" class="btn btn-primary btn-lg btn-block">Select
+                                    files
+                                </button>
+                            </div>
+                            <div class="col-sm-3"></div>
+                        </div>
                     </div>
-                    <div class="col-sm-2"></div>
                 </div>
-                <div class="row margin-top-row">
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-6">
-                        <button type="button" id="select-files" class="btn btn-primary btn-lg btn-block">Select files</button>
+                <div class="right-side" style="display: none">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+
+                            <div class="col-sm-12" id="filesList">
+                                <div class="box">
+                                    <div class="box-header">
+                                        <h3 class="box-title">Files</h3>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body no-padding">
+                                        <table class="table table-striped">
+                                            <tbody>
+                                            <tr>
+                                                <th style="width: 100px;">Name</th>
+                                                <th>Progress</th>
+                                                <th style="width: 200px;">Actions</th>
+                                            </tr>
+                                            <tr>
+                                                <td>File1.tar.gz</td>
+                                                <td>
+                                                    <div class="progress progress-xs progress-striped active">
+                                                        <div class="progress-bar progress-bar-primary"
+                                                             style="width: 30%"></div>
+                                                    </div>
+                                                    <span class="badge bg-light-blue">30%</span>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group" role="group">
+                                                        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle send-link-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Copy link (direct)
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                            <a class="dropdown-item" href="#">Copy link (download page)</a>
+                                                            <a class="dropdown-item" href="#">Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <!-- /.box-body -->
+                                </div>
+                            </div>
+                            <p class="col-sm-12 important-text min color-green text-center link-section-text">
+                                Link to all files
+                            </p>
+                            <div class="col-sm-12 link-section">
+                                <div class="input-group input-group-lg">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-secondary dropdown-toggle send-link-btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Send link</button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">Copy link (file page)</a>
+                                            <a class="dropdown-item" href="#">Copy link (direct)</a>
+                                            <a class="dropdown-item" href="#">Send to email</a>
+                                            <a class="dropdown-item" href="#">Send to user</a>
+                                            <a class="dropdown-item" href="#">Send to user</a>
+                                            <a class="dropdown-item" href="#">Send to location</a>
+                                            <div role="separator" class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Delete file</a>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Text input with dropdown button">
+                                </div>
+                            </div>
+                            <p class="col-sm-12 simple-text min color-green text-center">
+                                You always can send file to
+                                <sapn class="highlight">user</sapn>
+                                ,
+                                <sapn class="highlight">location</sapn>
+                                ,
+                                <sapn class="highlight">email</sapn>
+                                . Just click on triangle near "Send link" button
+                            </p>
+                        </div>
+
                     </div>
-                    <div class="col-sm-3"></div>
                 </div>
             </div>
         </section>
         <section class="col-sm-6 section-get">
-            <h1 class="main-head">Get</h1>
-            <h2 class="main-and"><span>And</span></h2>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-8">
-                        <p class="simple-text min color-white text-center block-1">
-                            Get files from another <sapn class="highlight">user</sapn>
-                            <br>
-                            Search files in current <sapn class="highlight">location</sapn>
-                            <br>
-                            Find files attached to your <sapn class="highlight">email</sapn>
-                            <br>
-                            Get files by its <sapn class="highlight">file id</sapn>
+            <div class="show-row">
+                <div class="left-side col-sm-6">
+                    <p class="col-sm-12 important-text min color-white text-center link-section-text">
+                        Your user name to get files
+                    </p>
+                    <p class="col-sm-12 simple-text min color-white text-center">
+                        You can change it, if you need
+                    </p>
+                    <div class="col-sm-12">
+                        <input class="form-control input-lg" id="user-get-name" type="text" placeholder=""
+                               value="Unknown elephant">
+                    </div>
+                    <div class="col-sm-12 get-files-by-section">
+                        <p class="col-sm-12 important-text min color-white text-center get-files-by-text">
+                            Search files
                         </p>
+                        <div class="input-group input-group-lg col-md-12">
+                            <input type="text" class="form-control" placeholder="Email, file id" aria-label="Email, file id" aria-describedby="button-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary search-files-button" type="button" id="button-addon2">Go!</button>
+                            </div>
+                        </div>
+                        <p class="col-sm-12 simple-text min color-white text-center">
+                            Or you can get file by your current location
+                        </p>
+                        <div class="btn btn-block btn-default btn-lg" id="get-by-location">Get by location <i class="fa fa-map-marker"></i></div>
                     </div>
-                    <div class="col-sm-2"></div>
                 </div>
-                <div class="row margin-top-row">
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-6">
-                        <button type="button" id="get-files" class="btn btn-primary btn-lg btn-block">Get files</button>
+                <div class="right-side">
+                    <h1 class="main-head">Get</h1>
+                    <h2 class="main-and"><span>And</span></h2>
+                    <div class="main-container">
+                        <div class="row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-8">
+                                <p class="simple-text min color-white text-center block-1">
+                                    Get files from another
+                                    <sapn class="highlight">user</sapn>
+                                    <br>
+                                    Search files in current
+                                    <sapn class="highlight">location</sapn>
+                                    <br>
+                                    Find files attached to your
+                                    <sapn class="highlight">email</sapn>
+                                    <br>
+                                    Get files by its
+                                    <sapn class="highlight">file id</sapn>
+                                </p>
+                            </div>
+                            <div class="col-sm-2"></div>
+                        </div>
+                        <div class="row margin-top-row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6">
+                                <button type="button" id="get-files" class="btn btn-primary btn-lg btn-block">Get
+                                    files
+                                </button>
+                            </div>
+                            <div class="col-sm-3"></div>
+                        </div>
                     </div>
-                    <div class="col-sm-3"></div>
                 </div>
             </div>
         </section>

@@ -1,0 +1,10 @@
+require("bootstrap/scss/bootstrap.scss");
+require("bootstrap");
+require('@fortawesome/fontawesome-free/css/all.min.css');
+require("adminlte/dist/css/AdminLTE.css");
+require("adminlte/dist/css/skins/_all-skins.css");
+require("adminlte/dist/css/skins/_all-skins.css");
+require("ionicons/dist/css/ionicons.css");
+require("morris");
+require("jvectormap/jquery-jvectormap.css");
+require("jvectormap/jquery-jvectormap.js");

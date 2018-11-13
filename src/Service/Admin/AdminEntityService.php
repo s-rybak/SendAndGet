@@ -3,6 +3,7 @@
 namespace App\Service\Admin;
 
 use App\Entity\Page;
+use App\Entity\PageTranslations;
 use App\Repository\PageRepositoryInterface;
 
 class AdminEntityService implements AdminEntityServiceInterface
@@ -23,4 +24,10 @@ class AdminEntityService implements AdminEntityServiceInterface
     {
         return $this->pageRepo->getById($id);
     }
+
+	public function getPageTranslationById( int $id, $lang ): ?PageTranslations {
+
+
+
+	}
 }

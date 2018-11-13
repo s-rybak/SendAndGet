@@ -134,6 +134,29 @@ class AdminController extends AbstractController
     }
 
     /**
+     * admin edit page translation page.
+     *
+     * @param int $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws NotFoundHttpException if page not found
+     */
+    public function editPageTranslation(int $id,$lang='en'): Response
+    {
+        $page = $this->entitysService->getPageById($id);
+
+        if (null === $page) {
+            throw new NotFoundHttpException("Page with $id not found");
+        }
+
+        return $this->render('admin/edit_page.html.twig', [
+            'page' => $this->pageService->getEditPageResource($page->getTitle()),
+            'pageData' => $page,
+        ]);
+    }
+
+    /**
      * admin reports page.
      *
      * @return \Symfony\Component\HttpFoundation\Response

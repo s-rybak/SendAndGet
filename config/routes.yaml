@@ -55,6 +55,10 @@ admin_edit_page:
     path: /admin/page/{id}
     controller: App\Controller\AdminController::editPage
 
+admin_edit_page_lang:
+    path: /admin/page/{id}/{lang}
+    controller: App\Controller\AdminController::editPageTranslation
+
 admin_reports:
     path: /admin/reports
     controller: App\Controller\AdminController::reports

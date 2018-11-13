@@ -4,11 +4,12 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{ asset('assets/css/page.css') }}" rel="stylesheet"/>
+    {{ encore_entry_link_tags('page') }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
+    {{ encore_entry_script_tags('page') }}
 {% endblock %}
 
 {% block pageclass %}{% endblock %}

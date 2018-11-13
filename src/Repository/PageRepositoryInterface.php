@@ -12,9 +12,9 @@ use App\Entity\Page;
 
 interface PageRepositoryInterface
 {
-    public function getList(int $page, int $perpage, string $lang = 'en'): iterable;
+    public function getList(int $page, int $perpage): iterable;
 
     public function getById(int $id): ?Page;
 
-    public function getBySlug(string $slug, string $lang = 'en'): ?Page;
+    public function getBySlug(string $slug): ?Page;
 }

@@ -51,13 +51,13 @@
                         <label for="inputStatus" class="col-sm-3 control-label">Lang</label>
 
                         <div class="col-sm-9 pull-right">
-                            {%  if pageData.parent is not null  %}
+                            {%  if pageData.parent is defined  %}
                                 <a class="form-control" href="{{ path('admin_edit_page',{'id':pageData.parent.id}) }}">Go back to page</a>
                             {% else  %}
                             <select class="form-control" onchange="location.href=this.value">
-                                <option value="{{ path('admin_edit_page',{'id':pageData.id}) }}" selected>{{ pageData.lang }}</option>
+                                <option value="{{ path('admin_edit_page',{'id':pageData.id}) }}" selected>en</option>
                                 {%for translation in  pageData.translations%}
-                                <option value="{{ path('admin_edit_page',{'id':translation.id}) }}">{{ translation.lang }}</option>
+                                <option value="{{ path('admin_edit_page',{'id':pageData.id}) }}">{{ translation.lang }}</option>
                                 {% endfor %}
                             </select>
                             {% endif %}

@@ -20,11 +20,6 @@ class Page
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $parent_id;
-
-    /**
      * @ORM\Column(type="string", length=100)
      */
     private $title;
@@ -45,25 +40,14 @@ class Page
     private $content;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, columnDefinition="ENUM('published', 'draft')" )
      */
     private $status;
 
     /**
-     * @ORM\Column(type="string", length=2)
-     */
-    private $lang;
-
-    /**
-     * @OneToMany(targetEntity="Page", mappedBy="parent")
+     * @OneToMany(targetEntity="PageTranslations", mappedBy="parent")
      */
     private $translations;
-
-    /**
-     * @ManyToOne(targetEntity="Page", inversedBy="translations")
-     * @JoinColumn(name="parent_id", referencedColumnName="id")
-     */
-    private $parent;
 
     public function __construct()
     {
@@ -150,18 +134,6 @@ class Page
         return $this;
     }
 
-    public function getLang(): ?string
-    {
-        return $this->lang;
-    }
-
-    public function setLang(string $lang): self
-    {
-        $this->lang = $lang;
-
-        return $this;
-    }
-
     public function getImage(): ?string
     {
         return $this->image ?? 'https://place-hold.it/373x250';
@@ -212,37 +184,5 @@ class Page
     public function setTranslations($translations): void
     {
         $this->translations = $translations;
-    }
-
-    /**
-     * @return int
-     */
-    public function getParentId(): int
-    {
-        return $this->parent_id;
-    }
-
-    /**
-     * @param int $parent_id
-     */
-    public function setParentId(int $parent_id): void
-    {
-        $this->parent_id = $parent_id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * @param mixed $parent
-     */
-    public function setParent($parent): void
-    {
-        $this->parent = $parent;
     }
 }

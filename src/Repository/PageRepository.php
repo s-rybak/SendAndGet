@@ -26,15 +26,9 @@ class PageRepository extends ServiceEntityRepository implements PageRepositoryIn
      *
      * @return Page[] Returns an array of Page objects
      */
-    public function getList(int $page, int $perpage = 10, string $lang = 'en'): iterable
+    public function getList(int $page, int $perpage = 10): iterable
     {
-        return $this->createQueryBuilder('p')
-                    ->where('p.lang = :lang')
-                    ->setParameter('lang', $lang)
-                    ->setMaxResults($perpage)
-                    ->setFirstResult(($page - 1) * $perpage)
-                    ->getQuery()
-                    ->getResult();
+        return $this->findAll();
     }
 
     public function getById(int $id): ?Page
@@ -42,8 +36,8 @@ class PageRepository extends ServiceEntityRepository implements PageRepositoryIn
         return $this->findOneBy(['id' => $id]);
     }
 
-    public function getBySlug(string $slug, string $lang = 'en'): ?Page
+    public function getBySlug(string $slug): ?Page
     {
-        return $this->findOneBy(['slug' => $slug, 'lang' => $lang]);
+        return $this->findOneBy(['slug' => $slug]);
     }
 }

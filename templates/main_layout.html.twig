@@ -5,6 +5,8 @@
     <title>{% block title %}Send and Get{% endblock %}</title>
 
     {% block stylesheets %}
+
+        {#{{ encore_entry_link_tags('app') }}#}
         <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet"/>
         <link href="{{ asset('assets/fonts/import.css') }}" rel="stylesheet"/>
         <link href="{{ asset('assets/vendor/font-awesome/font-awesome.css') }}" rel="stylesheet"/>
@@ -41,6 +43,9 @@
 {% include '_footer.html.twig' %}
 
 {% block javascripts %}
+
+    {#{{ encore_entry_script_tags('app') }}#}
+
     <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset("assets/js/bootstrap.bundle.min.js") }}"></script>
 {% endblock %}

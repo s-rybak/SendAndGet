@@ -21,6 +21,7 @@ Encore
     .addEntry('index', './assets/js/index.js')
     .addEntry('page', './assets/js/page.js')
     .addEntry('admin', './assets/js/admin.js')
+    .addEntry('login', './assets/js/login.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
@@ -48,7 +49,7 @@ Encore
     //.enableTypeScriptLoader()
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
 ;
 
 module.exports = Encore.getWebpackConfig();

@@ -2,92 +2,106 @@
 
 namespace App\Controller;
 
+use App\Service\EntityNotFoundException;
 use App\Service\MainPageServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Main site controller
- * controller for site main pages
+ * controller for site main pages.
  *
  * @author Sergey R <qwe@qwe.com>
- * @package App\Controller
  */
 class MainController extends AbstractController
 {
+    private $service;
 
-	private $service;
+    public function __construct(MainPageServiceInterface $service)
+    {
+        $this->service = $service;
+    }
 
-	public function __construct(MainPageServiceInterface $service) {
+    /**
+     * Index page.
+     *
+     * @param MainPageServiceInterface $service
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function index(): Response
+    {
+        try {
+            return $this->render('main/index.html.twig');
+        } catch (EntityNotFoundException $e) {
+            throw new NotFoundHttpException($e->getMessage());
+        }
+    }
 
-		$this->service = $service;
-	}
+    public function aboutAs(): Response
+    {
+        try {
+            return $this->render('main/page.html.twig', [
+                'page' => $this->service->getAboutUs(),
+            ]);
+        } catch (EntityNotFoundException $e) {
+            throw new NotFoundHttpException($e->getMessage());
+        }
+    }
 
-	/**
-	 * Index page
-	 * @param MainPageServiceInterface $service
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-	public function index(): Response
-	{
+    public function contuctAs(): Response
+    {
+        try {
+            return $this->render('main/page.html.twig', [
+                'page' => $this->service->getContuctAs(),
+            ]);
+        } catch (EntityNotFoundException $e) {
+            throw new NotFoundHttpException($e->getMessage());
+        }
+    }
 
-		return $this->render("main\index.html.twig");
+    public function tos(): Response
+    {
+        try {
+            return $this->render("main\page.html.twig", [
+                'page' => $this->service->getTOS(),
+            ]);
+        } catch (EntityNotFoundException $e) {
+            throw new NotFoundHttpException($e->getMessage());
+        }
+    }
 
-	}
+    public function statistic(): Response
+    {
+        try {
+            return $this->render('main/page.html.twig', [
+                'page' => $this->service->getStatistic(),
+            ]);
+        } catch (EntityNotFoundException $e) {
+            throw new NotFoundHttpException($e->getMessage());
+        }
+    }
 
-	public function aboutAs(): Response
-	{
+    public function api(): Response
+    {
+        try {
+            return $this->render('main/page.html.twig', [
+                'page' => $this->service->getAPI(),
+            ]);
+        } catch (EntityNotFoundException $e) {
+            throw new NotFoundHttpException($e->getMessage());
+        }
+    }
 
-		return $this->render("main\page.html.twig",[
-			'page'=>$this->service->getAboutUs(),
-		]);
-
-	}
-
-	public function contuctAs(): Response
-	{
-
-		return $this->render("main\page.html.twig",[
-			'page'=>$this->service->getContuctAs(),
-		]);
-
-	}
-
-	public function tos(): Response
-	{
-
-		return $this->render("main\page.html.twig",[
-			'page'=>$this->service->getTOS(),
-		]);
-
-	}
-
-	public function statistic(): Response
-	{
-
-		return $this->render("main\page.html.twig",[
-			'page'=>$this->service->getStatistic(),
-		]);
-
-	}
-
-	public function api(): Response
-	{
-
-		return $this->render("main\page.html.twig",[
-			'page'=>$this->service->getAPI(),
-		]);
-
-	}
-
-	public function faq(): Response
-	{
-
-		return $this->render("main\page.html.twig",[
-			'page'=>$this->service->getFAQ(),
-		]);
-
-	}
-
+    public function faq(): Response
+    {
+        try {
+            return $this->render('main/page.html.twig', [
+                'page' => $this->service->getFAQ(),
+            ]);
+        } catch (EntityNotFoundException $e) {
+            throw new NotFoundHttpException($e->getMessage());
+        }
+    }
 }

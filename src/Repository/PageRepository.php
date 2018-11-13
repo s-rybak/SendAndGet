@@ -19,34 +19,31 @@ class PageRepository extends ServiceEntityRepository implements PageRepositoryIn
         parent::__construct($registry, Page::class);
     }
 
-	/**
-	 * @param int $page
-	 * @param int $perpage
-	 * @param string $lang
-	 *
-	 * @return Page[] Returns an array of Page objects
-	 */
-	public function getList( int $page, int $perpage = 10,string $lang = "en" ): iterable {
+    /**
+     * @param int    $page
+     * @param int    $perpage
+     * @param string $lang
+     *
+     * @return Page[] Returns an array of Page objects
+     */
+    public function getList(int $page, int $perpage = 10, string $lang = 'en'): iterable
+    {
+        return $this->createQueryBuilder('p')
+                    ->where('p.lang = :lang')
+                    ->setParameter('lang', $lang)
+                    ->setMaxResults($perpage)
+                    ->setFirstResult(($page - 1) * $perpage)
+                    ->getQuery()
+                    ->getResult();
+    }
 
-		return $this->createQueryBuilder('p')
-		            ->where("p.lang = :lang")
-					->setParameter('lang',$lang)
-					->setMaxResults($perpage)
-					->setFirstResult(($page-1)*$perpage)
-					->getQuery()
-		            ->getResult();
+    public function getById(int $id): ?Page
+    {
+        return $this->findOneBy(['id' => $id]);
+    }
 
-	}
-
-	public function getById( int $id ): ?Page {
-
-		return $this->findOneBy(['id'=>$id]);
-
-	}
-
-	public function getBySlug( string $slug, string $lang = "en"): ?Page {
-
-		return $this->findOneBy(['slug'=>$slug,'lang'=>$lang]);
-
-	}
+    public function getBySlug(string $slug, string $lang = 'en'): ?Page
+    {
+        return $this->findOneBy(['slug' => $slug, 'lang' => $lang]);
+    }
 }

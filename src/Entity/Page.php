@@ -4,8 +4,6 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\JoinTable;
-use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 
@@ -67,12 +65,13 @@ class Page
      */
     private $parent;
 
-	public function __construct() {
-		$this->translations = new \Doctrine\Common\Collections\ArrayCollection();
-	}
+    public function __construct()
+    {
+        $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
-     *
      */
     private $image;
 
@@ -165,7 +164,7 @@ class Page
 
     public function getImage(): ?string
     {
-        return $this->image ?? "https://place-hold.it/373x250";
+        return $this->image ?? 'https://place-hold.it/373x250';
     }
 
     public function setImage(?string $image): self
@@ -199,46 +198,51 @@ class Page
         return $this;
     }
 
-	/**
-	 * @return mixed
-	 */
-	public function getTranslations():iterable {
-		return $this->translations;
-	}
+    /**
+     * @return mixed
+     */
+    public function getTranslations(): iterable
+    {
+        return $this->translations;
+    }
 
-	/**
-	 * @param mixed $translations
-	 */
-	public function setTranslations( $translations ): void {
-		$this->translations = $translations;
-	}
+    /**
+     * @param mixed $translations
+     */
+    public function setTranslations($translations): void
+    {
+        $this->translations = $translations;
+    }
 
-	/**
-	 * @return int
-	 */
-	public function getParentId():int
-	{
-		return $this->parent_id;
-	}
+    /**
+     * @return int
+     */
+    public function getParentId(): int
+    {
+        return $this->parent_id;
+    }
 
-	/**
-	 * @param int $parent_id
-	 */
-	public function setParentId(int $parent_id ): void {
-		$this->parent_id = $parent_id;
-	}
+    /**
+     * @param int $parent_id
+     */
+    public function setParentId(int $parent_id): void
+    {
+        $this->parent_id = $parent_id;
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getParent() {
-		return $this->parent;
-	}
+    /**
+     * @return mixed
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
 
-	/**
-	 * @param mixed $parent
-	 */
-	public function setParent( $parent ): void {
-		$this->parent = $parent;
-	}
+    /**
+     * @param mixed $parent
+     */
+    public function setParent($parent): void
+    {
+        $this->parent = $parent;
+    }
 }

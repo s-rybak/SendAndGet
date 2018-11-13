@@ -2,45 +2,40 @@
 
 namespace App\Service\Admin;
 
-use App\Repository\PageRepositoryInterface;
-use App\Resource\AdminPageResource;
-use App\Resource\AdminPageResourceInterface;
-use App\Resource\BreadCrumbsResource;
+use App\DTO\AdminPageDTO;
+use App\DTO\BreadcrumbsDTO;
 
-class AdminPageService implements AdminPageServiceInterface {
+class AdminPageService implements AdminPageServiceInterface
+{
+    public function getPagesResource(): AdminPageDTO
+    {
+        $resource = new AdminPageDTO();
 
-	public function getPagesResource( ): AdminPageResourceInterface {
+        $breadcrumbs = [
+            new BreadcrumbsDTO('Dashboard', 'admin_dashboard'),
+            new BreadcrumbsDTO('Pages', 'admin_pages'),
+        ];
 
-		$resource = new AdminPageResource();
+        $resource->setTitle('Pages');
+        $resource->setDescription('All site pages');
+        $resource->setBreadcrumbs($breadcrumbs);
 
-		$breadcrumbs = [
-			new BreadCrumbsResource("Dashboard","admin_dashboard"),
-			new BreadCrumbsResource("Pages","admin_pages"),
-		];
+        return $resource;
+    }
 
-		$resource->setTitle("Pages");
-		$resource->setDescription("All site pages");
-		$resource->setBreadcrumbs($breadcrumbs);
+    public function getEditPageResource(string $pageTitle): AdminPageDTO
+    {
+        $resource = new AdminPageDTO();
 
-		return $resource;
+        $breadcrumbs = [
+            new BreadcrumbsDTO('Dashboard', 'admin_dashboard'),
+            new BreadcrumbsDTO('Pages', 'admin_pages'),
+        ];
 
-	}
+        $resource->setTitle($pageTitle);
+        $resource->setDescription('Edit page');
+        $resource->setBreadcrumbs($breadcrumbs);
 
-	public function getEditPageResource(string $pageTitle): AdminPageResourceInterface {
-
-		$resource = new AdminPageResource();
-
-		$breadcrumbs = [
-			new BreadCrumbsResource("Dashboard","admin_dashboard"),
-			new BreadCrumbsResource("Pages","admin_pages"),
-		];
-
-		$resource->setTitle($pageTitle);
-		$resource->setDescription("Edit page");
-		$resource->setBreadcrumbs($breadcrumbs);
-
-		return $resource;
-
-	}
-
+        return $resource;
+    }
 }

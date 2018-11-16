@@ -3,7 +3,7 @@
 {% block title %}Apps{% endblock %}
 
 {% block content %}
-    <a class="btn btn-app">
+    <a class="btn btn-app" href="{{ path('admin_add_app') }}">
         <i class="fa fa-plus"></i> Add
     </a>
     <div class="box">
@@ -26,57 +26,57 @@
                 <tbody>
                 <tr>
                     <th style="width: 10px">#ID</th>
-                    <th>IP</th>
                     <th>Status</th>
                     <th>Contact Email</th>
-                    <th>Site</th>
+                    <th>Host</th>
                     <th>Calls</th>
                     <th>Storage usage</th>
                     <th>Limits</th>
                     <th>Last Call</th>
                     <th style="width: 168px">Actions</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>122.122.122.122</td>
-                    <td>Active</td>
-                    <td>qwe@qwe.com</td>
-                    <td>qwe.com</td>
-                    <td>122</td>
-                    <td>1000mb</td>
-                    <td>Unlimited</td>
-                    <td>12.12.12 12:21</td>
-                    <td>
-                        <div class="btn-group">
-                            <a href="{{ path("admin_edit_app",{'id':1}) }}" class="btn btn-default">Edit</a>
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Suspend</a></li>
-                                <li><a href="#">Activate</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Set limit</a></li>
-                                <li><a href="#">Clear storage</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Create report</a></li>
-                                <li><a href="#">Delete</a></li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
+                {% for app in apps %}
+                    <tr>
+                        <td>{{ app.id }}</td>
+                        <td>{{ app.status }}</td>
+                        <td>{{ app.contactEmail }}</td>
+                        <td>{{ app.host }}</td>
+                        <td>{{ app.callsCount }}</td>
+                        <td>{{ app.storage }}</td>
+                        <td>{{ app.limits }}</td>
+                        <td>{{ app.updatedAt|date("m/d/Y") }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="{{ path("admin_edit_app",{'id': app.id }) }}" class="btn btn-default">Edit</a>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Suspend</a></li>
+                                    <li><a href="#">Activate</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Set limit</a></li>
+                                    <li><a href="#">Clear storage</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Create report</a></li>
+                                    <li><a href="#">Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>
         <div class="box-footer clearfix">
-            <ul class="pagination pagination-sm no-margin pull-right">
+            {#<ul class="pagination pagination-sm no-margin pull-right">
                 <li><a href="#">«</a></li>
                 <li><a href="#">1</a></li>
                 <li><a href="#">2</a></li>
                 <li><a href="#">3</a></li>
                 <li><a href="#">»</a></li>
-            </ul>
+            </ul>#}
         </div>
         <!-- /.box-body -->
     </div>

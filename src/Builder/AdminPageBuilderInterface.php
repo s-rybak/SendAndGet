@@ -1,15 +1,19 @@
 <?php
 
-namespace App\Service\Admin;
+namespace App\Builder;
 
 use App\DTO\AdminPageDTO;
 
 /**
  * Interface AdminPageServiceInterface.
  */
-interface AdminPageServiceInterface
+interface AdminPageBuilderInterface
 {
     public function getPagesResource(): AdminPageDTO;
 
     public function getEditPageResource(string $pageTitle): AdminPageDTO;
+
+    public function getAppApiResource(): AdminPageDTO;
+
+    public function getEditAppApiResource(string $pageTitle): AdminPageDTO;
 }

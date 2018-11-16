@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Exceptions;
 
 /**
  * Exception throws when

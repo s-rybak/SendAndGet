@@ -3,15 +3,15 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
+use Knp\DoctrineBehaviors\Model\Translatable\Translatable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PageRepository")
  */
 class Page
 {
+	use Translatable;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -22,37 +22,8 @@ class Page
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $title;
-
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
     private $slug;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $excerpt;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $content;
-
-    /**
-     * @ORM\Column(type="string", length=100, columnDefinition="ENUM('published', 'draft')" )
-     */
-    private $status;
-
-    /**
-     * @OneToMany(targetEntity="PageTranslations", mappedBy="parent")
-     */
-    private $translations;
-
-    public function __construct()
-    {
-        $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
@@ -74,17 +45,6 @@ class Page
         return $this->id;
     }
 
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
 
     public function getSlug(): ?string
     {
@@ -94,42 +54,6 @@ class Page
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
-
-        return $this;
-    }
-
-    public function getExcerpt(): ?string
-    {
-        return $this->excerpt;
-    }
-
-    public function setExcerpt(?string $excerpt): self
-    {
-        $this->excerpt = $excerpt;
-
-        return $this;
-    }
-
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    public function setContent(?string $content): self
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
 
         return $this;
     }
@@ -170,19 +94,5 @@ class Page
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getTranslations(): iterable
-    {
-        return $this->translations;
-    }
 
-    /**
-     * @param mixed $translations
-     */
-    public function setTranslations($translations): void
-    {
-        $this->translations = $translations;
-    }
 }

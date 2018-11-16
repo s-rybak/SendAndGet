@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    upload_path: "%kernel.root_dir%/../files_storage/"
 
 services:
     # default configuration for services in *this* file
@@ -27,5 +28,11 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    App\Service\Files\FileUploader:
+            arguments:
+                $targetDirectory: '%upload_path%'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+imports:
+        - { resource: ../vendor/knplabs/doctrine-behaviors/config/orm-services.yml }

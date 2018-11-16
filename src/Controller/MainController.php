@@ -32,11 +32,7 @@ class MainController extends AbstractController
      */
     public function index(): Response
     {
-        try {
-            return $this->render('main/index.html.twig');
-        } catch (EntityNotFoundException $e) {
-            throw new NotFoundHttpException($e->getMessage());
-        }
+	    return $this->render('main/index.html.twig');
     }
 
     public function aboutAs(): Response

@@ -1,7 +1,7 @@
 module.exports = function (Options,sse,$) {
 
     let Defaults = {
-        upload_url:"/files/upload",
+        upload_url:"/api/files/upload",
         files:[],
         field_id:generateFieldId(),
         permanent:true,
@@ -113,11 +113,9 @@ module.exports = function (Options,sse,$) {
 
                 Uploading = true;
 
-                data.append('uid', sse.GetUid() );
-
                 $.each( Options.files, function( key, value ){
 
-                    data.append('files[]', value );
+                    data.append('files-'+key, value );
 
                 });
 
@@ -125,6 +123,10 @@ module.exports = function (Options,sse,$) {
                     url: Options.upload_url,
                     type: 'POST',
                     data: data,
+                    headers:{
+                        'Accept':'application/json',
+                        'X-API-KEY':'live_0nIlZXasJiOiUGc5RnIsIiZycTOyUmNzQDZlJWNiojIoNXYo9Vcp5WdiwiIt92Yuc3dxdXcAV2dxJiOiwWah12XyV2c1Jye'
+                    },
                     cache: false,
                     dataType: 'json',
                     processData: false,

@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\Admin\AdminPageServiceInterface;
+use App\Builder\AdminPageBuilderInterface;
 use App\Service\Admin\AdminEntityServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +20,7 @@ class AdminController extends AbstractController
     private $entitysService;
 
     public function __construct(
-        AdminPageServiceInterface $pageService,
+	    AdminPageBuilderInterface $pageService,
         AdminEntityServiceInterface $entitysService
     ) {
         $this->pageService = $pageService;
@@ -94,65 +94,6 @@ class AdminController extends AbstractController
                     public $title = 'Files';
                 },
             ],
-        ]);
-    }
-
-    /**
-     * admin pages page.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function pages(): Response
-    {
-        return $this->render('admin/pages.html.twig', [
-            'page' => $this->pageService->getPagesResource(),
-            'pages' => $this->entitysService->getPages(1, 10),
-        ]);
-    }
-
-    /**
-     * admin edit page page.
-     *
-     * @param int $id
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @throws NotFoundHttpException if page not found
-     */
-    public function editPage(int $id): Response
-    {
-        $page = $this->entitysService->getPageById($id);
-
-        if (null === $page) {
-            throw new NotFoundHttpException("Page with $id not found");
-        }
-
-        return $this->render('admin/edit_page.html.twig', [
-            'page' => $this->pageService->getEditPageResource($page->getTitle()),
-            'pageData' => $page,
-        ]);
-    }
-
-    /**
-     * admin edit page translation page.
-     *
-     * @param int $id
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @throws NotFoundHttpException if page not found
-     */
-    public function editPageTranslation(int $id,$lang='en'): Response
-    {
-        $page = $this->entitysService->getPageById($id);
-
-        if (null === $page) {
-            throw new NotFoundHttpException("Page with $id not found");
-        }
-
-        return $this->render('admin/edit_page.html.twig', [
-            'page' => $this->pageService->getEditPageResource($page->getTitle()),
-            'pageData' => $page,
         ]);
     }
 
@@ -248,48 +189,6 @@ class AdminController extends AbstractController
     public function config(): Response
     {
         return $this->render('admin/config.html.twig', [
-            'page' => new class() {
-                public $title = 'Reports';
-                public $description = 'site dashboard';
-            },
-            'breadcrumbs' => [
-                new class() {
-                    public $link = '/admin';
-                    public $title = 'Dashboard';
-                },
-            ],
-        ]);
-    }
-
-    /**
-     * admin api apps page.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function apps(): Response
-    {
-        return $this->render('admin/apps.html.twig', [
-            'page' => new class() {
-                public $title = 'Reports';
-                public $description = 'site dashboard';
-            },
-            'breadcrumbs' => [
-                new class() {
-                    public $link = '/admin';
-                    public $title = 'Dashboard';
-                },
-            ],
-        ]);
-    }
-
-    /**
-     * admin edit apps page.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function editApp(int $id): Response
-    {
-        return $this->render('admin/edit_app.html.twig', [
             'page' => new class() {
                 public $title = 'Reports';
                 public $description = 'site dashboard';

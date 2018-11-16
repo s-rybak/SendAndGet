@@ -10,6 +10,7 @@ namespace App\Service;
 
 use App\DTO\BreadcrumbsDTO;
 use App\DTO\MainPageDTO;
+use App\Exceptions\EntityNotFoundException;
 use App\Repository\PageRepositoryInterface;
 
 class MainPageService implements MainPageServiceInterface

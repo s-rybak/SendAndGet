@@ -14,30 +14,26 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class PageRepository extends ServiceEntityRepository implements PageRepositoryInterface
 {
+
+	use RepositoryStandartFunctionsTrait;
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Page::class);
     }
 
-    /**
-     * @param int    $page
-     * @param int    $perpage
-     * @param string $lang
-     *
-     * @return Page[] Returns an array of Page objects
-     */
-    public function getList(int $page, int $perpage = 10): iterable
-    {
-        return $this->findAll();
-    }
-
-    public function getById(int $id): ?Page
-    {
-        return $this->findOneBy(['id' => $id]);
-    }
-
     public function getBySlug(string $slug): ?Page
     {
         return $this->findOneBy(['slug' => $slug]);
+    }
+
+    public function save($page): Page
+    {
+    	$em = $this->getEntityManager();
+	    $em->persist($page);
+	    $page->mergeNewTranslations();
+    	$em->flush();
+
+        return $page;
     }
 }

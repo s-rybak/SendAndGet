@@ -11,7 +11,7 @@ jQuery(function ($) {
     let $sectionGet = $('.section-get');
     let $mainAnd = $('.main-and');
 
-    let Uploader = new Files();
+    let Uploader = new Files({},{},$);
     let SelectLoader = new TextLoader($selectFiles);
 
     $selectFiles.click(function () {
@@ -20,9 +20,13 @@ jQuery(function ($) {
         SelectLoader.startLoading();
 
         Uploader.SelectFiles(true)
-            .then(function () {
+            .then(function (files) {
 
                 SelectLoader.setTitle("Uploading");
+
+                sagSdk.uploadFiles(files,function (pers) {
+                    console.log(pers);
+                });
 
                 showUploadFilesSection();
 
@@ -31,8 +35,6 @@ jQuery(function ($) {
 
                 SelectLoader.stopLoading();
                 SelectLoader.showMesage(e.message)
-
-
             });
 
     });

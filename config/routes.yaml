@@ -49,15 +49,12 @@ admin_edit_file:
 
 admin_pages:
     path: /admin/pages
-    controller: App\Controller\AdminController::pages
+    controller: App\Controller\Admin\PageController::pages
 
 admin_edit_page:
-    path: /admin/page/{id}
-    controller: App\Controller\AdminController::editPage
-
-admin_edit_page_lang:
     path: /admin/page/{id}/{lang}
-    controller: App\Controller\AdminController::editPageTranslation
+    controller: App\Controller\Admin\PageController::editPage
+    defaults:   { lang: en }
 
 admin_reports:
     path: /admin/reports
@@ -80,9 +77,27 @@ admin_config:
     controller: App\Controller\AdminController::config
 
 admin_apps:
-    path: /admin/apps
-    controller: App\Controller\AdminController::apps
+    path: /admin/apps/{page}
+    controller: App\Controller\Admin\AppController::apps
+    defaults:   { page: 1 }
 
 admin_edit_app:
     path: /admin/app/{id}
-    controller: App\Controller\AdminController::editApp
+    controller: App\Controller\Admin\AppController::editApp
+    methods: [GET]
+
+admin_add_app:
+    path: /admin/app
+    controller: App\Controller\Admin\AppController::addApp
+    methods: [GET]
+
+admin_store_app:
+    path: /admin/app/store/{id}
+    controller: App\Controller\Admin\AppController::store
+    methods: [POST]
+    defaults:   { page: 0 }
+
+js_sdk:
+    path: /js/sag-sdk.js
+    controller: App\Controller\JsSdkController::jsSdk
+    methods: [get]

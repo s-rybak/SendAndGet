@@ -2,17 +2,33 @@ security:
     encoders:
       App\Entity\User:
         algorithm: bcrypt
+      App\Entity\ApiApp:
+        algorithm: bcrypt
 
     providers:
         db_provider:
           entity:
             class: App\Entity\User
             property: username
+        db_api_provider:
+          entity:
+            class: App\Entity\ApiApp
+            property: contact_email
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        api:
+            pattern: ^/api/
+            guard:
+                authenticators:
+                    - App\Security\AppAuthenticator
+                entry_point: App\Security\AppAuthenticator
+            anonymous: false
+            provider: db_api_provider
+            logout:
+              path: /api/logout
         main:
             anonymous: true
             provider: db_provider
@@ -28,4 +44,5 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        #- { path: ^/admin, roles: ROLE_ADMIN }
+        #- { path: ^/api, roles: API_APP }
+        - { path: ^/admin, roles: ROLE_ADMIN }

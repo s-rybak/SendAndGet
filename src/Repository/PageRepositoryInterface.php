@@ -14,7 +14,9 @@ interface PageRepositoryInterface
 {
     public function getList(int $page, int $perpage): iterable;
 
-    public function getById(int $id): ?Page;
+    public function getById(int $id);
 
     public function getBySlug(string $slug): ?Page;
+
+    public function save($page);
 }

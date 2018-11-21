@@ -24,4 +24,8 @@ interface MainPageServiceInterface
     public function getAPI(string $lang = 'en'): MainPageDTO;
 
     public function getFAQ(string $lang = 'en'): MainPageDTO;
+
+    public function getCurrentLocale():string;
+
+    public function setCurrentLocale(string $locale):void;
 }

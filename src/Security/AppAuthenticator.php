@@ -25,7 +25,7 @@ class AppAuthenticator extends AbstractGuardAuthenticator {
 	 * to be skipped.
 	 */
 	public function supports( Request $request ) {
-		return $request->headers->has( 'X-API-KEY' ) && $request->headers->has( 'Origin' );
+		return $request->headers->has( 'X-API-KEY' ) && $request->headers->has( 'Host' );
 	}
 
 	/**

@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
-use App\Service\EntityNotFoundException;
+use App\Exceptions\EntityNotFoundException;
 use App\Service\MainPageServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -39,7 +40,9 @@ class MainController extends AbstractController
     {
         try {
             return $this->render('main/page.html.twig', [
-                'page' => $this->service->getAboutUs(),
+                'page' => $this->service->getAboutUs(
+	                $this->service->getCurrentLocale()
+                ),
             ]);
         } catch (EntityNotFoundException $e) {
             throw new NotFoundHttpException($e->getMessage());
@@ -50,7 +53,9 @@ class MainController extends AbstractController
     {
         try {
             return $this->render('main/page.html.twig', [
-                'page' => $this->service->getContuctAs(),
+                'page' => $this->service->getContuctAs(
+	                $this->service->getCurrentLocale()
+                ),
             ]);
         } catch (EntityNotFoundException $e) {
             throw new NotFoundHttpException($e->getMessage());
@@ -61,7 +66,9 @@ class MainController extends AbstractController
     {
         try {
             return $this->render("main\page.html.twig", [
-                'page' => $this->service->getTOS(),
+                'page' => $this->service->getTOS(
+	                $this->service->getCurrentLocale()
+                ),
             ]);
         } catch (EntityNotFoundException $e) {
             throw new NotFoundHttpException($e->getMessage());
@@ -72,7 +79,9 @@ class MainController extends AbstractController
     {
         try {
             return $this->render('main/page.html.twig', [
-                'page' => $this->service->getStatistic(),
+                'page' => $this->service->getStatistic(
+	                $this->service->getCurrentLocale()
+                ),
             ]);
         } catch (EntityNotFoundException $e) {
             throw new NotFoundHttpException($e->getMessage());
@@ -83,7 +92,9 @@ class MainController extends AbstractController
     {
         try {
             return $this->render('main/page.html.twig', [
-                'page' => $this->service->getAPI(),
+                'page' => $this->service->getAPI(
+	                $this->service->getCurrentLocale()
+                ),
             ]);
         } catch (EntityNotFoundException $e) {
             throw new NotFoundHttpException($e->getMessage());
@@ -94,10 +105,20 @@ class MainController extends AbstractController
     {
         try {
             return $this->render('main/page.html.twig', [
-                'page' => $this->service->getFAQ(),
+                'page' => $this->service->getFAQ(
+	                $this->service->getCurrentLocale()
+                ),
             ]);
         } catch (EntityNotFoundException $e) {
             throw new NotFoundHttpException($e->getMessage());
         }
+    }
+
+    public function setLocale($locale){
+
+	    $this->service->setCurrentLocale($locale);
+
+	    return $this->redirectToRoute('index');
+
     }
 }

@@ -18,7 +18,10 @@ class JsSdkService implements JsSdkServiceInterface{
 		return new JsSdkDTO(
 			$api,
 			"/api/files/upload",
-			10
+			10,
+			"/api/files/list",
+			"/api/files/query",
+			"api/files/delete"
 		);
 
 	}

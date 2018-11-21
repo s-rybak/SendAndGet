@@ -2,21 +2,29 @@
 
 namespace App\Repository;
 
-use App\Entity\PageTranslations;
+use App\Entity\PageTranslation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method PageTranslations|null find($id, $lockMode = null, $lockVersion = null)
- * @method PageTranslations|null findOneBy(array $criteria, array $orderBy = null)
- * @method PageTranslations[]    findAll()
- * @method PageTranslations[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method PageTranslation|null find($id, $lockMode = null, $lockVersion = null)
+ * @method PageTranslation|null findOneBy(array $criteria, array $orderBy = null)
+ * @method PageTranslation[]    findAll()
+ * @method PageTranslation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PageTranslationsRepository extends ServiceEntityRepository
+class PageTranslationsRepository extends ServiceEntityRepository implements PageTranslationsRepositoryInterface
 {
+
+	use RepositoryStandartFunctionsTrait;
+
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, PageTranslations::class);
+        parent::__construct($registry, PageTranslation::class);
     }
 
+	public function getByPageId( int $id, string $locale = 'en' ): ?PageTranslation {
+
+    	return $this->findOneBy(['translatable_id'=>$id,'locale'=>$locale]);
+
+	}
 }

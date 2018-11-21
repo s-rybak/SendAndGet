@@ -17,16 +17,25 @@ class JsSdkDTO {
 	private $api_key;
 	private $max_files_count;
 	private $upload_url;
+	private $delete_url;
+	private $file_list;
+	private $file_query;
 
 	public function __construct(
 		string $api_key,
 		string $upload_url,
-		int $max_files_count
+		int $max_files_count,
+		string $file_list,
+		string $file_query,
+		string $delete_url
 	) {
 
 		$this->api_key = $api_key;
 		$this->max_files_count = $max_files_count;
 		$this->upload_url = $upload_url;
+		$this->file_list = $file_list;
+		$this->file_query = $file_query;
+		$this->delete_url = $delete_url;
 
 	}
 
@@ -70,6 +79,48 @@ class JsSdkDTO {
 	 */
 	public function setUploadUrl( string $upload_url ): void {
 		$this->upload_url = $upload_url;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getFileList(): string {
+		return $this->file_list;
+	}
+
+	/**
+	 * @param string $file_list
+	 */
+	public function setFileList( string $file_list ): void {
+		$this->file_list = $file_list;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getFileQuery(): string {
+		return $this->file_query;
+	}
+
+	/**
+	 * @param string $file_query
+	 */
+	public function setFileQuery( string $file_query ): void {
+		$this->file_query = $file_query;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getDeleteUrl() {
+		return $this->delete_url;
+	}
+
+	/**
+	 * @param mixed $delete_url
+	 */
+	public function setDeleteUrl( $delete_url ): void {
+		$this->delete_url = $delete_url;
 	}
 
 

@@ -68,4 +68,43 @@ class AdminPageBuilder implements AdminPageBuilderInterface
 
 		return $resource;
 	}
+
+	public function getFilesResource(): AdminPageDTO {
+		$resource = new AdminPageDTO();
+
+		$breadcrumbs = [
+			new BreadcrumbsDTO('Dashboard', 'admin_dashboard'),
+			new BreadcrumbsDTO('Files', 'admin_files'),
+		];
+
+		$resource->setTitle('Uploaded files');
+		$resource->setDescription('All uploaded files');
+		$resource->setBreadcrumbs($breadcrumbs);
+
+		return $resource;
+	}
+
+	public function getEditFilesResource( string $pageTitle ): AdminPageDTO {
+		$resource = new AdminPageDTO();
+
+		$breadcrumbs = [
+			new BreadcrumbsDTO('Dashboard', 'admin_dashboard'),
+			new BreadcrumbsDTO('Files', 'admin_files'),
+		];
+
+		$resource->setTitle($pageTitle);
+		$resource->setDescription('Edit file');
+		$resource->setBreadcrumbs($breadcrumbs);
+
+		return $resource;
+	}
+
+	public function getDashboard(): AdminPageDTO {
+		$resource = new AdminPageDTO();
+
+		$resource->setTitle("Sand and Get");
+		$resource->setDescription('Admin dashboard');
+
+		return $resource;
+	}
 }

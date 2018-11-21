@@ -25,65 +25,65 @@
                     <th style="width: 10px">#ID</th>
                     <th>Name</th>
                     <th>Status</th>
-                    <th>User IP</th>
                     <th style="width: 40px">Uploaded</th>
-                    <th>Downloaded</th>
                     <th>Time left</th>
                     <th style="width: 168px">Actions</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>File1.tar.gz</td>
-                    <td>Active</td>
-                    <td>122.122.122.122</td>
-                    <td>12.12.12</td>
-                    <td>100</td>
-                    <td>
-                        <div class="progress progress-xs progress-striped active">
-                            <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                        </div>
-                        <span class="badge bg-light-blue">30%</span>
-                    </td>
-                    <td>
-                        <div class="btn-group">
-                            <a href="{{ path("admin_edit_file", {'id':'1'}) }}" class="btn btn-default">Edit</a>
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Block</a></li>
-                                <li><a href="#">Unblock</a></li>
-                                <li><a href="#">Create report</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Make expired</a></li>
-                                <li><a href="#">Prolong expiration</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Delete ( soft )</a></li>
-                                <li><a href="#">Delete ( forever )</a></li>
-                                {#<li class="divider"></li>
-                                <li><a href="#">Block all files <br> from this IP</a></li>
-                                <li><a href="#">Unblock all files <br> from this IP</a></li>
-                                <li><a href="#">Delete ( soft ) <br> all files  from this IP</a></li>
-                                <li><a href="#">Delete ( forever ) <br> all files from this IP</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Block this IP</a></li>#}
-                                <li class="divider"></li>
-                                <li><a href="#">Download</a></li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
+                {% for file in files %}
+                    <tr>
+                        <td>{{ file.id }}</td>
+                        <td>{{ file.name }}</td>
+                        <td>{{ file.status }}</td>
+                        <td>{{ file.createdAt|date('Y-m-d') }}</td>
+                        <td>
+                            <div class="progress progress-xs progress-striped active">
+                                <div class="progress-bar progress-bar-primary" style="width: 100%"></div>
+                            </div>
+                            <span class="badge bg-light-blue">100%</span>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="{{ path("admin_edit_file", {'id':file.id }) }}"
+                                   class="btn btn-default">Edit</a>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Block</a></li>
+                                    <li><a href="#">Unblock</a></li>
+                                    <li><a href="#">Create report</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Make expired</a></li>
+                                    <li><a href="#">Prolong expiration</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Delete ( soft )</a></li>
+                                    <li><a href="{{ path('admin_destruct_file',{id:file.id}) }}">Delete ( forever )</a></li>
+                                    {#<li class="divider"></li>
+                                    <li><a href="#">Block all files <br> from this IP</a></li>
+                                    <li><a href="#">Unblock all files <br> from this IP</a></li>
+                                    <li><a href="#">Delete ( soft ) <br> all files  from this IP</a></li>
+                                    <li><a href="#">Delete ( forever ) <br> all files from this IP</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Block this IP</a></li>#}
+                                    <li class="divider"></li>
+                                    <li><a href="#">Download</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>
         <div class="box-footer clearfix">
             <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">«</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">»</a></li>
+                {% if currentPage > 1 %}
+                    <li><a href="{{ path('admin_files',{page:currentPage - 1}) }}">«</a></li>
+                {% endif %}
+                {% if files|length > 9 %}
+                    <li><a href="{{ path('admin_files',{page:currentPage + 1}) }}">»</a></li>
+                {% endif %}
             </ul>
         </div>
         <!-- /.box-body -->

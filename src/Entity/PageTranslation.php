@@ -27,6 +27,11 @@ class PageTranslation
      */
     private $content;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $translatable_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -67,5 +72,19 @@ class PageTranslation
 
         return $this;
     }
+
+	/**
+	 * @return int
+	 */
+	public function getTranslatableId():int {
+		return $this->translatable_id;
+	}
+
+	/**
+	 * @param int $translatable_id
+	 */
+	public function setTranslatableId( int $translatable_id ): void {
+		$this->translatable_id = $translatable_id;
+	}
 
 }

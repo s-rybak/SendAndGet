@@ -40,12 +40,23 @@ admin_dashboard:
     controller: App\Controller\AdminController::dashboard
 
 admin_files:
-    path: /admin/files
-    controller: App\Controller\AdminController::files
+    path: /admin/files/{page}
+    controller: App\Controller\Admin\FilesController::files
+    defaults:   { page: 1 }
 
 admin_edit_file:
     path: /admin/file/{id}
-    controller: App\Controller\AdminController::editFile
+    controller: App\Controller\Admin\FilesController::editFile
+
+admin_store_file:
+    path: /admin/file/store/{id}
+    controller: App\Controller\Admin\FilesController::store
+    methods: [POST]
+
+admin_destruct_file:
+    path: /admin/file/destruct/{id}
+    controller: App\Controller\Admin\FilesController::destruct
+    methods: [GET]
 
 admin_pages:
     path: /admin/pages
@@ -55,6 +66,17 @@ admin_edit_page:
     path: /admin/page/{id}/{lang}
     controller: App\Controller\Admin\PageController::editPage
     defaults:   { lang: en }
+
+admin_edit_page_image:
+    path: /admin/page/image/
+    controller: App\Controller\Admin\PageController::addImage
+    methods: [POST]
+
+admin_store_page:
+    path: /admin/store/page/{id}/{lang}
+    controller: App\Controller\Admin\PageController::store
+    defaults:   { lang: en }
+    methods: [POST]
 
 admin_reports:
     path: /admin/reports
@@ -92,12 +114,28 @@ admin_add_app:
     methods: [GET]
 
 admin_store_app:
-    path: /admin/app/store/{id}
+    path: /admin/store/app/{id}
     controller: App\Controller\Admin\AppController::store
     methods: [POST]
-    defaults:   { page: 0 }
+    defaults:   { id: 0 }
 
 js_sdk:
     path: /js/sag-sdk.js
     controller: App\Controller\JsSdkController::jsSdk
     methods: [get]
+
+get_file_by_hash:
+    path: /f/{hash}
+    controller: App\Controller\FileController::getFileByHash
+    methods: [get]
+
+get_zip_by_hash:
+    path: /g/{hash}
+    controller: App\Controller\FileController::getAllFilesByHash
+    methods: [get]
+
+set_locale:
+    path: /lang/{locale}
+    controller: App\Controller\MainController::setLocale
+    methods: [get]
+    defaults:   { locale: en }

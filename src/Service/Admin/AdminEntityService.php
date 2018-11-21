@@ -5,14 +5,20 @@ namespace App\Service\Admin;
 use App\Entity\Page;
 use App\Entity\PageTranslation;
 use App\Repository\PageRepositoryInterface;
+use App\Repository\PageTranslationsRepositoryInterface;
 
 class AdminEntityService implements AdminEntityServiceInterface
 {
     private $pageRepo;
+    private $pageTransRepo;
 
-    public function __construct(PageRepositoryInterface $pageRepo)
+    public function __construct(
+    	PageRepositoryInterface $pageRepo,
+	    PageTranslationsRepositoryInterface $pageTransRepo
+    )
     {
         $this->pageRepo = $pageRepo;
+        $this->pageTransRepo = $pageTransRepo;
     }
 
     public function getPages(int $page, int $perpage = 10): iterable
@@ -25,4 +31,18 @@ class AdminEntityService implements AdminEntityServiceInterface
     {
         return $this->pageRepo->getById($id);
     }
+
+	public function savePage( Page $page ): Page {
+		return $this->pageRepo->save($page);
+	}
+
+	public function getTranslationByPageId( int $id,string $locale = 'en'): ?PageTranslation {
+		return $this->pageTransRepo->getByPageId($id,$locale);
+	}
+
+	public function saveTranslation( PageTranslation $page ): PageTranslation {
+
+		return $this->pageTransRepo->save($page);
+
+	}
 }

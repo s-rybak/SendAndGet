@@ -2,9 +2,29 @@
 
 {% block title %}File{% endblock %}
 
+ {% block stylesheets %}
+
+     {{ parent() }}
+     <script src="//cdn.ckeditor.com/4.11.1/standard/ckeditor.js"></script>
+     {{ encore_entry_link_tags('admin_page_edit') }}
+
+
+ {% endblock %}
+
+{% block javascripts %}
+    <script src="http://127.0.0.1:8000/js/sag-sdk.js?key=live_0nIlZXasJiOiUGc5RnIsICNkR2M1MDOihTZlJWNiojIoNXYo9Vcp5WdiwiIt92YuwWah12ZAdDMwsWYilnczJiOiwWah12XyV2c1Jye"></script>
+    {{ parent() }}
+    {{ encore_entry_script_tags('admin_page_edit') }}
+{% endblock %}
+
 {% block content %}
 
     <div class="row">
+        <form action="{{ path('admin_store_page',{lang: pageData.currentLocale ?? 'en', id: pageData.id ?? 0})}}" method="post">
+            {{ form_widget(form._token) }}
+            {% if pageData.id is defined %}
+                <input type="hidden" name="page[id]" value="{{ pageData.id }}">
+            {% endif %}
         <div class="col-md-8">
             <div class="box box-primary">
                 <div class="box-header with-border">
@@ -14,19 +34,15 @@
                 <div class="box-body">
                     <div class="form-group">
                         <label for="fileName">Title</label>
-                        <input type="text" class="form-control" id="fileName" placeholder="Title" value="{{ pageData.title }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="fileName">Slug</label>
-                        <input type="text" class="form-control" id="fileName" placeholder="slug" value="{{ pageData.slug }}">
+                        <input type="text" class="form-control" id="fileName" placeholder="Title" name="page[title]" value="{{ pageData.title }}">
                     </div>
                     <div class="form-group">
                         <label for="fileName">Description</label>
-                        <textarea  rows="3" style="width: 100%" cols="80">{{ pageData.excerpt }}</textarea>
+                        <textarea  rows="3" style="width: 100%;resize: none;" cols="80" name="page[excerpt]">{{ pageData.excerpt }}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="fileName">Content</label>
-                        <textarea name="editor1" rows="10" style="width: 100%" cols="80">{{ pageData.content }}</textarea>
+                        <textarea name="page[content]" id="page_content" rows="10" style="width: 100%" cols="80" name="page[content]">{{ pageData.content }}</textarea>
                     </div>
                 </div>
             </div>
@@ -78,7 +94,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    <button class="btn btn-primary btn-block">Save</button>
+                    <button name="save" type="submit" class="btn btn-primary btn-block">Save</button>
                 </div>
             </div>
             <div class="box box-info">
@@ -90,10 +106,11 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    <button class="btn btn-primary btn-block">Upload</button>
+                    <button class="btn btn-primary btn-block" id="pageImageUpload" data-id="{{ pageData.id }}">Upload</button>
                 </div>
             </div>
         </div>
+        </form>
     </div>
 
 {% endblock %}

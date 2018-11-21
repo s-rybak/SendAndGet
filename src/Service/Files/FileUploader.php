@@ -8,31 +8,30 @@ class FileUploader implements FileUploaderInterface
 {
 	private $targetDirectory;
 	private $appId;
+	private $groupHash;
 
 	public function __construct($targetDirectory)
 	{
 		$this->targetDirectory = $targetDirectory;
-	}
-
-	public function setAppId(int $app_id):void{
-
-		$this->appId = $app_id;
-
+		$this->groupHash = uniqid();
 	}
 
 	public function upload(UploadedFile $file): UploadedFileDTO
 	{
 
-		$fileName = md5(uniqid()).'.'.$file->guessExtension();
-		$filePath = $this->appId."/".md5(time())."/";
+		$ext = $file->guessExtension();
+		$fileName = uniqid().'.'.$ext;
+		$filePath = $this->appId."/".uniqid()."/";
 
 		$file->move($this->getTargetDirectory().$filePath, $fileName);
 
 		$uploadedFile = new UploadedFileDTO(
 			$fileName,
 			$filePath,
-			$file->guessExtension(),
-			$this->appId
+			$ext,
+			'active',
+			$this->getGroupHash(),
+			$this->getAppId()
 		);
 
 		return $uploadedFile;
@@ -41,5 +40,33 @@ class FileUploader implements FileUploaderInterface
 	public function getTargetDirectory(): string
 	{
 		return $this->targetDirectory;
+	}
+
+	/**
+	 * @param string $group_hash
+	 */
+	public function setGroupHash( string $group_hash ): void {
+
+		$this->groupHash = $group_hash;
+
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getGroupHash(): string {
+		return $this->groupHash;
+	}
+
+	public function setAppId(int $app_id):void{
+
+		$this->appId = $app_id;
+
+	}
+	/**
+	 * @return mixed
+	 */
+	public function getAppId() {
+		return $this->appId;
 	}
 }

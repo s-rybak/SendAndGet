@@ -3,11 +3,10 @@
 {% block title %}File{% endblock %}
 
 {% block content %}
-
     <div class="row">
         <form action="{{ path('admin_store_app',{id: app.id ?? 0}) }}" method="post">
             {{ form_widget(form._token) }}
-            {% if app.id is defined %}
+            {% if app.id is defined and app.id is not null %}
                 <input type="hidden" name="api_app[id]" value="{{ app.id }}">
             {% endif %}
             <div class="col-md-8">
@@ -128,7 +127,7 @@
                     <!-- /.box-body -->
                     <div class="box-footer clearfix">
                         <div class="btn-group" style="width: 100%;">
-                            <button type="submit" name="save" class="btn btn-primary btn-flat" style="width: calc(100% - 25px);">Save</button>
+                            <button type="submit" name="api_app[save]" class="btn btn-primary btn-flat" style="width: calc(100% - 25px);">Save</button>
                             <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown">
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>

@@ -15,13 +15,22 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 trait RepositoryStandartFunctionsTrait
 {
 
-	public function save($app ){
+	public function save( $app ){
 
 		$em = $this->getEntityManager();
 		$em->persist($app);
 		$em->flush();
 
 		return $app;
+	}
+
+
+	public function remove( $entity ): void {
+
+		$em = $this->getEntityManager();
+		$em->remove($entity);
+		$em->flush();
+
 	}
 
 	public function getById(int $id)

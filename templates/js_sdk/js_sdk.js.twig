@@ -5,8 +5,84 @@
         let Opt = Object.assign({
             api_key:null,
             max_files:10,
-            upload_url:""
+            upload_url:"",
+            delete_url:"",
+            file_list:"",
+            group_hash:"",
+            file_query:""
         },opt);
+
+        Request.setPresetHeaders('sagSdk',{
+            'Accept':'application/json',
+            'X-API-KEY':Opt.api_key
+        })
+
+        this.remove = function (hash) {
+
+            return new Promise(function (resolve, rej) {
+
+                (new Request(Opt.delete_url, {
+                    hash: hash
+                }))
+                    .usePreset('sagSdk')
+                    .delete()
+                    .then(function (resp) {
+                        resolve(resp.data);
+                    })
+                    .catch(rej);
+
+            });
+
+        }
+
+        /**
+         * Query file by hash
+         * @param hash
+         * @param page
+         * @return {Promise<any>}
+         */
+        this.query = function (hash,page) {
+
+            return new Promise(function (resolve, rej) {
+
+                (new Request(Opt.file_query, {
+                    hash: hash,
+                    page: page ? page : 1
+                }))
+                    .usePreset('sagSdk')
+                    .get()
+                    .then(function (resp) {
+                        resolve(resp.data);
+                    })
+                    .catch(rej);
+
+            });
+
+        }
+
+        /**
+         * Get all files list
+         * @param page
+         * @return {Promise<any>}
+         */
+        this.filesList = function (page) {
+
+            return new Promise(function (resolve, rej) {
+
+                (new Request(Opt.file_list, {
+                    page: page ? page : 1
+                }))
+                    .usePreset('sagSdk')
+                    .get()
+                    .then(function (resp) {
+                        resolve(resp.data);
+                    })
+                    .catch(rej);
+
+            });
+
+
+        }
 
         this.uploadFiles = function (files,onUploadProgress) {
 
@@ -25,6 +101,13 @@
                     )
                 ){
 
+
+                    if(Opt.group_hash.length > 0){
+
+                        files.groupHash = Opt.group_hash;
+
+                    }
+
                     let req = new Request(Opt.upload_url,files);
 
                     if(typeof onUploadProgress === "function"){
@@ -34,12 +117,19 @@
                     }
 
                     req.setFormSerialiser()
-                        .setHeaders({
-                            'Accept':'application/json',
-                            'X-API-KEY':Opt.api_key
-                        })
+                        .usePreset('sagSdk')
                         .post()
-                        .then(resolve)
+                        .then(function (res) {
+
+                            if(res.data.length > 0){
+
+                                Opt.group_hash = res.data[0].groupHash;
+
+                            }
+
+                            resolve(res.data)
+
+                        })
                         .catch(rej);
 
                 }else{
@@ -53,12 +143,6 @@
         }
 
     }
-
-     window.sagSdk = new sagConstructor({
-        api_key:   "{{ app.apiKey }}",
-        max_files: {{ app.maxFilesCount }},
-        upload_url: "{{ app.uploadUrl }}"
-    })
 
     /**
      * Creates request object
@@ -457,6 +541,22 @@
         };
 
         /**
+         * Make delete request
+         *
+         * @returns {Promise<string|object>}
+         */
+        this.delete = function () {
+
+            xhr.open("DELETE", url +
+                (typeof data === "undefined" ? "" : "?" + serialize(data))
+                , async);
+
+            send();
+            return process;
+
+        };
+
+        /**
          * Make get request
          *
          * @returns {Promise<string|object>}
@@ -505,5 +605,14 @@
         }
 
     };
+
+    window.sagSdk = new sagConstructor({
+        api_key:   "{{ app.apiKey }}",
+        max_files: {{ app.maxFilesCount }},
+        upload_url: "{{ app.uploadUrl }}",
+        file_list: "{{ app.fileList }}",
+        file_query: "{{ app.fileQuery }}",
+        delete_url: "{{ app.deleteUrl }}"
+    })
 
 })();

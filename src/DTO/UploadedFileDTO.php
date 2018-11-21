@@ -16,11 +16,15 @@ final class UploadedFileDTO {
 	private $filePath;
 	private $ext;
 	private $app_id;
+	private $status;
+	private $groupHash;
 
 	public function __construct(
 		string $fileName,
 		string $filePath,
 		string $ext,
+		string $status,
+		string $groupHash,
 		int $app_id
 	) {
 
@@ -28,6 +32,8 @@ final class UploadedFileDTO {
 		$this->filePath = $filePath;
 		$this->ext = $ext;
 		$this->app_id = $app_id;
+		$this->status = $status;
+		$this->groupHash = $groupHash;
 
 	}
 
@@ -85,6 +91,34 @@ final class UploadedFileDTO {
 	 */
 	public function setAppId( int $app_id ): void {
 		$this->app_id = $app_id;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getStatus() {
+		return $this->status;
+	}
+
+	/**
+	 * @param mixed $status
+	 */
+	public function setStatus( $status ): void {
+		$this->status = $status;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getGroupHash(): string {
+		return $this->groupHash;
+	}
+
+	/**
+	 * @param string $groupHash
+	 */
+	public function setGroupHash( string $groupHash ): void {
+		$this->groupHash = $groupHash;
 	}
 
 }

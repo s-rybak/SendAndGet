@@ -22,5 +22,38 @@ require("admin-lte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js")
 require("admin-lte/bower_components/fastclick/lib/fastclick.js");
 require("admin-lte/bower_components/bootstrap-daterangepicker/daterangepicker.js");
 require("admin-lte/dist/js/adminlte.min.js");
-require("admin-lte/dist/js/pages/dashboard.js");
+//require("admin-lte/dist/js/pages/dashboard.js");
 require("admin-lte/dist/js/demo.js");
+let Files = require('./libs/Files');
+let jQuery = require('jquery');
+
+
+jQuery(function ($) {
+
+    let $pageImageUpload = $('#pageImageUpload');
+
+    let Uploader = new Files({},{},$);
+
+    $pageImageUpload.click(function (e) {
+        e.preventDefault();
+
+        Uploader.SelectFiles(false)
+            .then(function (files) {
+
+                sagSdk.uploadFiles(files)
+                    .then(function (files) {
+
+                    $.post('/admin/page/image/',{
+                        id:$pageImageUpload.data('id'),
+                        image:location.origin+"/f/"+files[0].hash
+                    },function (resp) {
+                        location.reload();
+                    });
+
+                })
+
+            });
+    })
+
+
+});

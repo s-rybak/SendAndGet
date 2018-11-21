@@ -12,6 +12,7 @@ use App\DTO\BreadcrumbsDTO;
 use App\DTO\MainPageDTO;
 use App\Exceptions\EntityNotFoundException;
 use App\Repository\PageRepositoryInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class MainPageService implements MainPageServiceInterface
 {
@@ -60,9 +61,37 @@ class MainPageService implements MainPageServiceInterface
             throw new EntityNotFoundException("Page $slug ($lang) not found");
         }
 
+	    $page->setCurrentLocale($lang);
+
         return new MainPageDTO($page, [
             new BreadcrumbsDTO('Main', 'index'),
             new BreadcrumbsDTO($page->getTitle(), $slug),
         ]);
     }
+
+	public function getCurrentLocale(): string {
+
+    	$locale = $this->getSession()->get('locale');
+
+		return $locale ? $locale : 'en';
+
+	}
+
+	public function setCurrentLocale( string $locale ): void {
+
+		$this->getSession()->set('locale',$locale);
+
+	}
+
+	private function getSession():Session{
+
+		$session = new Session();
+
+		if(!$session->getId()){
+			$session->start();
+		}
+
+		return $session;
+
+	}
 }

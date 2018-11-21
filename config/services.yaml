@@ -32,6 +32,18 @@ services:
             arguments:
                 $targetDirectory: '%upload_path%'
 
+    App\Service\Files\FilesService:
+            arguments:
+                $uploadDir: '%upload_path%'
+
+    App\Controller\FileController:
+            arguments:
+                $uploadDir: '%upload_path%'
+
+    App\Controller\Admin\FilesController:
+            arguments:
+                $uploadDir: '%upload_path%'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 imports:

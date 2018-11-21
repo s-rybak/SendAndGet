@@ -1,6 +1,6 @@
 .page-main .content {
     min-height: calc(100vh - 40px);
-    padding: 0;
+    padding: 0 15px;
 }
 
 .page-main .content .section-send,
@@ -194,5 +194,17 @@
     background: transparent;
     border: 1px solid #62a796;
     color: #62a796;
+    font-family: 'Montserrat', serif;
+}
+
+.page-main .search-result{
+    padding: 16px;
+    color: white;
+}
+
+.page-main .content .search-result .send-link-btn{
+    background: transparent;
+    border: 1px solid #ffffff;
+    color: #ffffff;
     font-family: 'Montserrat', serif;
 }

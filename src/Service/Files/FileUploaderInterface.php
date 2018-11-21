@@ -13,6 +13,8 @@ interface FileUploaderInterface {
 
 	public function setAppId(int $app_id):void;
 
+	public function setGroupHash(string $group_hash):void;
+
 	public function upload(UploadedFile $file):UploadedFileDTO;
 
 	public function getTargetDirectory():string;

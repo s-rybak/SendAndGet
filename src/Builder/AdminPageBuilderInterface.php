@@ -16,4 +16,10 @@ interface AdminPageBuilderInterface
     public function getAppApiResource(): AdminPageDTO;
 
     public function getEditAppApiResource(string $pageTitle): AdminPageDTO;
+
+    public function getFilesResource(): AdminPageDTO;
+
+    public function getEditFilesResource(string $pageTitle): AdminPageDTO;
+
+    public function getDashboard(): AdminPageDTO;
 }

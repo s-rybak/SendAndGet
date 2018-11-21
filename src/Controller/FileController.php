@@ -31,9 +31,15 @@ class FileController extends AbstractController {
 
 		$file = $this->service->getByHash( $hash );
 
-		if ( null == $file ) {
+		if ( null == $file || $file->getStatus() === "deleted"  ) {
 
 			throw new NotFoundHttpException( "File $hash not found" );
+
+		}
+
+		if ( $file->getStatus() !== "active" ) {
+
+			throw new NotFoundHttpException( "File $hash was blocked for download" );
 
 		}
 

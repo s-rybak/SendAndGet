@@ -72,10 +72,10 @@ class FileRepository extends ServiceEntityRepository implements FileRepositiryIn
 
 	public function getQueryByHash(int $id, string $hash, int $page = 1, int $perpage = 10 ): iterable {
 
-		$files = $this->getByHash($hash);
-		$filesGroup = $this->findBy(['group_hash'=>$hash,'app_id'=>$id],null,$perpage,($page - 1)*$perpage);
+		$files = $this->findBy(['hash'=>$hash,'app_id'=>$id,'status'=>['active','blocked','reported']]);
+		$filesGroup = $this->findBy(['group_hash'=>$hash,'app_id'=>$id,'status'=>['active','blocked','reported']],null,$perpage,($page - 1)*$perpage);
 
-		return count($filesGroup) > 0 ? $filesGroup : ((null === $files) ? [] : [$files]);
+		return count($filesGroup) > 0 ? $filesGroup : (count($files) == 0 ? [] : $files);
 
 	}
 

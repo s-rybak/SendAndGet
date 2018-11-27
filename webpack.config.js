@@ -23,6 +23,7 @@ Encore
     .addEntry('admin', './assets/js/admin.js')
     .addEntry('login', './assets/js/login.js')
     .addEntry('admin_page_edit', './assets/js/admin-page-edit.js')
+    .addEntry('admin_files_edit', './assets/js/admin-files-edit.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

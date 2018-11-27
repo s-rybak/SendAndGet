@@ -2,6 +2,12 @@
 
 {% block title %}File{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('admin_files_edit') }}
+
+{% endblock %}
+
 {% block content %}
 
     <div class="row">
@@ -121,8 +127,8 @@
                             <li><a href="#">Block</a></li>
                             <li><a href="#">Unblock</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">Create report</a></li>
-                            <li class="divider"></li>
+                         {#   <li><a href="#">Create report</a></li>
+                            <li class="divider"></li>#}
                             <li><a href="#">Delete ( soft )</a></li>
                             <li><a href="{{ path('admin_destruct_file',{id:file.id}) }}">Delete ( forever )</a></li>
                             <li class="divider"></li>

@@ -77,7 +77,7 @@ class FilesController extends AbstractController{
 	}
 
 	/**
-	 * admin save file.
+	 * Admin save file.
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
@@ -96,7 +96,9 @@ class FilesController extends AbstractController{
 
 		if ( $form->isSubmitted() ) {
 
-			$file = $this->entitysService->save( $form->getData() );
+			$file = $form->getData();
+			$file->setUpdatedAt( new \DateTime() );
+			$file = $this->entitysService->save( $file );
 
 		}
 

@@ -1,4 +1,12 @@
 <?php
+
+/*
+ * This file is part of the "Send And Get" project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Service\Files;
 
 use App\DTO\UploadedFileDTO;
@@ -6,67 +14,67 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FileUploader implements FileUploaderInterface
 {
-	private $targetDirectory;
-	private $appId;
-	private $groupHash;
+    private $targetDirectory;
+    private $appId;
+    private $groupHash;
 
-	public function __construct($targetDirectory)
-	{
-		$this->targetDirectory = $targetDirectory;
-		$this->groupHash = uniqid();
-	}
+    public function __construct($targetDirectory)
+    {
+        $this->targetDirectory = $targetDirectory;
+        $this->groupHash = uniqid();
+    }
 
-	public function upload(UploadedFile $file): UploadedFileDTO
-	{
+    public function upload(UploadedFile $file): UploadedFileDTO
+    {
+        $ext = $file->guessExtension();
+        $fileName = uniqid().'.'.$ext;
+        $filePath = $this->appId.'/'.uniqid().'/';
 
-		$ext = $file->guessExtension();
-		$fileName = uniqid().'.'.$ext;
-		$filePath = $this->appId."/".uniqid()."/";
+        $file->move($this->getTargetDirectory().$filePath, $fileName);
 
-		$file->move($this->getTargetDirectory().$filePath, $fileName);
+        $uploadedFile = new UploadedFileDTO(
+            $fileName,
+            $filePath,
+            $ext,
+            'active',
+            $this->getGroupHash(),
+            $this->getAppId()
+        );
 
-		$uploadedFile = new UploadedFileDTO(
-			$fileName,
-			$filePath,
-			$ext,
-			'active',
-			$this->getGroupHash(),
-			$this->getAppId()
-		);
+        return $uploadedFile;
+    }
 
-		return $uploadedFile;
-	}
+    public function getTargetDirectory(): string
+    {
+        return $this->targetDirectory;
+    }
 
-	public function getTargetDirectory(): string
-	{
-		return $this->targetDirectory;
-	}
+    /**
+     * @param string $group_hash
+     */
+    public function setGroupHash(string $group_hash): void
+    {
+        $this->groupHash = $group_hash;
+    }
 
-	/**
-	 * @param string $group_hash
-	 */
-	public function setGroupHash( string $group_hash ): void {
+    /**
+     * @return string
+     */
+    public function getGroupHash(): string
+    {
+        return $this->groupHash;
+    }
 
-		$this->groupHash = $group_hash;
+    public function setAppId(int $app_id): void
+    {
+        $this->appId = $app_id;
+    }
 
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getGroupHash(): string {
-		return $this->groupHash;
-	}
-
-	public function setAppId(int $app_id):void{
-
-		$this->appId = $app_id;
-
-	}
-	/**
-	 * @return mixed
-	 */
-	public function getAppId() {
-		return $this->appId;
-	}
+    /**
+     * @return mixed
+     */
+    public function getAppId()
+    {
+        return $this->appId;
+    }
 }

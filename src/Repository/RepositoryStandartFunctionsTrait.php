@@ -1,10 +1,15 @@
 <?php
 
+/*
+ * This file is part of the "Send And Get" project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Repository;
 
 use App\Entity\ApiApp;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * @method ApiApp|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,32 +19,29 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 trait RepositoryStandartFunctionsTrait
 {
+    public function save($app)
+    {
+        $em = $this->getEntityManager();
+        $em->persist($app);
+        $em->flush();
 
-	public function save( $app ){
+        return $app;
+    }
 
-		$em = $this->getEntityManager();
-		$em->persist($app);
-		$em->flush();
+    public function remove($entity): void
+    {
+        $em = $this->getEntityManager();
+        $em->remove($entity);
+        $em->flush();
+    }
 
-		return $app;
-	}
+    public function getById(int $id)
+    {
+        return $this->findOneBy(['id' => $id]);
+    }
 
-
-	public function remove( $entity ): void {
-
-		$em = $this->getEntityManager();
-		$em->remove($entity);
-		$em->flush();
-
-	}
-
-	public function getById(int $id)
-	{
-		return $this->findOneBy(['id' => $id]);
-	}
-
-	public function getList(int $page, int $perpage = 10): iterable
-	{
-		return $this->findBy([],null,$perpage,($page-1)*$perpage);
-	}
+    public function getList(int $page, int $perpage = 10): iterable
+    {
+        return $this->findBy([], null, $perpage, ($page - 1) * $perpage);
+    }
 }

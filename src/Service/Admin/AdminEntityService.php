@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the "Send And Get" project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Service\Admin;
 
 use App\Entity\Page;
@@ -13,17 +20,15 @@ class AdminEntityService implements AdminEntityServiceInterface
     private $pageTransRepo;
 
     public function __construct(
-    	PageRepositoryInterface $pageRepo,
-	    PageTranslationsRepositoryInterface $pageTransRepo
-    )
-    {
+        PageRepositoryInterface $pageRepo,
+        PageTranslationsRepositoryInterface $pageTransRepo
+    ) {
         $this->pageRepo = $pageRepo;
         $this->pageTransRepo = $pageTransRepo;
     }
 
     public function getPages(int $page, int $perpage = 10): iterable
     {
-
         return $this->pageRepo->getList($page, $perpage);
     }
 
@@ -32,17 +37,18 @@ class AdminEntityService implements AdminEntityServiceInterface
         return $this->pageRepo->getById($id);
     }
 
-	public function savePage( Page $page ): Page {
-		return $this->pageRepo->save($page);
-	}
+    public function savePage(Page $page): Page
+    {
+        return $this->pageRepo->save($page);
+    }
 
-	public function getTranslationByPageId( int $id,string $locale = 'en'): ?PageTranslation {
-		return $this->pageTransRepo->getByPageId($id,$locale);
-	}
+    public function getTranslationByPageId(int $id, string $locale = 'en'): ?PageTranslation
+    {
+        return $this->pageTransRepo->getByPageId($id, $locale);
+    }
 
-	public function saveTranslation( PageTranslation $page ): PageTranslation {
-
-		return $this->pageTransRepo->save($page);
-
-	}
+    public function saveTranslation(PageTranslation $page): PageTranslation
+    {
+        return $this->pageTransRepo->save($page);
+    }
 }

@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the "Send And Get" project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Repository;
 
 use App\Entity\ApiApp;
@@ -14,19 +21,17 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class ApiAppRepository extends ServiceEntityRepository implements ApiAppRepositoryInterface
 {
-
-	use RepositoryStandartFunctionsTrait;
+    use RepositoryStandartFunctionsTrait;
 
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, ApiApp::class);
     }
 
-	public function getByKey( string $key ): ?ApiApp {
+    public function getByKey(string $key): ?ApiApp
+    {
+        $key_type = 0 === strpos($key, 'live_') ? 'live_key' : 'test_key';
 
-		$key_type = strpos( $key, 'live_' ) === 0 ? 'live_key' : 'test_key';
-
-		return $this->findOneBy( [ $key_type => $key ] );
-
-	}
+        return $this->findOneBy([$key_type => $key]);
+    }
 }

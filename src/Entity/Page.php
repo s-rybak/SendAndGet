@@ -1,9 +1,15 @@
 <?php
 
+/*
+ * This file is part of the "Send And Get" project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\OneToMany;
 use Knp\DoctrineBehaviors\Model\Translatable\Translatable;
 
 /**
@@ -11,7 +17,7 @@ use Knp\DoctrineBehaviors\Model\Translatable\Translatable;
  */
 class Page
 {
-	use Translatable;
+    use Translatable;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -23,7 +29,6 @@ class Page
      * @ORM\Column(type="string", length=100)
      */
     private $slug;
-
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
@@ -44,7 +49,6 @@ class Page
     {
         return $this->id;
     }
-
 
     public function getSlug(): ?string
     {
@@ -93,6 +97,4 @@ class Page
 
         return $this;
     }
-
-
 }

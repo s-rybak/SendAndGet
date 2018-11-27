@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the "Send And Get" project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller\Admin;
 
 use App\Builder\AdminPageBuilderInterface;
@@ -14,116 +21,106 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Admin site pages
- * controller
- *
- * @package App\Controller\Admin
+ * controller.
  */
+class PageController extends AbstractController
+{
+    private $pageBuilder;
+    private $entitysService;
 
-class PageController extends AbstractController{
+    public function __construct(
+        AdminPageBuilderInterface $pageBuilder,
+        AdminEntityServiceInterface $entitysService
+    ) {
+        $this->pageBuilder = $pageBuilder;
+        $this->entitysService = $entitysService;
+    }
 
-	private $pageBuilder;
-	private $entitysService;
+    /**
+     * admin pages page.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function pages(): Response
+    {
+        return $this->render('admin/pages.html.twig', [
+            'page' => $this->pageBuilder->getPagesResource(),
+            'pages' => $this->entitysService->getPages(1, 10),
+        ]);
+    }
 
-	public function __construct(
-		AdminPageBuilderInterface $pageBuilder,
-		AdminEntityServiceInterface $entitysService
-	) {
-		$this->pageBuilder = $pageBuilder;
-		$this->entitysService = $entitysService;
-	}
-	/**
-	 * admin pages page.
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-	public function pages(): Response
-	{
-		return $this->render('admin/pages.html.twig', [
-			'page' => $this->pageBuilder->getPagesResource(),
-			'pages' => $this->entitysService->getPages(1, 10),
-		]);
-	}
+    /**
+     * admin edit page page.
+     *
+     * @param int $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws NotFoundHttpException if page not found
+     */
+    public function editPage(int $id, string $lang): Response
+    {
+        $page = $this->entitysService->getPageById($id);
+        $pageTrans = $this->entitysService->getTranslationByPageId($id, $lang);
 
-	/**
-	 * admin edit page page.
-	 *
-	 * @param int $id
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 *
-	 * @throws NotFoundHttpException if page not found
-	 */
-	public function editPage(int $id, string $lang): Response
-	{
-		$page = $this->entitysService->getPageById($id);
-		$pageTrans = $this->entitysService->getTranslationByPageId($id,$lang);
+        if (null === $page) {
+            throw new NotFoundHttpException("Page with $id not found");
+        }
 
-		if (null === $page) {
+        $form = $this->createForm(PageType::class, $pageTrans);
 
-			throw new NotFoundHttpException("Page with $id not found");
-		}
+        $page->setCurrentLocale($lang);
 
-		$form = $this->createForm( PageType::class, $pageTrans );
+        return $this->render('admin/edit_page.html.twig', [
+            'page' => $this->pageBuilder->getEditPageResource($page->getTitle()),
+            'pageData' => $page,
+            'form' => $form->createView(),
+        ]);
+    }
 
-		$page->setCurrentLocale($lang);
+    /**
+     * admin save page.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function store(int $id, string $lang, Request $request): Response
+    {
+        $page = 0 !== $id ? $this->entitysService->getTranslationByPageId($id, $lang) : new PageTranslation();
 
-		return $this->render('admin/edit_page.html.twig', [
-			'page' => $this->pageBuilder->getEditPageResource($page->getTitle()),
-			'pageData' => $page,
-			'form' => $form->createView(),
-		]);
-	}
+        if (null === $page) {
+            throw new NotFoundHttpException("Page with is $id not found");
+        }
 
-	/**
-	 * admin save page.
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-	public function store( int $id, string $lang, Request $request ): Response {
+        $form = $this->createForm(PageType::class, $page);
+        $form->handleRequest($request);
 
-		$page = $id !== 0 ? $this->entitysService->getTranslationByPageId( $id,$lang ) : new PageTranslation();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entitysService->saveTranslation($form->getData());
+        }
 
-		if ( null === $page ) {
+        return $this->redirectToRoute('admin_edit_page', ['id' => $id, 'lang' => $lang], 301);
+    }
 
-			throw new NotFoundHttpException( "Page with is $id not found" );
+    /**
+     * admin add image to page.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function addImage(Request $request): Response
+    {
+        $image = $request->get('image');
+        $id = $request->get('id');
 
-		}
+        $page = $this->entitysService->getPageById($id);
 
-		$form = $this->createForm( PageType::class, $page );
-		$form->handleRequest( $request );
+        if (null === $page) {
+            throw new NotFoundHttpException("Page with is $id not found");
+        }
 
-		if ( $form->isSubmitted() && $form->isValid() ) {
+        $page->setImage($image);
 
-			$this->entitysService->saveTranslation( $form->getData() );
+        $this->entitysService->savePage($page);
 
-		}
-
-		return $this->redirectToRoute('admin_edit_page', array('id'=>$id,'lang'=>$lang), 301);
-	}
-
-	/**
-	 * admin add image to page.
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-	public function addImage(Request $request ): Response {
-
-		$image = $request->get('image');
-		$id = $request->get('id');
-
-		$page = $this->entitysService->getPageById($id);
-
-		if ( null === $page ) {
-
-			throw new NotFoundHttpException( "Page with is $id not found" );
-
-		}
-
-		$page->setImage($image);
-
-		$this->entitysService->savePage($page);
-
-		return $this->json(['status'=>'success']);
-	}
-
+        return $this->json(['status' => 'success']);
+    }
 }

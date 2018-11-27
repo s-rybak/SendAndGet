@@ -1,12 +1,18 @@
 <?php
 
+/*
+ * This file is part of the "Send And Get" project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller;
 
 use App\Builder\AdminPageBuilderInterface;
 use App\Service\Admin\AdminEntityServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Admin site controller
@@ -20,7 +26,7 @@ class AdminController extends AbstractController
     private $entitysService;
 
     public function __construct(
-	    AdminPageBuilderInterface $pageService,
+        AdminPageBuilderInterface $pageService,
         AdminEntityServiceInterface $entitysService
     ) {
         $this->pageService = $pageService;
@@ -35,9 +41,10 @@ class AdminController extends AbstractController
     public function dashboard(): Response
     {
         return $this->render('admin/dashboard.html.twig', [
-            'page' => $this->pageService->getDashboard()
+            'page' => $this->pageService->getDashboard(),
         ]);
     }
+
 //
 //    /**
 //     * admin reports page.

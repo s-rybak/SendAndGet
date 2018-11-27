@@ -1,9 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sergej
- * Date: 11/11/18
- * Time: 3:19 PM.
+
+/*
+ * This file is part of the "Send And Get" project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace App\Service;
@@ -61,7 +62,7 @@ class MainPageService implements MainPageServiceInterface
             throw new EntityNotFoundException("Page $slug ($lang) not found");
         }
 
-	    $page->setCurrentLocale($lang);
+        $page->setCurrentLocale($lang);
 
         return new MainPageDTO($page, [
             new BreadcrumbsDTO('Main', 'index'),
@@ -69,29 +70,26 @@ class MainPageService implements MainPageServiceInterface
         ]);
     }
 
-	public function getCurrentLocale(): string {
+    public function getCurrentLocale(): string
+    {
+        $locale = $this->getSession()->get('locale');
 
-    	$locale = $this->getSession()->get('locale');
+        return $locale ? $locale : 'en';
+    }
 
-		return $locale ? $locale : 'en';
+    public function setCurrentLocale(string $locale): void
+    {
+        $this->getSession()->set('locale', $locale);
+    }
 
-	}
+    private function getSession(): Session
+    {
+        $session = new Session();
 
-	public function setCurrentLocale( string $locale ): void {
+        if (!$session->getId()) {
+            $session->start();
+        }
 
-		$this->getSession()->set('locale',$locale);
-
-	}
-
-	private function getSession():Session{
-
-		$session = new Session();
-
-		if(!$session->getId()){
-			$session->start();
-		}
-
-		return $session;
-
-	}
+        return $session;
+    }
 }

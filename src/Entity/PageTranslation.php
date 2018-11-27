@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the "Send And Get" project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +17,7 @@ use Knp\DoctrineBehaviors\Model\Translatable\Translation;
  */
 class PageTranslation
 {
-	use Translation;
+    use Translation;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
@@ -73,18 +80,19 @@ class PageTranslation
         return $this;
     }
 
-	/**
-	 * @return int
-	 */
-	public function getTranslatableId():int {
-		return $this->translatable_id;
-	}
+    /**
+     * @return int
+     */
+    public function getTranslatableId(): int
+    {
+        return $this->translatable_id;
+    }
 
-	/**
-	 * @param int $translatable_id
-	 */
-	public function setTranslatableId( int $translatable_id ): void {
-		$this->translatable_id = $translatable_id;
-	}
-
+    /**
+     * @param int $translatable_id
+     */
+    public function setTranslatableId(int $translatable_id): void
+    {
+        $this->translatable_id = $translatable_id;
+    }
 }

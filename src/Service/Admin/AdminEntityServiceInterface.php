@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the "Send And Get" project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Service\Admin;
 
 use App\Entity\Page;
@@ -11,9 +18,9 @@ interface AdminEntityServiceInterface
 
     public function getPageById(int $id): ?Page;
 
-    public function getTranslationByPageId(int $id,string $locale = 'en'): ?PageTranslation;
+    public function getTranslationByPageId(int $id, string $locale = 'en'): ?PageTranslation;
 
-    public function savePage(Page $page):Page;
+    public function savePage(Page $page): Page;
 
-    public function saveTranslation(PageTranslation $page):PageTranslation;
+    public function saveTranslation(PageTranslation $page): PageTranslation;
 }

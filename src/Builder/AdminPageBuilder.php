@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the "Send And Get" project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Builder;
 
 use App\DTO\AdminPageDTO;
@@ -39,72 +46,77 @@ class AdminPageBuilder implements AdminPageBuilderInterface
         return $resource;
     }
 
-	public function getAppApiResource(): AdminPageDTO {
-		$resource = new AdminPageDTO();
+    public function getAppApiResource(): AdminPageDTO
+    {
+        $resource = new AdminPageDTO();
 
-		$breadcrumbs = [
-			new BreadcrumbsDTO('Dashboard', 'admin_dashboard'),
-			new BreadcrumbsDTO('Api apps', 'admin_apps'),
-		];
+        $breadcrumbs = [
+            new BreadcrumbsDTO('Dashboard', 'admin_dashboard'),
+            new BreadcrumbsDTO('Api apps', 'admin_apps'),
+        ];
 
-		$resource->setTitle('Api apps');
-		$resource->setDescription('All api apps');
-		$resource->setBreadcrumbs($breadcrumbs);
+        $resource->setTitle('Api apps');
+        $resource->setDescription('All api apps');
+        $resource->setBreadcrumbs($breadcrumbs);
 
-		return $resource;
-	}
+        return $resource;
+    }
 
-	public function getEditAppApiResource( string $pageTitle ): AdminPageDTO {
-		$resource = new AdminPageDTO();
+    public function getEditAppApiResource(string $pageTitle): AdminPageDTO
+    {
+        $resource = new AdminPageDTO();
 
-		$breadcrumbs = [
-			new BreadcrumbsDTO('Dashboard', 'admin_dashboard'),
-			new BreadcrumbsDTO('Api apps', 'admin_apps'),
-		];
+        $breadcrumbs = [
+            new BreadcrumbsDTO('Dashboard', 'admin_dashboard'),
+            new BreadcrumbsDTO('Api apps', 'admin_apps'),
+        ];
 
-		$resource->setTitle($pageTitle);
-		$resource->setDescription('Edit app');
-		$resource->setBreadcrumbs($breadcrumbs);
+        $resource->setTitle($pageTitle);
+        $resource->setDescription('Edit app');
+        $resource->setBreadcrumbs($breadcrumbs);
 
-		return $resource;
-	}
+        return $resource;
+    }
 
-	public function getFilesResource(): AdminPageDTO {
-		$resource = new AdminPageDTO();
+    public function getFilesResource(): AdminPageDTO
+    {
+        $resource = new AdminPageDTO();
 
-		$breadcrumbs = [
-			new BreadcrumbsDTO('Dashboard', 'admin_dashboard'),
-			new BreadcrumbsDTO('Files', 'admin_files'),
-		];
+        $breadcrumbs = [
+            new BreadcrumbsDTO('Dashboard', 'admin_dashboard'),
+            new BreadcrumbsDTO('Files', 'admin_files'),
+        ];
 
-		$resource->setTitle('Uploaded files');
-		$resource->setDescription('All uploaded files');
-		$resource->setBreadcrumbs($breadcrumbs);
+        $resource->setTitle('Uploaded files');
+        $resource->setDescription('All uploaded files');
+        $resource->setBreadcrumbs($breadcrumbs);
 
-		return $resource;
-	}
+        return $resource;
+    }
 
-	public function getEditFilesResource( string $pageTitle ): AdminPageDTO {
-		$resource = new AdminPageDTO();
+    public function getEditFilesResource(string $pageTitle): AdminPageDTO
+    {
+        $resource = new AdminPageDTO();
 
-		$breadcrumbs = [
-			new BreadcrumbsDTO('Dashboard', 'admin_dashboard'),
-			new BreadcrumbsDTO('Files', 'admin_files'),
-		];
+        $breadcrumbs = [
+            new BreadcrumbsDTO('Dashboard', 'admin_dashboard'),
+            new BreadcrumbsDTO('Files', 'admin_files'),
+        ];
 
-		$resource->setTitle($pageTitle);
-		$resource->setDescription('Edit file');
-		$resource->setBreadcrumbs($breadcrumbs);
+        $resource->setTitle($pageTitle);
+        $resource->setDescription('Edit file');
+        $resource->setBreadcrumbs($breadcrumbs);
 
-		return $resource;
-	}
+        return $resource;
+    }
 
-	public function getDashboard(): AdminPageDTO {
-		$resource = new AdminPageDTO();
+    public function getDashboard(): AdminPageDTO
+    {
+        $resource = new AdminPageDTO();
 
-		$resource->setTitle("Sand and Get");
-		$resource->setDescription('Admin dashboard');
+        $resource->setTitle('Sand and Get');
+        $resource->setDescription('Admin dashboard');
 
-		return $resource;
-	}
+        return $resource;
+    }
 }

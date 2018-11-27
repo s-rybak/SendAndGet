@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the "Send And Get" project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Repository;
 
 use App\Entity\Page;
@@ -14,8 +21,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class PageRepository extends ServiceEntityRepository implements PageRepositoryInterface
 {
-
-	use RepositoryStandartFunctionsTrait;
+    use RepositoryStandartFunctionsTrait;
 
     public function __construct(RegistryInterface $registry)
     {
@@ -29,10 +35,10 @@ class PageRepository extends ServiceEntityRepository implements PageRepositoryIn
 
     public function save($page): Page
     {
-    	$em = $this->getEntityManager();
-	    $em->persist($page);
-	    $page->mergeNewTranslations();
-    	$em->flush();
+        $em = $this->getEntityManager();
+        $em->persist($page);
+        $page->mergeNewTranslations();
+        $em->flush();
 
         return $page;
     }

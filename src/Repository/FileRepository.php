@@ -64,7 +64,7 @@ class FileRepository extends ServiceEntityRepository implements FileRepositiryIn
 
     public function getByGroupHash(string $group_hash): iterable
     {
-        return $this->findBy(['group_hash' => $group_hash]);
+        return $this->findBy(['group_hash' => $group_hash,'status'=>'active']);
     }
 
     public function getByAppId(int $id, int $page = 1, int $perpage = 10): iterable

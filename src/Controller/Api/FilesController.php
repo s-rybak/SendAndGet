@@ -151,7 +151,9 @@ final class FilesController extends FOSRestController
                 Response::HTTP_BAD_REQUEST);
         }
 
-        $this->fileService->remove($file);
+	    $file->setStatus('deleted');
+
+        $this->fileService->save($file);
 
         return $this->view(
             new ApiSuccessResponceResource('', 'success'),

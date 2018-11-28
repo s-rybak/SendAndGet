@@ -20,10 +20,10 @@ Encore
     .addEntry('main_layout', './assets/js/main_layout.js')
     .addEntry('index', './assets/js/index.js')
     .addEntry('page', './assets/js/page.js')
-    .addEntry('admin', './assets/js/admin.js')
+    .addEntry('admin', './assets/js/admin/admin.js')
     .addEntry('login', './assets/js/login.js')
-    .addEntry('admin_page_edit', './assets/js/admin-page-edit.js')
-    .addEntry('admin_files_edit', './assets/js/admin-files-edit.js')
+    .addEntry('admin_page_edit', './assets/js/admin/admin-page-edit.js')
+    .addEntry('admin_files_edit', './assets/js/admin/admin-files-edit.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

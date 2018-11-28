@@ -2,7 +2,14 @@
 
 return PhpCsFixer\Config::create()
     ->setRules([
+        '@PSR2' => true,
         '@Symfony' => true,
         'array_syntax' => ['syntax' => 'short'],
+        'header_comment' => [
+                    'header' => "This file is part of the \"Send And Get\" project.\r\n(c) Sergey Rybak <srybak007@gmail.com>\r\nFor the full copyright and license information, please view the LICENSE\r\nfile that was distributed with this source code."
+                ]
     ])
-;
+    ->setFinder(
+        \PhpCsFixer\Finder::create()
+            ->in(__DIR__.'/src')
+    );

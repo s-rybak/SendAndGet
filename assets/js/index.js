@@ -1,4 +1,5 @@
 require('../css/main.css');
+require('../css/media.css');
 require('sweetalert/dist/sweetalert.min');
 let jQuery = require('jquery');
 let Files = require('./libs/Files');

@@ -1,0 +1,33 @@
+@media only screen and (max-width: 576px) {
+    .page-main .content .section-send h2.main-and,
+    .page-main .content .section-get h2.main-and
+    {
+        display:none;
+    }
+
+    .page-main .content .section-send, .page-main .content .section-get {
+        min-height: calc( calc( 100vh / 2 ) - 20px );
+        padding-bottom: 20px;
+    }
+
+    .page-main .content h1.main-head{
+        margin-top: 0px;
+        font-size: 50px;
+    }
+
+    .page-main .content .margin-top-row{
+        margin-top: 10px;
+    }
+
+    .page-main .content .section-get.active{
+        min-height: calc( 100vh - 40px );
+    }
+
+    .page-main .content .section-send.collapsed{
+        transition:opacity 0s, max-width 0s
+    }
+
+    .page-main .content .section-get.collapsed{
+        transition:opacity 0s, max-width 0s
+    }
+}

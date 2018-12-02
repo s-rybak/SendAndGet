@@ -8,6 +8,7 @@
 // any CSS you require will output into a single css file (app.css in this case)
 require('../css/global.css');
 require('../css/page.css');
+require('../css/media.css');
 require('../fonts/import.css');
 
 /*require('./libs/Files.js');

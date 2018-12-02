@@ -74,28 +74,37 @@
 
                         <div class="col-sm-9 pull-right">
                             <div class="progress progress-xs progress-striped active">
-                                <div class="progress-bar progress-bar-primary" style="width: 100%"></div>
+                                <div class="progress-bar progress-bar-primary" style="width: {{ file.timeLeft }}%"></div>
                             </div>
-                            <span class="badge bg-light-blue">100%</span>
+                            <span class="badge bg-light-blue">{{ file.timeLeft }}%</span>
                         </div>
                         <!-- /.input group -->
-                    </div>{#
+                    </div>
                     <div class="form-group">
-                        <label for="inputStatus" class="col-sm-2 control-label">Downloaded</label>
+                        <label for="inputStatus" class="col-sm-2 control-label">Size</label>
 
                         <div class="col-sm-9 pull-right">
-                            <input type="text" disabled class="form-control pull-right" value="100" id="datepicker">
+                            <input type="text" disabled class="form-control pull-right" value="{{ file.size/1000000 }}Mb" id="datepicker">
                         </div>
-                    </div>#}
+                    </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Updated</label>
+                        <label class="col-sm-2 control-label">Life Time</label>
+
+                        <div class="col-sm-9 pull-right">
+                            <input type="text" class="form-control pull-right" disabled value="{{ file.lifeTime }}">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Aviable</label>
 
                         <div class="col-sm-9 pull-right">
                             <div class="input-group date">
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" disabled value="{{ file.updatedAt|date('Y-m-d') }}">
+                                <input type="text" class="form-control pull-right" disabled value="{{ file.aviableAt|date('Y-m-d') }}">
                             </div>
                         </div>
                         <!-- /.input group -->
@@ -124,29 +133,29 @@
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Block</a></li>
-                            <li><a href="#">Unblock</a></li>
+                            <li><a href="{{ path('admin_change_file_status',{id:file.id, status:'blocked'}) }}">Block</a></li>
+                            <li><a href="{{ path('admin_change_file_status',{id:file.id, status:'active'}) }}">Unblock</a></li>
                             <li class="divider"></li>
                          {#   <li><a href="#">Create report</a></li>
                             <li class="divider"></li>#}
-                            <li><a href="#">Delete ( soft )</a></li>
+                            <li><a href="{{ path('admin_change_file_status',{id:file.id, status:'deleted'}) }}">Delete ( soft )</a></li>
                             <li><a href="{{ path('admin_destruct_file',{id:file.id}) }}">Delete ( forever )</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">Replace</a></li>
-                            <li><a href="/f/{{ file.hash }}">Download</a></li>
+                            {#<li><a href="#">Replace</a></li>#}
+                            <li><a href="{{ path('get_file_by_hash', {hash:file.hash}) }}">Download</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="text-center">
-                <a class="btn btn-app">
+                <a href="{{ path('admin_file_prolong',{id:file.id}) }}" class="btn btn-app">
                     <i class="fa fa-thumbs-o-up"></i> Prolong expiration
                 </a>
-                <a class="btn btn-app">
+                <a href="{{ path('admin_file_expire',{id:file.id}) }}" class="btn btn-app">
                     <i class="fa fa-thumbs-o-down"></i> Make expired
                 </a>
 
-                <a href="/f/{{ file.hash }}" class="btn btn-app">
+                <a href="{{ path('get_file_by_hash', {hash:file.hash}) }}" class="btn btn-app">
                     <i class="fa fa-download"></i> Download
                 </a>
             </div>

@@ -30,4 +30,12 @@ interface FileRepositiryInterface
     public function getByGroupHash(string $group_hash): iterable;
 
     public function getQueryByHash(int $id, string $hash, int $page = 1, int $perpage = 10): iterable;
+
+    public function getExpired(int $limit):iterable;
+
+    public function getDeletedExpired(int $limit):iterable;
+
+    public function expireAppFiles(int $appId):void;
+
+
 }

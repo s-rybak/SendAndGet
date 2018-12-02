@@ -11,6 +11,7 @@ namespace App\Controller\Api;
 
 use App\Resource\ApiErrorResponceResource;
 use App\Resource\ApiSuccessResponceResource;
+use App\Service\AppApiServiceInterface;
 use App\Service\Files\FilesServiceInterface;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -26,11 +27,13 @@ final class FilesController extends FOSRestController
 {
     private $appApi;
     private $fileService;
+    private $appService;
 
-    public function __construct(TokenStorageInterface $token, FilesServiceInterface $service)
+    public function __construct(TokenStorageInterface $token, FilesServiceInterface $service, AppApiServiceInterface $appService)
     {
         $this->appApi = $token->getToken()->getUser();
         $this->fileService = $service;
+        $this->appService = $appService;
     }
 
     /**
@@ -102,15 +105,22 @@ final class FilesController extends FOSRestController
                 Response::HTTP_BAD_REQUEST);
         }
 
-        if ($filesCount > 10) {
+        if ($filesCount > 1000) {
             return $this->view(
-                new ApiErrorResponceResource('Max file size exceded'),
+                new ApiErrorResponceResource('Max file size exceded (max files 1000 at once)'),
                 Response::HTTP_BAD_REQUEST);
         }
 
         try {
             $hash = $request->get('groupHash');
             $hash = $hash ? $hash : uniqid();
+
+	        $this->appService->save(
+	        	$this
+		        ->fileService
+		        ->changeAppLimits($this->appApi,$request->files)
+	        );
+
             $files = $this->fileService->uploadAndSaveFiles($this->appApi->getId(), $request->files, $hash);
         } catch (\Exception $e) {
             return $this->view(
@@ -151,9 +161,9 @@ final class FilesController extends FOSRestController
                 Response::HTTP_BAD_REQUEST);
         }
 
-	    $file->setStatus('deleted');
-
-        $this->fileService->save($file);
+        $this->fileService->save(
+        	$file->setStatus('deleted')
+        );
 
         return $this->view(
             new ApiSuccessResponceResource('', 'success'),

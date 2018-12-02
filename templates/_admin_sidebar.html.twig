@@ -30,10 +30,13 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="">
-                        <a href="{{ path("admin_apps") }}"><i class="fa fa-circle-o"></i>All apps</a>
+                        <a href="{{ path("admin_apps") }}"><i class="fa fa-circle-o"></i>Active apps</a>
                     </li>
                     <li class="">
-                        <a href="{{ path("admin_apps") }}"><i class="fa fa-circle-o"></i>Blocked apps</a>
+                        <a href="{{ path("admin_apps",{page:1,status:'suspended'}) }}"><i class="fa fa-circle-o"></i>Blocked apps</a>
+                    </li>
+                    <li class="">
+                        <a href="{{ path("admin_apps",{page:1,status:'deleted'}) }}"><i class="fa fa-circle-o"></i>Deleted apps</a>
                     </li>
                 </ul>
             </li>

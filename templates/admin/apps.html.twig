@@ -11,13 +11,13 @@
             <h3 class="box-title">Apps</h3>
 
             <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
+               {# <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
 
                     <div class="input-group-btn">
                         <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                     </div>
-                </div>
+                </div>#}
             </div>
         </div>
         <!-- /.box-header -->
@@ -53,14 +53,15 @@
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Suspend</a></li>
-                                    <li><a href="#">Activate</a></li>
+                                    <li><a href="{{ path('admin_change_app_status',{id:app.id, status:'suspended'})}}">Suspend</a></li>
+                                    <li><a href="{{ path('admin_change_app_status',{id:app.id, status:'active'})}}">Activate</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#">Set limit</a></li>
-                                    <li><a href="#">Clear storage</a></li>
+                                    {#<li><a href="#">Set limit</a></li>#}
+                                    <li><a href="{{ path('admin_clear_app_storage',{id:app.id}) }}">Clear storage</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#">Create report</a></li>
-                                    <li><a href="#">Delete</a></li>
+                                    {#<li><a href="#">Create report</a></li>#}
+                                    <li><a href="{{ path('admin_change_app_status',{id:app.id, status:'deleted'})}}">Delete (soft)</a></li>
+                                    <li><a href="{{ path('admin_remove_app',{id:app.id}) }}">Delete</a></li>
                                 </ul>
                             </div>
                         </td>
@@ -70,13 +71,14 @@
             </table>
         </div>
         <div class="box-footer clearfix">
-            {#<ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">«</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">»</a></li>
-            </ul>#}
+            <ul class="pagination pagination-sm no-margin pull-right">
+                {% if currentPage > 1 %}
+                    <li><a href="{{ path('admin_apps',{page:currentPage - 1}) }}">«</a></li>
+                {% endif %}
+                {% if apps|length > 9 %}
+                    <li><a href="{{ path('admin_apps',{page:currentPage + 1}) }}">»</a></li>
+                {% endif %}
+            </ul>
         </div>
         <!-- /.box-body -->
     </div>

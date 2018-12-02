@@ -19,9 +19,13 @@ interface ApiAppRepositoryInterface
 {
     public function save($app);
 
+    public function remove($app);
+
     public function getById(int $id);
 
     public function getList(int $page, int $perpage = 10): iterable;
 
     public function getByKey(string $key): ?ApiApp;
+
+    public function getByStatus(string $status, int $page = 1, int $perpage = 10): iterable;
 }

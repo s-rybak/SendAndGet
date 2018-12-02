@@ -32,6 +32,12 @@ class ApiAppRepository extends ServiceEntityRepository implements ApiAppReposito
     {
         $key_type = 0 === strpos($key, 'live_') ? 'live_key' : 'test_key';
 
-        return $this->findOneBy([$key_type => $key]);
+        return $this->findOneBy([$key_type => $key,'status' => [ 'active', 'suspended' ]]);
     }
+
+	public function getByStatus( string $status, int $page = 1, int $perpage = 10): iterable {
+
+		return $this->findBy(['status'=>$status], null, $perpage, ($page - 1) * $perpage);
+
+	}
 }

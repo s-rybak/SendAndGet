@@ -17,6 +17,7 @@ class FileUploader implements FileUploaderInterface
     private $targetDirectory;
     private $appId;
     private $groupHash;
+    private $fileLifeTime;
 
     public function __construct($targetDirectory)
     {
@@ -38,6 +39,8 @@ class FileUploader implements FileUploaderInterface
             $ext,
             'active',
             $this->getGroupHash(),
+	        $this->fileLifeTime,
+	        $file->getSize(),
             $this->getAppId()
         );
 
@@ -77,4 +80,11 @@ class FileUploader implements FileUploaderInterface
     {
         return $this->appId;
     }
+
+	/**
+	 * @param int $fileLifeTime
+	 */
+	public function setFileLifeTime(int $fileLifeTime ): void {
+		$this->fileLifeTime = $fileLifeTime;
+	}
 }

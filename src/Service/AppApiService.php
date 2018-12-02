@@ -114,4 +114,16 @@ class AppApiService implements AppApiServiceInterface
     {
         return $this->repository->getByKey($key);
     }
+
+	public function remove( ApiApp $app ): void {
+
+		$this->repository->remove($app);
+
+	}
+
+	public function getByStatus( string $status, int $page = 1, int $perpage = 10 ): iterable {
+
+		return $this->repository->getByStatus($status,$page,$perpage);
+
+	}
 }

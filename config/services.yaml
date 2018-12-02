@@ -5,7 +5,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
-    upload_path: "%kernel.root_dir%/../var/files_storage/"
+    app.upload_path: "%kernel.root_dir%/../var/files_storage/"
+    app.file_life_time: 7  #Valid strtotime string
 
 services:
     # default configuration for services in *this* file
@@ -30,19 +31,20 @@ services:
 
     App\Service\Files\FileUploader:
             arguments:
-                $targetDirectory: '%upload_path%'
+                $targetDirectory: '%app.upload_path%'
 
     App\Service\Files\FilesService:
             arguments:
-                $uploadDir: '%upload_path%'
+                $uploadDir: '%app.upload_path%'
+                $fileLifeTime: '%app.file_life_time%'
 
     App\Controller\FileController:
             arguments:
-                $uploadDir: '%upload_path%'
+                $uploadDir: '%app.upload_path%'
 
     App\Controller\Admin\FilesController:
             arguments:
-                $uploadDir: '%upload_path%'
+                $uploadDir: '%app.upload_path%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

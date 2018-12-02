@@ -24,6 +24,8 @@ final class UploadedFileDTO
     private $app_id;
     private $status;
     private $groupHash;
+    private $fileLifeTime;
+    private $size;
 
     public function __construct(
         string $fileName,
@@ -31,6 +33,8 @@ final class UploadedFileDTO
         string $ext,
         string $status,
         string $groupHash,
+        int $fileLifeTime,
+        int $size,
         int $app_id
     ) {
         $this->fileName = $fileName;
@@ -39,6 +43,8 @@ final class UploadedFileDTO
         $this->app_id = $app_id;
         $this->status = $status;
         $this->groupHash = $groupHash;
+        $this->fileLifeTime = $fileLifeTime;
+        $this->size = $size;
     }
 
     /**
@@ -136,4 +142,32 @@ final class UploadedFileDTO
     {
         $this->groupHash = $groupHash;
     }
+
+	/**
+	 * @return int
+	 */
+	public function getFileLifeTime(): int {
+		return $this->fileLifeTime;
+	}
+
+	/**
+	 * @param int $fileLifeTime
+	 */
+	public function setFileLifeTime( int $fileLifeTime ): void {
+		$this->fileLifeTime = $fileLifeTime;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getSize(): int {
+		return $this->size;
+	}
+
+	/**
+	 * @param int $size
+	 */
+	public function setSize( int $size ): void {
+		$this->size = $size;
+	}
 }

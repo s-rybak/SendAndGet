@@ -20,7 +20,11 @@ interface AppApiServiceInterface
 {
     public function save(ApiApp $app): ApiApp;
 
+	public function remove(ApiApp $app): void;
+
     public function getById(int $id): ?ApiApp;
+
+    public function getByStatus(string $status, int $page = 1, int $perpage = 10): iterable;
 
     public function getList(int $page, int $perpage = 10): iterable;
 

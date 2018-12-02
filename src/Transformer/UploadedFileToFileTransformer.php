@@ -23,6 +23,8 @@ class UploadedFileToFileTransformer
         $file->setAppId($file_DTO->getAppId());
         $file->setStatus($file_DTO->getStatus());
         $file->setGroupHash($file_DTO->getGroupHash());
+        $file->setLifeTime($file_DTO->getFileLifeTime());
+        $file->setSize($file_DTO->getSize());
 
         return $file;
     }

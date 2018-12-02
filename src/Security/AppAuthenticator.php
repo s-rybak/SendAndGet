@@ -13,6 +13,7 @@ use App\Service\AppApiServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -63,7 +64,28 @@ class AppAuthenticator extends AbstractGuardAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        return 0 === strpos(strtolower($user->getHost()), strtolower($credentials['host'])) &&
+
+	    $this->appApiService->save(
+		    $user->setCallsCount($user->getCallsCount() + 1)
+	    );
+
+    	if($user->getStatus() === "suspended"){
+
+		    throw new CustomUserMessageAuthenticationException(
+			    'This app suspended, please contact SAG admin'
+		    );
+
+	    }
+
+	    if($user->getStorage() <= 0){
+
+		    throw new CustomUserMessageAuthenticationException(
+			    'App storage excided'
+		    );
+
+	    }
+
+        return 0 === strpos(strtolower($credentials['host']),strtolower($user->getHost())) &&
                $this->appApiService->checkAppApiKey($credentials['key'], $user);
     }
 

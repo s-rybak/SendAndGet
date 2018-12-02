@@ -1,3 +1,4 @@
+#Site pages
 index:
     path: /
     controller: App\Controller\MainController::index
@@ -18,13 +19,13 @@ tos:
     controller: App\Controller\MainController::tos
 
 api:
-    path: /api
+    path: /developers
     controller: App\Controller\MainController::api
 
 faq:
     path: /faq
     controller: App\Controller\MainController::faq
-
+#Auth
 login:
     path: /login
     controller: App\Controller\SecurityController::login
@@ -34,11 +35,36 @@ logout:
     path: /logout
     controller: App\Controller\SecurityController::logout
     methods: [GET]
+#SDK
+js_sdk:
+    path: /js/sag-sdk.js
+    controller: App\Controller\JsSdkController::jsSdk
+    methods: [get]
 
+#Files links
+get_file_by_hash:
+    path: /f/{hash}
+    controller: App\Controller\FileController::getFileByHash
+    methods: [get]
+
+get_zip_by_hash:
+    path: /g/{hash}
+    controller: App\Controller\FileController::getAllFilesByHash
+    methods: [get]
+
+#Set site locale
+set_locale:
+    path: /lang/{locale}
+    controller: App\Controller\MainController::setLocale
+    methods: [get]
+    defaults:   { locale: en }
+
+#Admin Dash
 admin_dashboard:
     path: /admin
     controller: App\Controller\AdminController::dashboard
 
+#Admin files manage links
 admin_files:
     path: /admin/files/{page}
     controller: App\Controller\Admin\FilesController::files
@@ -58,6 +84,22 @@ admin_destruct_file:
     controller: App\Controller\Admin\FilesController::destruct
     methods: [GET]
 
+admin_change_file_status:
+    path: /admin/file/status/{id}/{status}
+    controller: App\Controller\Admin\FilesController::changeStatus
+    methods: [GET]
+
+admin_file_expire:
+    path: /admin/file/expire/{id}
+    controller: App\Controller\Admin\FilesController::expire
+    methods: [GET]
+
+admin_file_prolong:
+    path: /admin/file/prolong/{id}
+    controller: App\Controller\Admin\FilesController::prolong
+    methods: [GET]
+
+#Admin site pages manage links
 admin_pages:
     path: /admin/pages
     controller: App\Controller\Admin\PageController::pages
@@ -78,35 +120,17 @@ admin_store_page:
     defaults:   { lang: en }
     methods: [POST]
 
-admin_reports:
-    path: /admin/reports
-    controller: App\Controller\AdminController::reports
-
-admin_edit_reports:
-    path: /admin/report/{id}
-    controller: App\Controller\AdminController::editReports
-
-admin_languages:
-    path: /admin/languages
-    controller: App\Controller\AdminController::languages
-
-admin_edit_translation:
-    path: /admin/translation/{id}
-    controller: App\Controller\AdminController::editTranslation
-
-admin_config:
-    path: /admin/config
-    controller: App\Controller\AdminController::config
-
+#Admin apps manage page
 admin_apps:
-    path: /admin/apps/{page}
+    path: /admin/apps/{page}/{status}
     controller: App\Controller\Admin\AppController::apps
-    defaults:   { page: 1 }
+    defaults:   { page: 1, status: 'active' }
 
 admin_edit_app:
-    path: /admin/app/{id}
+    path: /admin/app/edit/{id}/{page}
     controller: App\Controller\Admin\AppController::editApp
     methods: [GET]
+    defaults: { page: 1 }
 
 admin_add_app:
     path: /admin/app
@@ -119,23 +143,45 @@ admin_store_app:
     methods: [POST]
     defaults:   { id: 0 }
 
-js_sdk:
-    path: /js/sag-sdk.js
-    controller: App\Controller\JsSdkController::jsSdk
-    methods: [get]
+admin_remove_app:
+    path: /admin/remove/app/{id}
+    controller: App\Controller\Admin\AppController::remove
+    methods: [GET]
 
-get_file_by_hash:
-    path: /f/{hash}
-    controller: App\Controller\FileController::getFileByHash
-    methods: [get]
+admin_change_app_status:
+    path: /admin/app/status/{id}/{status}
+    controller: App\Controller\Admin\AppController::changeStatus
+    methods: [GET]
 
-get_zip_by_hash:
-    path: /g/{hash}
-    controller: App\Controller\FileController::getAllFilesByHash
-    methods: [get]
+admin_clear_app_storage:
+    path: /admin/app/clear/{id}
+    controller: App\Controller\Admin\AppController::clearStorage
+    methods: [GET]
 
-set_locale:
-    path: /lang/{locale}
-    controller: App\Controller\MainController::setLocale
-    methods: [get]
-    defaults:   { locale: en }
+admin_regen_app_keys:
+    path: /admin/app/regen/{id}
+    controller: App\Controller\Admin\AppController::regenerateKeys
+    methods: [GET]
+
+#Admin reports
+admin_reports:
+    path: /admin/reports
+    controller: App\Controller\AdminController::reports
+
+admin_edit_reports:
+    path: /admin/report/{id}
+    controller: App\Controller\AdminController::editReports
+
+#Admin languages config
+admin_languages:
+    path: /admin/languages
+    controller: App\Controller\AdminController::languages
+
+admin_edit_translation:
+    path: /admin/translation/{id}
+    controller: App\Controller\AdminController::editTranslation
+
+#Site config
+admin_config:
+    path: /admin/config
+    controller: App\Controller\AdminController::config

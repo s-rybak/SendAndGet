@@ -9,6 +9,8 @@
 
 namespace App\Service\Files;
 
+use App\DTO\FileBagSizeDTO;
+use App\Entity\ApiApp;
 use App\Entity\File;
 use Symfony\Component\HttpFoundation\FileBag;
 
@@ -24,7 +26,7 @@ interface FilesServiceInterface
 
     public function save(File $file): File;
 
-    public function remove(File $file);
+    public function remove(File $file, $soft = true);
 
     public function uploadAndSaveFiles(int $appId, FileBag $files, string $group_hash): iterable;
 
@@ -39,4 +41,19 @@ interface FilesServiceInterface
     public function zipFiles(string $group_hash): string;
 
     public function getAll(int $page = 1, int $perpage = 10): iterable;
+
+    public function prolong(File $file);
+
+    public function expire(File $file);
+
+    public function expireAppFiles(int $appId);
+
+    public function getExpired(int $limit): iterable;
+
+    public function getDeletedExpired(int $limit): iterable;
+
+	public function getFileBagSize(FileBag $flies):FileBagSizeDTO;
+
+	public function changeAppLimits(ApiApp $app,FileBag $flies): ApiApp;
+
 }

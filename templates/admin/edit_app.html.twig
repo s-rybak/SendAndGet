@@ -18,63 +18,103 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label for="fileName">Site</label>
-                            <input type="text" value="{{ app.host }}" class="form-control" id="appHot" name="api_app[host]" placeholder="Host">
+                            <input type="text" value="{{ app.host }}" class="form-control" id="appHot"
+                                   name="api_app[host]" placeholder="Host">
                         </div>
                         <div class="form-group">
                             <label for="fileName">Contact Email</label>
-                            <input type="text" class="form-control" value="{{ app.contactEmail }}" id="contacEmail" name="api_app[contact_email]" placeholder="Contact Email">
+                            <input type="text" class="form-control" value="{{ app.contactEmail }}" id="contacEmail"
+                                   name="api_app[contact_email]" placeholder="Contact Email">
                         </div>
                         <div class="form-group">
                             <label for="fileName">Live key</label>
-                            <input type="text" class="form-control" value="{{ app.liveKey }}" id="liveKey" name="api_app[live_key]" placeholder="Live key">
+                            <input type="text" class="form-control" value="{{ app.liveKey }}" id="liveKey"
+                                   name="api_app[live_key]" placeholder="Live key">
                         </div>
                         <div class="form-group">
                             <label for="fileName">Test key</label>
-                            <input type="text" class="form-control" value="{{ app.testKey }}" id="testKey" name="api_app[test_key]" placeholder="Test key">
+                            <input type="text" class="form-control" value="{{ app.testKey }}" id="testKey"
+                                   name="api_app[test_key]" placeholder="Test key">
                         </div>
                         <div class="form-group">
                             <label for="fileName">App secret key</label>
-                            <input type="text" class="form-control" value="{{ app.secret }}" id="testKey" name="api_app[secret]" placeholder="Test key">
+                            <input type="text" class="form-control" value="{{ app.secret }}" id="testKey"
+                                   name="api_app[secret]" placeholder="Test key">
                         </div>
-                        <div class="form-group">
+                        {% if app.id is defined and app.id is not null %}
+                            <div class="form-group">
 
-                            <label for="uploadType">Files list</label>
-                            <table class="table table-striped">
-                                <tbody>
-                                <tr>
-                                    <th style="width: 10px">#ID</th>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th style="width: 168px">Actions</th>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>File1.tar.gz</td>
-                                    <td>tar.gz</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button class="btn btn-default">Open</button>
-                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                <span class="caret"></span>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#">Block</a></li>
-                                                <li><a href="#">Unblock</a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#">Delete ( soft )</a></li>
-                                                <li><a href="#">Delete ( forever )</a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#">Replace</a></li>
-                                                <li><a href="#">Download</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                <label for="uploadType">Files list</label>
+                                <table class="table table-striped">
+                                    <tbody>
+                                    <tr>
+                                        <th style="width: 10px">#ID</th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Size</th>
+                                        <th>Time Left</th>
+                                        <th style="width: 168px">Actions</th>
+                                    </tr>
+                                    {% for file in files %}
+                                        <tr>
+                                            <td>{{ file.id }}</td>
+                                            <td>{{ file.name }}</td>
+                                            <td>{{ file.status }}</td>
+                                            <td>
+                                                <div class="progress progress-xs progress-striped active">
+                                                    <div class="progress-bar progress-bar-primary" style="width: {{ file.timeLeft }}%"></div>
+                                                </div>
+                                                <span class="badge bg-light-blue">{{ file.timeLeft }}%</span>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button class="btn btn-default">Open</button>
+                                                    <button type="button" class="btn btn-default dropdown-toggle"
+                                                            data-toggle="dropdown">
+                                                        <span class="caret"></span>
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li>
+                                                            <a href="{{ path('admin_change_file_status',{id:file.id, status:'blocked'}) }}">Block</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ path('admin_change_file_status',{id:file.id, status:'active'}) }}">Unblock</a>
+                                                        </li>
+                                                        <li class="divider"></li>
+                                                        <li><a href="{{ path('admin_file_expire',{id:file.id}) }}">Make expired</a></li>
+                                                        <li><a href="{{ path('admin_file_prolong',{id:file.id}) }}">Prolong expiration</a></li>
+                                                        <li class="divider"></li>
+                                                        <li>
+                                                            <a href="{{ path('admin_change_file_status',{id:file.id, status:'deleted'}) }}">Delete
+                                                                ( soft )</a></li>
+                                                        <li><a href="{{ path('admin_destruct_file',{id:file.id}) }}">Delete
+                                                                ( forever )</a></li>
+                                                        <li class="divider"></li>
+                                                        <li><a href="{{ path('get_file_by_hash', {hash:file.hash}) }}">Download</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                <div class="box-footer clearfix">
+                                    <ul class="pagination pagination-sm no-margin pull-right">
+                                        {% if currentPage > 1 %}
+                                            <li><a href="{{ path('admin_edit_app',{id:app.id,page:currentPage - 1}) }}">«</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if files|length > 9 %}
+                                            <li><a href="{{ path('admin_edit_app',{id:app.id,page:currentPage + 1}) }}">»</a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
 
-                        </div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -89,8 +129,13 @@
 
                             <div class="col-sm-9 pull-right">
                                 <select class="form-control" name="api_app[status]">
-                                    <option {{ app.status == "active" ? "selected" : "" }} value="active">Active</option>
-                                    <option {{ app.status == "suspended" ? "selected" : "" }} value="suspended">Suspended</option>
+                                    <option {{ app.status == "active" ? "selected" : "" }} value="active">Active
+                                    </option>
+                                    <option {{ app.status == "suspended" ? "selected" : "" }} value="suspended">
+                                        Suspended
+                                    </option>
+                                    <option {{ app.status == "deleted" ? "selected" : "" }} value="deleted">Deleted
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -98,7 +143,8 @@
                             <label class="col-sm-3 control-label">Storage</label>
 
                             <div class="col-sm-9 pull-right">
-                                <input type="text" class="form-control pull-right" name="api_app[storage]" id="storage" value="{{ app.storage }}">
+                                <input type="text" class="form-control pull-right" name="api_app[storage]" id="storage"
+                                       value="{{ app.storage }}">
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -106,7 +152,8 @@
                             <label class="col-sm-3 control-label">Limits</label>
 
                             <div class="col-sm-9 pull-right">
-                                <input type="text" class="form-control pull-right" name="api_app[limits]" id="limits" value="{{ app.limits }}">
+                                <input type="text" class="form-control pull-right" name="api_app[limits]" id="limits"
+                                       value="{{ app.limits }}">
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -118,7 +165,8 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" disabled class="form-control pull-right" value="{{ app.updatedAt|date("m/d/Y") }}">
+                                    <input type="text" disabled class="form-control pull-right"
+                                           value="{{ app.updatedAt|date("m/d/Y") }}">
                                 </div>
                             </div>
                             <!-- /.input group -->
@@ -127,34 +175,45 @@
                     <!-- /.box-body -->
                     <div class="box-footer clearfix">
                         <div class="btn-group" style="width: 100%;">
-                            <button type="submit" name="api_app[save]" class="btn btn-primary btn-flat" style="width: calc(100% - 25px);">Save</button>
-                            <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
+                            <button type="submit" name="api_app[save]" class="btn btn-primary btn-flat"
+                                    style="width: calc(100% - 25px);">Save
                             </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Suspend</a></li>
-                                <li><a href="#">Activate</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Create report</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Delete ( soft )</a></li>
-                                <li><a href="#">Delete ( forever )</a></li>
-                            </ul>
+                            {% if app.id is defined and app.id is not null %}
+                                <button type="button" class="btn btn-primary btn-flat dropdown-toggle"
+                                        data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ path('admin_change_app_status',{id:app.id, status:'suspended'}) }}">Suspend</a>
+                                    </li>
+                                    <li><a href="{{ path('admin_change_app_status',{id:app.id, status:'active'}) }}">Activate</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    {#<li><a href="#">Create report</a></li>
+                                    <li class="divider"></li>#}
+                                    <li><a href="{{ path('admin_change_app_status',{id:app.id, status:'deleted'}) }}">Delete
+                                            ( soft )</a></li>
+                                    <li><a href="{{ path('admin_remove_app',{id:app.id}) }}">Delete ( forever )</a></li>
+                                </ul>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="text-center">
-                    <a class="btn btn-app">
-                        <i class="fa fa-thumbs-o-down"></i> Deauthorize
-                    </a>
-                    <a class="btn btn-app">
-                        <i class="fa fa-refresh"></i> Regenerate keys
-                    </a>
-                    <a class="btn btn-app">
-                        <i class="fa  fa-trash"></i> Clear storage
-                    </a>
-                </div>
+                {% if app.id is defined and app.id is not null %}
+                    <div class="text-center">
+                        <a href="{{ path('admin_change_app_status',{id:app.id, status:'suspended'}) }}"
+                           class="btn btn-app">
+                            <i class="fa fa-thumbs-o-down"></i> Suspend
+                        </a>
+                        <a href="{{ path('admin_regen_app_keys',{id:app.id}) }}" class="btn btn-app">
+                            <i class="fa fa-refresh"></i> Regenerate keys
+                        </a>
+                        <a href="{{ path('admin_clear_app_storage',{id:app.id}) }}" class="btn btn-app">
+                            <i class="fa  fa-trash"></i> Clear storage
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </form>
     </div>

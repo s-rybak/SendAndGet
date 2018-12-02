@@ -143,31 +143,35 @@ final class UploadedFileDTO
         $this->groupHash = $groupHash;
     }
 
-	/**
-	 * @return int
-	 */
-	public function getFileLifeTime(): int {
-		return $this->fileLifeTime;
-	}
+    /**
+     * @return int
+     */
+    public function getFileLifeTime(): int
+    {
+        return $this->fileLifeTime;
+    }
 
-	/**
-	 * @param int $fileLifeTime
-	 */
-	public function setFileLifeTime( int $fileLifeTime ): void {
-		$this->fileLifeTime = $fileLifeTime;
-	}
+    /**
+     * @param int $fileLifeTime
+     */
+    public function setFileLifeTime(int $fileLifeTime): void
+    {
+        $this->fileLifeTime = $fileLifeTime;
+    }
 
-	/**
-	 * @return int
-	 */
-	public function getSize(): int {
-		return $this->size;
-	}
+    /**
+     * @return int
+     */
+    public function getSize(): int
+    {
+        return $this->size;
+    }
 
-	/**
-	 * @param int $size
-	 */
-	public function setSize( int $size ): void {
-		$this->size = $size;
-	}
+    /**
+     * @param int $size
+     */
+    public function setSize(int $size): void
+    {
+        $this->size = $size;
+    }
 }

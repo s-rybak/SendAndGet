@@ -45,12 +45,11 @@ trait RepositoryStandartFunctionsTrait
         return $this->findBy([], null, $perpage, ($page - 1) * $perpage);
     }
 
-	public function length(): int {
+    public function length(): int
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->select('COUNT(a)');
 
-		$qb = $this->createQueryBuilder('a');
-		$qb->select('COUNT(a)');
-
-		return intval($qb->getQuery()->getSingleScalarResult());
-
-	}
+        return intval($qb->getQuery()->getSingleScalarResult());
+    }
 }

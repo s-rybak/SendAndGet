@@ -38,13 +38,13 @@ class FilesController extends AbstractController
         $this->uploadDir = $uploadDir;
     }
 
-	/**
-	 * admin files page.
-	 *
-	 * @param int $page
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
+    /**
+     * admin files page.
+     *
+     * @param int $page
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function files(int $page): Response
     {
         return $this->render('admin/files.html.twig', [
@@ -54,15 +54,14 @@ class FilesController extends AbstractController
         ]);
     }
 
-	/**
-	 * admin edit file page.
-	 *
-	 * @param int $id
-	 *
-	 * @param Request $request
-	 *
-	 * @return Response
-	 */
+    /**
+     * admin edit file page.
+     *
+     * @param int     $id
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function editFile(int $id, Request $request): Response
     {
         $file = $this->entitysService->getById($id);
@@ -81,14 +80,14 @@ class FilesController extends AbstractController
         ]);
     }
 
-	/**
-	 * Admin save file.
-	 *
-	 * @param int $id
-	 * @param Request $request
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
+    /**
+     * Admin save file.
+     *
+     * @param int     $id
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function store(int $id, Request $request): Response
     {
         $file = 0 !== $id ? $this->entitysService->getById($id) : new File();
@@ -109,13 +108,13 @@ class FilesController extends AbstractController
         return $this->redirectToRoute('admin_edit_file', ['id' => $file->getId()], 301);
     }
 
-	/**
-	 * admin remove file.
-	 *
-	 * @param int $id
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
+    /**
+     * admin remove file.
+     *
+     * @param int $id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function destruct(int $id): Response
     {
         $file = 0 !== $id ? $this->entitysService->getById($id) : new File();
@@ -124,46 +123,46 @@ class FilesController extends AbstractController
             throw new NotFoundHttpException("File with is $id not found");
         }
 
-        $this->entitysService->remove($file,false);
+        $this->entitysService->remove($file, false);
 
         return $this->redirectToRoute('admin_files', [], 301);
     }
 
-	/**
-	 * admin change Status file.
-	 *
-	 * @param int $id
-	 * @param string $status
-	 * @param Request $request
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-    public function changeStatus(int $id,string $status,Request $request): Response
+    /**
+     * admin change Status file.
+     *
+     * @param int     $id
+     * @param string  $status
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function changeStatus(int $id, string $status, Request $request): Response
     {
-        $file = $this->entitysService->getById($id) ;
+        $file = $this->entitysService->getById($id);
 
         if (null === $file) {
             throw new NotFoundHttpException("File with is $id not found");
         }
 
         $this->entitysService->save(
-        	$file->setStatus($status)
+            $file->setStatus($status)
         );
 
         return $this->redirect(
-	        $request->headers->get('referer')
+            $request->headers->get('referer')
         );
     }
 
-	/**
-	 * admin prolong file expiration.
-	 *
-	 * @param int $id
-	 * @param Request $request
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-    public function prolong(int $id,Request $request): Response
+    /**
+     * admin prolong file expiration.
+     *
+     * @param int     $id
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function prolong(int $id, Request $request): Response
     {
         $file = 0 !== $id ? $this->entitysService->getById($id) : new File();
 
@@ -174,19 +173,19 @@ class FilesController extends AbstractController
         $this->entitysService->prolong($file);
 
         return $this->redirect(
-	        $request->headers->get('referer')
+            $request->headers->get('referer')
         );
     }
 
-	/**
-	 * admin set file expired.
-	 *
-	 * @param int $id
-	 * @param Request $request
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-    public function expire(int $id,Request $request): Response
+    /**
+     * admin set file expired.
+     *
+     * @param int     $id
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function expire(int $id, Request $request): Response
     {
         $file = 0 !== $id ? $this->entitysService->getById($id) : new File();
 
@@ -197,7 +196,7 @@ class FilesController extends AbstractController
         $this->entitysService->expire($file);
 
         return $this->redirect(
-	        $request->headers->get('referer')
+            $request->headers->get('referer')
         );
     }
 }

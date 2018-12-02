@@ -52,8 +52,7 @@ interface FilesServiceInterface
 
     public function getDeletedExpired(int $limit): iterable;
 
-	public function getFileBagSize(FileBag $flies):FileBagSizeDTO;
+    public function getFileBagSize(FileBag $flies): FileBagSizeDTO;
 
-	public function changeAppLimits(ApiApp $app,FileBag $flies): ApiApp;
-
+    public function changeAppLimits(ApiApp $app, FileBag $flies): ApiApp;
 }

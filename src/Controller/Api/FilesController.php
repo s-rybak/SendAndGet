@@ -115,11 +115,11 @@ final class FilesController extends FOSRestController
             $hash = $request->get('groupHash');
             $hash = $hash ? $hash : uniqid();
 
-	        $this->appService->save(
-	        	$this
-		        ->fileService
-		        ->changeAppLimits($this->appApi,$request->files)
-	        );
+            $this->appService->save(
+                $this
+                ->fileService
+                ->changeAppLimits($this->appApi, $request->files)
+            );
 
             $files = $this->fileService->uploadAndSaveFiles($this->appApi->getId(), $request->files, $hash);
         } catch (\Exception $e) {
@@ -162,7 +162,7 @@ final class FilesController extends FOSRestController
         }
 
         $this->fileService->save(
-        	$file->setStatus('deleted')
+            $file->setStatus('deleted')
         );
 
         return $this->view(

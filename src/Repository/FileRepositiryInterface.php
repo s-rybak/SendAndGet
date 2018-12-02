@@ -15,7 +15,7 @@ interface FileRepositiryInterface
 {
     public function save($file);
 
-	public function length():int;
+    public function length(): int;
 
     public function saveMany(array $files): array;
 
@@ -33,12 +33,11 @@ interface FileRepositiryInterface
 
     public function getQueryByHash(int $id, string $hash, int $page = 1, int $perpage = 10): iterable;
 
-    public function getExpired(int $limit):iterable;
+    public function getExpired(int $limit): iterable;
 
-    public function getDeletedExpired(int $limit):iterable;
+    public function getDeletedExpired(int $limit): iterable;
 
-    public function expireAppFiles(int $appId):void;
+    public function expireAppFiles(int $appId): void;
 
-    public function getFilesSize():int;
-
+    public function getFilesSize(): int;
 }

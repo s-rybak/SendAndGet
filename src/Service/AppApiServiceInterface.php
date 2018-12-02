@@ -20,7 +20,7 @@ interface AppApiServiceInterface
 {
     public function save(ApiApp $app): ApiApp;
 
-	public function remove(ApiApp $app): void;
+    public function remove(ApiApp $app): void;
 
     public function getById(int $id): ?ApiApp;
 

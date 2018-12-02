@@ -39,8 +39,8 @@ class FileUploader implements FileUploaderInterface
             $ext,
             'active',
             $this->getGroupHash(),
-	        $this->fileLifeTime,
-	        $file->getSize(),
+            $this->fileLifeTime,
+            $file->getSize(),
             $this->getAppId()
         );
 
@@ -81,10 +81,11 @@ class FileUploader implements FileUploaderInterface
         return $this->appId;
     }
 
-	/**
-	 * @param int $fileLifeTime
-	 */
-	public function setFileLifeTime(int $fileLifeTime ): void {
-		$this->fileLifeTime = $fileLifeTime;
-	}
+    /**
+     * @param int $fileLifeTime
+     */
+    public function setFileLifeTime(int $fileLifeTime): void
+    {
+        $this->fileLifeTime = $fileLifeTime;
+    }
 }

@@ -50,12 +50,12 @@ class AppController extends AbstractController
      */
     public function apps(int $page, string $status): Response
     {
-        $apps = $this->appApiService->getByStatus($status,$page, 10);
+        $apps = $this->appApiService->getByStatus($status, $page, 10);
 
         return $this->render('admin/apps.html.twig', [
             'page' => $this->pageService->getAppApiResource(),
             'apps' => $apps,
-            'currentPage'=>$page
+            'currentPage' => $page,
         ]);
     }
 
@@ -78,8 +78,8 @@ class AppController extends AbstractController
             'page' => $this->pageService->getEditAppApiResource("App #$id"),
             'form' => $form->createView(),
             'app' => $app,
-	        'files'=> $this->fileService->getByAppId($id,$page),
-	        'currentPage'=>$page
+            'files' => $this->fileService->getByAppId($id, $page),
+            'currentPage' => $page,
         ]);
     }
 
@@ -123,99 +123,99 @@ class AppController extends AbstractController
         return $this->redirectToRoute('admin_edit_app', ['id' => $app->getId()], 301);
     }
 
-	/**
-	 * admin change app status.
-	 *
-	 * @param int $id
-	 * @param string $status
-	 * @param Request $request
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-    public function changeStatus(int $id,string $status, Request $request): Response
+    /**
+     * admin change app status.
+     *
+     * @param int     $id
+     * @param string  $status
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function changeStatus(int $id, string $status, Request $request): Response
     {
-	    $app = $this->appApiService->getById($id);
+        $app = $this->appApiService->getById($id);
 
-	    if (null === $app) {
-		    throw new NotFoundHttpException("App with is $id not found");
-	    }
+        if (null === $app) {
+            throw new NotFoundHttpException("App with is $id not found");
+        }
 
-	    $this->appApiService->save(
-		    $app->setStatus($status)
-	    );
+        $this->appApiService->save(
+            $app->setStatus($status)
+        );
 
-	    return $this->redirect(
-		    $request->headers->get('referer')
-	    );
+        return $this->redirect(
+            $request->headers->get('referer')
+        );
     }
 
     /**
-	 * admin remove app.
-	 *
-	 * @param int $id
-	 * @param Request $request
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
+     * admin remove app.
+     *
+     * @param int     $id
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function remove(int $id, Request $request): Response
     {
-	    $app = $this->appApiService->getById($id);
+        $app = $this->appApiService->getById($id);
 
-	    if (null === $app) {
-		    throw new NotFoundHttpException("App with is $id not found");
-	    }
+        if (null === $app) {
+            throw new NotFoundHttpException("App with is $id not found");
+        }
 
-	    $this->appApiService->remove($app);
+        $this->appApiService->remove($app);
 
-	    return $this->redirectToRoute('admin_apps' );
+        return $this->redirectToRoute('admin_apps');
     }
 
     /**
-	 * admin clear app storage.
+     * admin clear app storage.
      * Set App files expired.
-	 *
-	 * @param int $id
-	 * @param Request $request
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
+     *
+     * @param int     $id
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function clearStorage(int $id, Request $request): Response
     {
-	    $app = $this->appApiService->getById($id);
+        $app = $this->appApiService->getById($id);
 
-	    if (null === $app) {
-		    throw new NotFoundHttpException("App with is $id not found");
-	    }
+        if (null === $app) {
+            throw new NotFoundHttpException("App with is $id not found");
+        }
 
-	    $this->fileService->expireAppFiles($id);
+        $this->fileService->expireAppFiles($id);
 
-	    return $this->redirect(
-		    $request->headers->get('referer')
-	    );
+        return $this->redirect(
+            $request->headers->get('referer')
+        );
     }
 
     /**
-	 * admin regenerate app keys.
-	 *
-	 * @param int $id
-	 * @param Request $request
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
+     * admin regenerate app keys.
+     *
+     * @param int     $id
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function regenerateKeys(int $id, Request $request): Response
     {
-	    $app = $this->appApiService->getById($id);
+        $app = $this->appApiService->getById($id);
 
-	    if (null === $app) {
-		    throw new NotFoundHttpException("App with is $id not found");
-	    }
+        if (null === $app) {
+            throw new NotFoundHttpException("App with is $id not found");
+        }
 
-	    $this->appApiService->save(
-		    $this->appApiService->generateKeys($app)
-	    );
+        $this->appApiService->save(
+            $this->appApiService->generateKeys($app)
+        );
 
-	    return $this->redirect(
-		    $request->headers->get('referer')
-	    );
+        return $this->redirect(
+            $request->headers->get('referer')
+        );
     }
 }

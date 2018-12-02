@@ -30,7 +30,7 @@ class AdminController extends AbstractController
     public function __construct(
         AdminPageBuilderInterface $pageService,
         AdminEntityServiceInterface $entitysService,
-	    SiteStatisticServiceIntervace $statisticServiceIntervace
+        SiteStatisticServiceIntervace $statisticServiceIntervace
     ) {
         $this->pageService = $pageService;
         $this->entitysService = $entitysService;
@@ -46,7 +46,7 @@ class AdminController extends AbstractController
     {
         return $this->render('admin/dashboard.html.twig', [
             'page' => $this->pageService->getDashboard(),
-	        'stat' => $this->statisticService->getDashboardStatistic()
+            'stat' => $this->statisticService->getDashboardStatistic(),
         ]);
     }
 

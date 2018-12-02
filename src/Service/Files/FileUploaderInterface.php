@@ -20,7 +20,7 @@ interface FileUploaderInterface
 {
     public function setAppId(int $app_id): void;
 
-	public function setFileLifeTime(int $fileLifeTime ): void;
+    public function setFileLifeTime(int $fileLifeTime): void;
 
     public function setGroupHash(string $group_hash): void;
 

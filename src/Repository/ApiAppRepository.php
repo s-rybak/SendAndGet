@@ -32,20 +32,19 @@ class ApiAppRepository extends ServiceEntityRepository implements ApiAppReposito
     {
         $key_type = 0 === strpos($key, 'live_') ? 'live_key' : 'test_key';
 
-        return $this->findOneBy([$key_type => $key,'status' => [ 'active', 'suspended' ]]);
+        return $this->findOneBy([$key_type => $key, 'status' => ['active', 'suspended']]);
     }
 
-	public function getByStatus( string $status, int $page = 1, int $perpage = 10): iterable {
+    public function getByStatus(string $status, int $page = 1, int $perpage = 10): iterable
+    {
+        return $this->findBy(['status' => $status], null, $perpage, ($page - 1) * $perpage);
+    }
 
-		return $this->findBy(['status'=>$status], null, $perpage, ($page - 1) * $perpage);
+    public function getAppCallsCount(): int
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->select('SUM(a.calls_count)');
 
-	}
-
-	public function getAppCallsCount(): int {
-
-		$qb = $this->createQueryBuilder('a');
-		$qb->select('SUM(a.calls_count)');
-
-		return intval($qb->getQuery()->getSingleScalarResult());
-	}
+        return intval($qb->getQuery()->getSingleScalarResult());
+    }
 }

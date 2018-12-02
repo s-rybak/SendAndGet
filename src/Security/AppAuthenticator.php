@@ -64,28 +64,23 @@ class AppAuthenticator extends AbstractGuardAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user)
     {
+        $this->appApiService->save(
+            $user->setCallsCount($user->getCallsCount() + 1)
+        );
 
-	    $this->appApiService->save(
-		    $user->setCallsCount($user->getCallsCount() + 1)
-	    );
+        if ('suspended' === $user->getStatus()) {
+            throw new CustomUserMessageAuthenticationException(
+                'This app suspended, please contact SAG admin'
+            );
+        }
 
-    	if($user->getStatus() === "suspended"){
+        if ($user->getStorage() <= 0) {
+            throw new CustomUserMessageAuthenticationException(
+                'App storage excided'
+            );
+        }
 
-		    throw new CustomUserMessageAuthenticationException(
-			    'This app suspended, please contact SAG admin'
-		    );
-
-	    }
-
-	    if($user->getStorage() <= 0){
-
-		    throw new CustomUserMessageAuthenticationException(
-			    'App storage excided'
-		    );
-
-	    }
-
-        return 0 === strpos(strtolower($credentials['host']),strtolower($user->getHost())) &&
+        return 0 === strpos(strtolower($credentials['host']), strtolower($user->getHost())) &&
                $this->appApiService->checkAppApiKey($credentials['key'], $user);
     }
 

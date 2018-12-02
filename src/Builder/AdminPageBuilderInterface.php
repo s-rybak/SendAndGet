@@ -10,6 +10,7 @@
 namespace App\Builder;
 
 use App\DTO\AdminPageDTO;
+use App\DTO\SiteStatisticDTO;
 
 /**
  * Interface AdminPageServiceInterface.

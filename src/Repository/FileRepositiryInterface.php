@@ -15,6 +15,8 @@ interface FileRepositiryInterface
 {
     public function save($file);
 
+	public function length():int;
+
     public function saveMany(array $files): array;
 
     public function remove($file): void;
@@ -37,5 +39,6 @@ interface FileRepositiryInterface
 
     public function expireAppFiles(int $appId):void;
 
+    public function getFilesSize():int;
 
 }

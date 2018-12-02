@@ -23,4 +23,5 @@ interface AdminEntityServiceInterface
     public function savePage(Page $page): Page;
 
     public function saveTranslation(PageTranslation $page): PageTranslation;
+
 }

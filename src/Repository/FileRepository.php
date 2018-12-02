@@ -116,4 +116,13 @@ class FileRepository extends ServiceEntityRepository implements FileRepositiryIn
 			->execute();
 
 	}
+
+	public function getFilesSize(): int {
+
+		$qb = $this->createQueryBuilder('a');
+		$qb->select('SUM(a.size)');
+
+		return intval($qb->getQuery()->getSingleScalarResult());
+
+	}
 }

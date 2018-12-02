@@ -11,6 +11,7 @@ namespace App\Builder;
 
 use App\DTO\AdminPageDTO;
 use App\DTO\BreadcrumbsDTO;
+use App\DTO\SiteStatisticDTO;
 
 class AdminPageBuilder implements AdminPageBuilderInterface
 {

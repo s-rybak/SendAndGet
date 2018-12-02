@@ -40,4 +40,12 @@ class ApiAppRepository extends ServiceEntityRepository implements ApiAppReposito
 		return $this->findBy(['status'=>$status], null, $perpage, ($page - 1) * $perpage);
 
 	}
+
+	public function getAppCallsCount(): int {
+
+		$qb = $this->createQueryBuilder('a');
+		$qb->select('SUM(a.calls_count)');
+
+		return intval($qb->getQuery()->getSingleScalarResult());
+	}
 }

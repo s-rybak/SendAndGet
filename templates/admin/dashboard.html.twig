@@ -9,7 +9,7 @@
                     <!-- small box -->
                     <div class="small-box bg-aqua">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3>{{ stat.filesCount }}</h3>
 
                             <p>Files uploaded</p>
                         </div>
@@ -23,8 +23,8 @@
                     <!-- small box -->
                     <div class="small-box bg-green">
                         <div class="inner">
-                            <h3>10 <sup>%</sup></h3>
-                            <p>Storage left</p>
+                            <h3>{{ (stat.storageUsed/1000000000)|number_format(4, '.', ',')  }} <sup>Gb</sup></h3>
+                            <p>Storage used</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
@@ -36,9 +36,9 @@
                     <!-- small box -->
                     <div class="small-box bg-yellow">
                         <div class="inner">
-                            <h3>44</h3>
+                            <h3>{{ stat.appsCount }}</h3>
 
-                            <p>Users</p>
+                            <p>Apps</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
@@ -50,8 +50,8 @@
                     <!-- small box -->
                     <div class="small-box bg-red">
                         <div class="inner">
-                            <h3>65</h3>
-                            <p>Reports</p>
+                            <h3>{{ stat.apiCalls }}</h3>
+                            <p>Calls</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
@@ -62,7 +62,7 @@
             </div>
             <!-- /.row -->
             <!-- Main row -->
-            <div class="row">
+            {#<div class="row">
                 <!-- Left col -->
                 <section class="col-lg-7 connectedSortable">
 
@@ -159,12 +159,12 @@
                             </div>
                             <!-- /.row -->
                         </div>
-                        <!-- /.box-footer -->
+                         <!-- /.box-footer -->
                     </div>
 
                 </section>
                 <!-- right col -->
-            </div>
+            </div>#}
             <!-- /.row (main row) -->
 
 {% endblock %}

@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use App\Builder\AdminPageBuilderInterface;
 use App\Service\Admin\AdminEntityServiceInterface;
+use App\Service\SiteStatisticServiceIntervace;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,13 +25,16 @@ class AdminController extends AbstractController
 {
     private $pageService;
     private $entitysService;
+    private $statisticService;
 
     public function __construct(
         AdminPageBuilderInterface $pageService,
-        AdminEntityServiceInterface $entitysService
+        AdminEntityServiceInterface $entitysService,
+	    SiteStatisticServiceIntervace $statisticServiceIntervace
     ) {
         $this->pageService = $pageService;
         $this->entitysService = $entitysService;
+        $this->statisticService = $statisticServiceIntervace;
     }
 
     /**
@@ -42,6 +46,7 @@ class AdminController extends AbstractController
     {
         return $this->render('admin/dashboard.html.twig', [
             'page' => $this->pageService->getDashboard(),
+	        'stat' => $this->statisticService->getDashboardStatistic()
         ]);
     }
 

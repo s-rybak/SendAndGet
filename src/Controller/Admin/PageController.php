@@ -14,6 +14,7 @@ use App\Entity\Page;
 use App\Entity\PageTranslation;
 use App\Form\PageType;
 use App\Service\Admin\AdminEntityServiceInterface;
+use App\Service\Files\FilesServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,13 +28,16 @@ class PageController extends AbstractController
 {
     private $pageBuilder;
     private $entitysService;
+    private $filesService;
 
     public function __construct(
         AdminPageBuilderInterface $pageBuilder,
-        AdminEntityServiceInterface $entitysService
+        AdminEntityServiceInterface $entitysService,
+	    FilesServiceInterface $filesService
     ) {
         $this->pageBuilder = $pageBuilder;
         $this->entitysService = $entitysService;
+        $this->filesService = $filesService;
     }
 
     /**
@@ -112,14 +116,21 @@ class PageController extends AbstractController
         $id = $request->get('id');
 
         $page = $this->entitysService->getPageById($id);
+        $image = $this->filesService->getByHash($image);
 
         if (null === $page) {
-            throw new NotFoundHttpException("Page with is $id not found");
+            throw new NotFoundHttpException("Page with id $id not found");
         }
 
-        $page->setImage($image);
+        if (null === $image) {
+            throw new NotFoundHttpException("Image with hash $image not found");
+        }
+
+	    $image->setStatus("site_file");
+        $page->setImage("/s/".$image->getHash());
 
         $this->entitysService->savePage($page);
+        $this->filesService->save($image);
 
         return $this->json(['status' => 'success']);
     }

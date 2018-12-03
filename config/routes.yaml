@@ -47,6 +47,11 @@ get_file_by_hash:
     controller: App\Controller\FileController::getFileByHash
     methods: [get]
 
+get_site_file_by_hash:
+    path: /s/{hash}
+    controller: App\Controller\FileController::getSiteFileByHash
+    methods: [get]
+
 get_zip_by_hash:
     path: /g/{hash}
     controller: App\Controller\FileController::getAllFilesByHash

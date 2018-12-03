@@ -59,6 +59,7 @@
                                 <option {{ file.status == "blocked" ? "selected" : "" }} value="blocked">Blocked</option>
                                 <option {{ file.status == "deleted" ? "selected" : "" }} value="deleted">Deleted</option>
                                 <option {{ file.status == "reported" ? "selected" : "" }} value="reported">Reported</option>
+                                <option {{ file.status == "site_file" ? "selected" : "" }} value="site_file">Site File</option>
                             </select>
                         </div>
                     </div>
@@ -69,6 +70,7 @@
                             <input type="text" disabled class="form-control pull-right" value="100mb" id="datepicker">
                         </div>
                     </div>#}
+                    {% if file.status is defined and file.status != "site_file"%}
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Time left</label>
 
@@ -80,6 +82,7 @@
                         </div>
                         <!-- /.input group -->
                     </div>
+                    {% endif %}
                     <div class="form-group">
                         <label for="inputStatus" class="col-sm-2 control-label">Size</label>
 
@@ -142,7 +145,11 @@
                             <li><a href="{{ path('admin_destruct_file',{id:file.id}) }}">Delete ( forever )</a></li>
                             <li class="divider"></li>
                             {#<li><a href="#">Replace</a></li>#}
-                            <li><a href="{{ path('get_file_by_hash', {hash:file.hash}) }}">Download</a></li>
+                            {% if file.status is defined and file.status != "site_file" %}
+                                <li><a href="{{ path('get_file_by_hash', {hash:file.hash}) }}">Download</a></li>
+                            {% else %}
+                                <li><a href="{{ path('get_site_file_by_hash', {hash:file.hash}) }}">Download</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
@@ -155,9 +162,16 @@
                     <i class="fa fa-thumbs-o-down"></i> Make expired
                 </a>
 
-                <a href="{{ path('get_file_by_hash', {hash:file.hash}) }}" class="btn btn-app">
-                    <i class="fa fa-download"></i> Download
-                </a>
+                {% if file.status is defined and file.status != "site_file" %}
+                    <a href="{{ path('get_file_by_hash', {hash:file.hash}) }}" class="btn btn-app">
+                        <i class="fa fa-download"></i> Download
+                    </a>
+                {% else %}
+                    <a href="{{ path('get_site_file_by_hash', {hash:file.hash}) }}" class="btn btn-app">
+                        <i class="fa fa-download"></i> Download
+                    </a>
+                {% endif %}
+
             </div>
            {# <a class="btn btn-app">
                 <i class="fa fa-pause"></i> Create report

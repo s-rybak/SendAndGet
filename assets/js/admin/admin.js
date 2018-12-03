@@ -45,7 +45,7 @@ jQuery(function ($) {
 
                     $.post('/admin/page/image/',{
                         id:$pageImageUpload.data('id'),
-                        image:location.origin+"/f/"+files[0].hash
+                        image:files[0].hash
                     },function (resp) {
                         location.reload();
                     });

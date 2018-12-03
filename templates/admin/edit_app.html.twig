@@ -61,10 +61,15 @@
                                             <td>{{ file.name }}</td>
                                             <td>{{ file.status }}</td>
                                             <td>
-                                                <div class="progress progress-xs progress-striped active">
-                                                    <div class="progress-bar progress-bar-primary" style="width: {{ file.timeLeft }}%"></div>
-                                                </div>
-                                                <span class="badge bg-light-blue">{{ file.timeLeft }}%</span>
+                                                {% if file.status is defined and file.status != "site_file" %}
+                                                    <div class="progress progress-xs progress-striped active">
+                                                        <div class="progress-bar progress-bar-primary"
+                                                             style="width: {{ file.timeLeft }}%"></div>
+                                                    </div>
+                                                    <span class="badge bg-light-blue">{{ file.timeLeft }}%</span>
+                                                {% else %}
+                                                    <span class="badge bg-light-blue">unlimited</span>
+                                                {% endif %}
                                             </td>
                                             <td>
                                                 <div class="btn-group">
@@ -82,8 +87,10 @@
                                                             <a href="{{ path('admin_change_file_status',{id:file.id, status:'active'}) }}">Unblock</a>
                                                         </li>
                                                         <li class="divider"></li>
-                                                        <li><a href="{{ path('admin_file_expire',{id:file.id}) }}">Make expired</a></li>
-                                                        <li><a href="{{ path('admin_file_prolong',{id:file.id}) }}">Prolong expiration</a></li>
+                                                        <li><a href="{{ path('admin_file_expire',{id:file.id}) }}">Make
+                                                                expired</a></li>
+                                                        <li><a href="{{ path('admin_file_prolong',{id:file.id}) }}">Prolong
+                                                                expiration</a></li>
                                                         <li class="divider"></li>
                                                         <li>
                                                             <a href="{{ path('admin_change_file_status',{id:file.id, status:'deleted'}) }}">Delete
@@ -91,8 +98,16 @@
                                                         <li><a href="{{ path('admin_destruct_file',{id:file.id}) }}">Delete
                                                                 ( forever )</a></li>
                                                         <li class="divider"></li>
-                                                        <li><a href="{{ path('get_file_by_hash', {hash:file.hash}) }}">Download</a>
-                                                        </li>
+                                                        {% if file.status is defined and file.status != "site_file" %}
+                                                            <li>
+                                                                <a href="{{ path('get_file_by_hash', {hash:file.hash}) }}">Download</a>
+                                                            </li>
+                                                        {% else %}
+                                                            <li>
+                                                                <a href="{{ path('get_site_file_by_hash', {hash:file.hash}) }}">Download</a>
+                                                            </li>
+                                                        {% endif %}
+
                                                     </ul>
                                                 </div>
                                             </td>

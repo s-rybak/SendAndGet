@@ -47,6 +47,21 @@ class FileController extends AbstractController
         return $this->file($this->uploadDir.$file->getPath().$file->getName());
     }
 
+    public function getSiteFileByHash(string $hash): Response
+    {
+        $file = $this->service->getByHash($hash);
+
+        if (null == $file || 'deleted' === $file->getStatus()) {
+            throw new NotFoundHttpException("File $hash not found");
+        }
+
+        if ('site_file' !== $file->getStatus()) {
+            throw new NotFoundHttpException("File $hash was blocked for download");
+        }
+
+        return $this->file($this->uploadDir.$file->getPath().$file->getName());
+    }
+
     public function getAllFilesByHash(string $hash): Response
     {
         try {

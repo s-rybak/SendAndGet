@@ -97,4 +97,11 @@ class Page
 
         return $this;
     }
+
+    public function __call($method, $arguments)
+    {
+        $method = false === strpos($method, 'get') ? 'get'.ucfirst($method) : $method;
+
+        return $this->translate($this->getCurrentLocale())->$method();
+    }
 }

@@ -30,21 +30,21 @@ class MainController extends AbstractController
         $this->service = $service;
     }
 
-	/**
-	 * Index page.
-	 *
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
+    /**
+     * Index page.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function index(): Response
     {
-        return $this->render('main/index.html.twig',[
-        	'send'=>$this->service->getMainPageSend(
-		        $this->service->getCurrentLocale()
-	        ),
-	        'get'=>$this->service->getMainPageGet(
-		        $this->service->getCurrentLocale()
-	        ),
-			'locale'=>$this->service->getCurrentLocale()
+        return $this->render('main/index.html.twig', [
+            'send' => $this->service->getMainPageSend(
+                $this->service->getCurrentLocale()
+            ),
+            'get' => $this->service->getMainPageGet(
+                $this->service->getCurrentLocale()
+            ),
+            'locale' => $this->service->getCurrentLocale(),
         ]);
     }
 
@@ -55,7 +55,7 @@ class MainController extends AbstractController
                 'page' => $this->service->getAboutUs(
                     $this->service->getCurrentLocale()
                 ),
-                'locale'=>$this->service->getCurrentLocale()
+                'locale' => $this->service->getCurrentLocale(),
             ]);
         } catch (EntityNotFoundException $e) {
             throw new NotFoundHttpException($e->getMessage());
@@ -69,7 +69,7 @@ class MainController extends AbstractController
                 'page' => $this->service->getContuctAs(
                     $this->service->getCurrentLocale()
                 ),
-                'locale'=>$this->service->getCurrentLocale()
+                'locale' => $this->service->getCurrentLocale(),
             ]);
         } catch (EntityNotFoundException $e) {
             throw new NotFoundHttpException($e->getMessage());
@@ -83,7 +83,7 @@ class MainController extends AbstractController
                 'page' => $this->service->getTOS(
                     $this->service->getCurrentLocale()
                 ),
-                'locale'=>$this->service->getCurrentLocale()
+                'locale' => $this->service->getCurrentLocale(),
             ]);
         } catch (EntityNotFoundException $e) {
             throw new NotFoundHttpException($e->getMessage());
@@ -97,7 +97,7 @@ class MainController extends AbstractController
                 'page' => $this->service->getStatistic(
                     $this->service->getCurrentLocale()
                 ),
-                'locale'=>$this->service->getCurrentLocale()
+                'locale' => $this->service->getCurrentLocale(),
             ]);
         } catch (EntityNotFoundException $e) {
             throw new NotFoundHttpException($e->getMessage());
@@ -111,7 +111,7 @@ class MainController extends AbstractController
                 'page' => $this->service->getAPI(
                     $this->service->getCurrentLocale()
                 ),
-                'locale'=>$this->service->getCurrentLocale()
+                'locale' => $this->service->getCurrentLocale(),
             ]);
         } catch (EntityNotFoundException $e) {
             throw new NotFoundHttpException($e->getMessage());
@@ -125,7 +125,7 @@ class MainController extends AbstractController
                 'page' => $this->service->getFAQ(
                     $this->service->getCurrentLocale()
                 ),
-                'locale'=>$this->service->getCurrentLocale()
+                'locale' => $this->service->getCurrentLocale(),
             ]);
         } catch (EntityNotFoundException $e) {
             throw new NotFoundHttpException($e->getMessage());

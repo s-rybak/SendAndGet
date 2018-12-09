@@ -33,7 +33,7 @@ class PageController extends AbstractController
     public function __construct(
         AdminPageBuilderInterface $pageBuilder,
         AdminEntityServiceInterface $entitysService,
-	    FilesServiceInterface $filesService
+        FilesServiceInterface $filesService
     ) {
         $this->pageBuilder = $pageBuilder;
         $this->entitysService = $entitysService;
@@ -126,8 +126,8 @@ class PageController extends AbstractController
             throw new NotFoundHttpException("Image with hash $image not found");
         }
 
-	    $image->setStatus("site_file");
-        $page->setImage("/s/".$image->getHash());
+        $image->setStatus('site_file');
+        $page->setImage('/s/'.$image->getHash());
 
         $this->entitysService->savePage($page);
         $this->filesService->save($image);

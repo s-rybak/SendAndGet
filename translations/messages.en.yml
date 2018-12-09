@@ -1,31 +1,31 @@
-Faq: __Faq
-Statistic: __Statistic
-'About us': '__About us'
-'Contact us': '__Contact us'
-Developers: __Developers
-'Terms and conditions': '__Terms and conditions'
-Home: __Home
-Api: __Api
-'How to ?': '__How to ?'
-'Sed files': '__Sed files'
-'Get files': '__Get files'
-'Find files in my location': '__Find files in my location'
-'Get files by email': '__Get files by email'
-Back: __Back
-'Select files': '__Select files'
-Files: __Files
-Name: __Name
-Progress: __Progress
-Actions: __Actions
-'Link to all files': '__Link to all files'
-'Send link': '__Send link'
-'Copy link (direct)': '__Copy link (direct)'
-'Copy group id': '__Copy group id'
-'Delete file': '__Delete file'
-'Search files': '__Search files'
-Go!: __Go!
-'Send files': '__Send files'
-'File id or Group id': '__File id or Group id'
-'Email, file id': '__Email, file id'
-'By clicking this ( placed above this text ) button': '__By clicking this ( placed above this text ) button'
-'I agree with': '__I agree with'
+Faq: Faq
+Statistic: Statistic
+'About us': 'About us'
+'Contact us': 'Contact us'
+Developers: Developers
+'Terms and conditions': 'Terms and conditions'
+Home: Home
+Api: Api
+'How to ?': 'How to ?'
+'Sed files': 'Sed files'
+'Get files': 'Get files'
+'Find files in my location': 'Find files in my location'
+'Get files by email': 'Get files by email'
+Back: Back
+'Select files': 'Select files'
+Files: Files
+Name: Name
+Progress: Progress
+Actions: Actions
+'Link to all files': 'Link to all files'
+'Send link': 'Send link'
+'Copy link (direct)': 'Copy link (direct)'
+'Copy group id': 'Copy group id'
+'Delete file': 'Delete file'
+'Search files': 'Search files'
+Go!: Go!
+'Send files': 'Send files'
+'File id or Group id': 'File id or Group id'
+'Email, file id': 'Email, file id'
+'By clicking this ( placed above this text ) button': 'By clicking this ( placed above this text ) button'
+'I agree with': 'I agree with'

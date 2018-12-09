@@ -177,10 +177,8 @@ class User implements UserInterface, \Serializable
         ] = \unserialize($serialized, ['allowed_classes' => true]);
     }
 
-    public function getLocale():string
+    public function getLocale(): string
     {
-
-    	return "ua";
-
+        return 'ua';
     }
 }

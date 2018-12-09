@@ -12,30 +12,30 @@
                     <li class="nav-item">
                         <a class="nav-link nav-lang" href="{{ path("set_locale",{ locale:'en' }) }}">En</a>
                     </li>
-                    <li class="nav-item">
+                    {#<li class="nav-item">
                         <a class="nav-link nav-lang" href="{{ path("set_locale",{ locale:'de' }) }}">De</a>
-                    </li>
+                    </li>#}
                 </ul>
             </div>
             <div class="col-sm-6">
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path("faq") }}">Faq</a>
+                        <a class="nav-link" href="{{ path("faq") }}">{{ 'Faq' | trans({}, "messages", locale) }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path("statistic") }}">Statistic</a>
+                        <a class="nav-link" href="{{ path("statistic") }}">{{ 'Statistic' | trans({}, "messages", locale) }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path("about_us") }}">About us</a>
+                        <a class="nav-link" href="{{ path("about_us") }}">{{ 'About us' | trans({}, "messages", locale) }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path("contact_us") }}">Contact us</a>
+                        <a class="nav-link" href="{{ path("contact_us") }}">{{ 'Contact us' | trans({}, "messages", locale) }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path("api") }}">Developers</a>
+                        <a class="nav-link" href="{{ path("api") }}">{{ 'Developers' | trans({}, "messages", locale) }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path("tos") }}">Terms and conditions</a>
+                        <a class="nav-link" href="{{ path("tos") }}">{{ 'Terms and conditions' | trans({}, "messages", locale) }}</a>
                     </li>
                 </ul>
             </div>

@@ -16,14 +16,15 @@
         <section class="col-sm-6 section-send">
             <div class="show-row">
                 <div class="left-side">
-                    <h1 class="main-head">Send</h1>
+                    <h1 class="main-head">{{ send.page.title }}</h1>
                     <h2 class="main-and"><span>And</span></h2>
                     <div class="main-container">
                         <div class="row">
                             <div class="col-sm-2"></div>
                             <div class="col-sm-8">
                                 <p class="simple-text min color-green text-center block-1">
-                                    Send every files ( photo, music, documents, etc.) you want. <br>
+                                    {{ send.page.content|raw }}
+                                    {#Send every files ( photo, music, documents, etc.) you want. <br>
                                     Get
                                     <sapn class="highlight">direct</sapn>
                                     links. <br>
@@ -32,7 +33,7 @@
                                     . <br>
                                     Attach files to
                                     <sapn class="highlight">user</sapn>
-                                    , location, email, time, etc. <br>
+                                    , location, email, time, etc. <br>#}
                                 </p>
                             </div>
                             <div class="col-sm-2"></div>
@@ -40,9 +41,10 @@
                         <div class="row margin-top-row">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-6">
-                                <button type="button" id="select-files" class="btn btn-primary btn-lg btn-block">Select
-                                    files
+                                <button type="button" id="select-files" class="btn btn-primary btn-lg btn-block">{{ 'Select files' | trans({}, "messages", locale) }}
                                 </button>
+                                <p class="simple-text min color-green text-center block-1 terms-agree-text">{{ 'By clicking this ( placed above this text ) button' | trans({}, "messages", locale) }} {{ 'I agree with' | trans({}, "messages", locale) | raw }}<a target="_blank" href="{{ path("tos") }}"> {{ 'Terms and conditions' | trans({}, "messages", locale) }}</a>
+                                </p>
                             </div>
                             <div class="col-sm-3"></div>
                         </div>
@@ -56,16 +58,16 @@
                             <div class="col-sm-12" id="filesList">
                                 <div class="box">
                                     <div class="box-header">
-                                        <h3 class="box-title">Files</h3>
+                                        <h3 class="box-title">{{ 'Files' | trans({}, "messages", locale) }}</h3>
                                     </div>
                                     <!-- /.box-header -->
                                     <div class="box-body no-padding">
                                         <table class="table table-striped">
                                             <thead>
                                             <tr>
-                                                <th style="width: 100px;">Name</th>
-                                                <th>Progress</th>
-                                                <th style="width: 200px;">Actions</th>
+                                                <th style="width: 100px;">{{ 'Name' | trans({}, "messages", locale) }}</th>
+                                                <th>{{ 'Progress' | trans({}, "messages", locale) }}</th>
+                                                <th style="width: 200px;">{{ 'Actions' | trans({}, "messages", locale) }}</th>
                                             </tr>
                                             </thead>
                                         </table>
@@ -83,25 +85,27 @@
                                 </div>
                             </div>
                             <p class="col-sm-12 important-text min color-green text-center link-section-text">
-                                Link to all files
+                                {{ 'Link to all files' | trans({}, "messages", locale) }}
                             </p>
                             <div class="col-sm-12 link-section">
                                 <div class="input-group input-group-lg">
                                     <div class="input-group-prepend">
                                         <button class="btn btn-outline-secondary dropdown-toggle send-link-btn"
                                                 type="button" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">Send link
+                                                aria-expanded="false">{{ 'Send link' | trans({}, "messages", locale) }}
                                         </button>
                                         <div class="dropdown-menu">
                                             {#<a class="dropdown-item" href="#">Copy link (file page)</a>#}
-                                            <a class="dropdown-item" id="groupLinkCopy" href="#">Copy link (direct)</a>
-                                            <a class="dropdown-item" id="groupIdCopy" href="#">Copy group id</a>
+                                            <a class="dropdown-item" id="groupLinkCopy" href="#">{{ 'Copy link (direct)' | trans({}, "messages", locale) }}</a>
+                                            <a class="dropdown-item" id="groupIdCopy" href="#">{{ 'Copy group id' | trans({}, "messages", locale) }}</a>
                                            {# <a class="dropdown-item" href="#">Send to email</a>
                                             <a class="dropdown-item" href="#">Send to user</a>
                                             <a class="dropdown-item" href="#">Send to user</a>
                                             <a class="dropdown-item" href="#">Send to location</a>#}
+{#
                                             <div role="separator" class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Delete file</a>
+                                            <a class="dropdown-item" href="#">{{ 'Delete file' | trans({}, "messages", locale) }}</a>
+#}
                                         </div>
                                     </div>
                                     <input type="text" id="downloadLink" class="form-control"
@@ -109,13 +113,14 @@
                                 </div>
                             </div>
                             <p class="col-sm-12 simple-text min color-green text-center">
-                                You always can send file to
+                                {{ send.page.excerpt|raw }}
+                               {# You always can send file to
                                 <sapn class="highlight">user</sapn>
                                 ,
                                 <sapn class="highlight">location</sapn>
                                 ,
                                 <sapn class="highlight">email</sapn>
-                                . Just click on triangle near "Send link" button
+                                . Just click on triangle near "Send link" button#}
                             </p>
                         </div>
 
@@ -138,14 +143,14 @@
                     </div>#}
                     <div class="col-sm-12 get-files-by-section">
                         <p class="col-sm-12 important-text min color-white text-center get-files-by-text">
-                            Search files
+                            {{ 'Search files' | trans({}, "messages", locale) }}
                         </p>
                         <div class="input-group input-group-lg col-md-12">
-                            <input type="text" class="form-control" placeholder="File id or Group id"
-                                   aria-label="Email, file id" aria-describedby="button-addon2" id="searchInput">
+                            <input type="text" class="form-control" placeholder="{{ 'File id or Group id' | trans({}, "messages", locale) }}"
+                                   aria-label="{{ 'Email, file id' | trans({}, "messages", locale) }}" aria-describedby="button-addon2" id="searchInput">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary search-files-button" type="button"
-                                        id="buttonSearch">Go!
+                                        id="buttonSearch">{{ 'Go!' | trans({}, "messages", locale) }}
                                 </button>
                             </div>
                         </div>
@@ -166,14 +171,15 @@
                     </div>
                 </div>
                 <div class="right-side">
-                    <h1 class="main-head">Get</h1>
+                    <h1 class="main-head">{{ get.page.title }}</h1>
                     <h2 class="main-and"><span>And</span></h2>
                     <div class="main-container">
                         <div class="row">
                             <div class="col-sm-2"></div>
                             <div class="col-sm-8">
                                 <p class="simple-text min color-white text-center block-1">
-                                    Get files from another
+                                    {{ get.page.content|raw }}
+                                    {#Get files from another
                                     <sapn class="highlight">user</sapn>
                                     <br>
                                     Search files in current
@@ -183,7 +189,7 @@
                                     <sapn class="highlight">email</sapn>
                                     <br>
                                     Get files by its
-                                    <sapn class="highlight">file id</sapn>
+                                    <sapn class="highlight">file id</sapn>#}
                                 </p>
                             </div>
                             <div class="col-sm-2"></div>
@@ -191,8 +197,7 @@
                         <div class="row margin-top-row">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-6">
-                                <button type="button" id="get-files" class="btn btn-primary btn-lg btn-block">Get
-                                    files
+                                <button type="button" id="get-files" class="btn btn-primary btn-lg btn-block">{{ 'Get files' | trans({}, "messages", locale) }}
                                 </button>
                             </div>
                             <div class="col-sm-3"></div>

@@ -114,7 +114,7 @@ class AdminPageBuilder implements AdminPageBuilderInterface
     {
         $resource = new AdminPageDTO();
 
-        $resource->setTitle('Sand and Get');
+        $resource->setTitle('Send and Get');
         $resource->setDescription('Admin dashboard');
 
         return $resource;

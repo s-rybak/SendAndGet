@@ -7,7 +7,7 @@
 
     .page-main .content .section-send, .page-main .content .section-get {
         min-height: calc( calc( 100vh / 2 ) - 20px );
-        padding-bottom: 20px;
+        padding-bottom: 8px;
     }
 
     .page-main .content h1.main-head{
@@ -16,7 +16,7 @@
     }
 
     .page-main .content .margin-top-row{
-        margin-top: 10px;
+        margin-top: 0px;
     }
 
     .page-main .content .section-get.active{
@@ -29,5 +29,17 @@
 
     .page-main .content .section-get.collapsed{
         transition:opacity 0s, max-width 0s
+    }
+
+    .page-main .content .simple-text.min{
+        line-height: 23px;
+    }
+    .page-main .content .block-1{
+        margin-bottom: 7px;
+    }
+
+    .page-main .content .simple-text.min.terms-agree-text{
+        margin-top: 4px;
+        line-height: 13px;
     }
 }

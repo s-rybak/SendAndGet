@@ -20,6 +20,10 @@ use App\DTO\MainPageDTO;
  */
 interface MainPageServiceInterface
 {
+    public function getMainPageGet(string $lang = 'en'): MainPageDTO;
+
+    public function getMainPageSend(string $lang = 'en'): MainPageDTO;
+
     public function getAboutUs(string $lang = 'en'): MainPageDTO;
 
     public function getContuctAs(string $lang = 'en'): MainPageDTO;

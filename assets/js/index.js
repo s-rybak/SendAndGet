@@ -4,6 +4,7 @@ require('sweetalert/dist/sweetalert.min');
 let jQuery = require('jquery');
 let Files = require('./libs/Files');
 let TextLoader = require('./libs/TextLoader');
+let trans = require("./libs/Locale");
 
 
 jQuery(function ($) {
@@ -26,13 +27,13 @@ jQuery(function ($) {
 
     $selectFiles.click(function () {
 
-        SelectLoader.setTitle("Selecting files");
+        SelectLoader.setTitle(trans("Selecting files"));
         SelectLoader.startLoading();
 
         Uploader.SelectFiles(true)
             .then(function (files) {
 
-                SelectLoader.setTitle("Uploading");
+                SelectLoader.setTitle(trans("Uploading"));
 
                 let html = "";
                 let uid  = (Date.now()).toString(32);
@@ -54,12 +55,12 @@ jQuery(function ($) {
                                                 class="btn btn-secondary dropdown-toggle send-link-btn"
                                                 data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
-                                            Actions
+                                            ${trans('Actions')}
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                            <a class="dropdown-item direct-link" href="#">Copy link ( direct )</a>
-                                            <a class="dropdown-item direct-id" href="#">Copy file id</a>
-                                            <a class="dropdown-item delete-link" href="#">Delete</a>
+                                            <a class="dropdown-item direct-link" href="#">${trans('Copy link ( direct )')}</a>
+                                            <a class="dropdown-item direct-id" href="#">${trans('Copy file id')}</a>
+                                            <a class="dropdown-item delete-link" href="#">${trans('Delete')}</a>
                                         </div>
                                     </div>
                                 </td>
@@ -97,7 +98,7 @@ jQuery(function ($) {
                     SelectLoader.stopLoading();
                     SelectLoader.showMesage('Error');
 
-                    swal('Error',msg,'error').then(function () {
+                    swal(trans('Error'),msg,'error').then(function () {
                         $('.files.'+uid).remove();
                     });
 
@@ -138,11 +139,11 @@ jQuery(function ($) {
                                                 class="btn btn-secondary dropdown-toggle send-link-btn"
                                                 data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
-                                            Actions
+                                            ${trans('Actions')}
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                            <a class="dropdown-item direct-link" href="${location.origin+"/f/"+file.hash}">Copy link ( direct )</a>
-                                            <a class="dropdown-item" href="${location.origin+"/f/"+file.hash}">Download</a>
+                                            <a class="dropdown-item direct-link" href="${location.origin+"/f/"+file.hash}">${trans('Copy link ( direct )')}</a>
+                                            <a class="dropdown-item" href="${location.origin+"/f/"+file.hash}">${trans('Download')}</a>
                                         </div>
                                     </div>
                                 </td>
@@ -150,11 +151,11 @@ jQuery(function ($) {
 
                     });
 
-                    $searchResults.html(html.length > 0 ? html : "<p class='simple-text min color-white text-center block-1'>Nothing not found</p>");
+                    $searchResults.html(html.length > 0 ? html : `<p class='simple-text min color-white text-center block-1'>${trans('Nothing not found')}</p>`);
 
             }).catch(function (msg) {
 
-                swal("Error",msg,'error');
+                swal(trans("Error"),msg,'error');
 
             })
 
@@ -174,10 +175,10 @@ jQuery(function ($) {
         if(!res){
 
             swal({
-                text: 'Here yor id, you can copy it by clicking ctrl + c',
+                text: trans('Here yor id, you can copy it by clicking ctrl + c'),
                 content: "input",
                 button: {
-                    text: "Search!",
+                    text: trans("Search!"),
                     closeModal: false,
                 },
                 onOpen:()=>{
@@ -187,7 +188,7 @@ jQuery(function ($) {
 
         }else{
 
-            swal('Id copied')
+            swal(trans('Id copied'));
 
         }
 
@@ -200,10 +201,10 @@ jQuery(function ($) {
         if(!res){
 
             swal({
-                text: 'Here yor link, you can copy it by clicking ctrl + c',
+                text: trans('Here yor link, you can copy it by clicking ctrl + c'),
                 content: "input",
                 button: {
-                    text: "Search!",
+                    text: trans("Search!"),
                     closeModal: false,
                 },
                 onOpen:()=>{
@@ -213,7 +214,7 @@ jQuery(function ($) {
 
         }else{
 
-            swal('Link copied')
+            swal(trans('Link copied'));
 
         }
     });
@@ -227,7 +228,7 @@ jQuery(function ($) {
 
         }).catch(function (msg) {
 
-            swal('Error',msg,'error');
+            swal(trans('Error'),msg,'error');
 
         })
 
@@ -246,10 +247,10 @@ jQuery(function ($) {
         if(!res){
 
             swal({
-                text: 'Here yor link, you can copy it by clicking ctrl + c',
+                text: trans('Here yor link, you can copy it by clicking ctrl + c'),
                 content: "input",
                 button: {
-                    text: "Search!",
+                    text: trans("Search!"),
                     closeModal: false,
                 },
                 onOpen:()=>{
@@ -259,7 +260,7 @@ jQuery(function ($) {
 
         }else{
 
-            swal('Link copied')
+            swal(trans('Link copied'));
 
         }
 

@@ -33,18 +33,24 @@ final class Version20181113094255 extends AbstractMigration
 						( 4,'ua','Statistic','Statistic page','initial content for Statistic page'),
 						( 5,'ua','Terms and conditions','Terms and conditions','initial content for Terms and conditions page'),
 						( 6,'ua','Api','Api','initial content for Api page' ),
+						( 7,'ua','Send','You always can send file to <span class=\"highlight\">user</span>, <span class=\"highlight\">location</span>, <span class=\"highlight\">email</span>. Just click on triangle near \"Send link\" button','Send every files ( photo, music, documents, etc.) you want. <br>Get<span class=\"highlight\">direct</span>links. <br>Configure<span class=\"highlight\">security</span>.<br>Attach files to<span class=\"highlight\">user</span>, location, email, time, etc. <br>' ),
+						( 8,'ua','Get','Get','Get files from another <span class=\"highlight\">user</span><br>Search files in current <span class=\"highlight\">location</span><br>Find files attached to your<span class=\"highlight\">email</span><br>Get files by its <span class=\"highlight\">file id</span>' ),
 						( 1,'de','Faq','frequently asked questions','initial content for frequently asked questions'),
 						( 2,'de','About us','About us page','initial content for About us page'),
 						( 3,'de','Contact us','Contact us page','initial content for Contact us page'),
 						( 4,'de','Statistic','Statistic page','initial content for Statistic page'),
 						( 5,'de','Terms and conditions','Terms and conditions','initial content for Terms and conditions page'),
 						( 6,'de','Api','Api','initial content for Api page' ),
+						( 7,'de','Send','You always can send file to <span class=\"highlight\">user</span>, <span class=\"highlight\">location</span>, <span class=\"highlight\">email</span>. Just click on triangle near \"Send link\" button','Send every files ( photo, music, documents, etc.) you want. <br>Get<span class=\"highlight\">direct</span>links. <br>Configure<span class=\"highlight\">security</span>.<br>Attach files to<span class=\"highlight\">user</span>, location, email, time, etc. <br>' ),
+						( 8,'de','Get','Get','Get files from another <span class=\"highlight\">user</span><br>Search files in current <span class=\"highlight\">location</span><br>Find files attached to your<span class=\"highlight\">email</span><br>Get files by its <span class=\"highlight\">file id</span>' ),
 						( 1,'en','Faq','frequently asked questions','initial content for frequently asked questions'),
 						( 2,'en','About us','About us page','initial content for About us page'),
 						( 3,'en','Contact us','Contact us page','initial content for Contact us page'),
 						( 4,'en','Statistic','Statistic page','initial content for Statistic page'),
 						( 5,'en','Terms and conditions','Terms and conditions','initial content for Terms and conditions page'),
-						( 6,'en','Api','Api','initial content for Api page' )
+						( 6,'en','Api','Api','initial content for Api page' ),
+						( 7,'en','Send','You always can send file to <span class=\"highlight\">user</span>, <span class=\"highlight\">location</span>, <span class=\"highlight\">email</span>. Just click on triangle near \"Send link\" button','Send every files ( photo, music, documents, etc.) you want. <br>Get<span class=\"highlight\">direct</span>links. <br>Configure<span class=\"highlight\">security</span>.<br>Attach files to<span class=\"highlight\">user</span>, location, email, time, etc. <br>' ),
+						( 8,'en','Get','Get','Get files from another <span class=\"highlight\">user</span><br>Search files in current <span class=\"highlight\">location</span><br>Find files attached to your<span class=\"highlight\">email</span><br>Get files by its <span class=\"highlight\">file id</span>' )
 						");
     }
 

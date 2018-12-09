@@ -5,36 +5,36 @@
         </div>
         <div class="collapse navbar-collapse col-sm-6" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ path("index") }}">Home <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("index") }}">{{ 'Home' | trans({}, "messages", locale) }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path("statistic") }}">Statistic</a>
+                    <a class="nav-link" href="{{ path("statistic") }}">{{ 'Statistic' | trans({}, "messages", locale) }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path("api") }}">Api</a>
+                    <a class="nav-link" href="{{ path("api") }}">{{ 'Api' | trans({}, "messages", locale) }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path("about_us") }}">About us</a>
+                    <a class="nav-link" href="{{ path("about_us") }}">{{ 'About us' | trans({}, "messages", locale) }}</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        How to ?
+                        {{ 'How to ?' | trans({}, "messages", locale) }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ path("faq") }}#send">Sed files</a>
-                        <a class="dropdown-item" href="{{ path("faq") }}#get">Get files</a>
-                        <a class="dropdown-item" href="{{ path("faq") }}#find">Find files in my location</a>
-                        <a class="dropdown-item" href="{{ path("faq") }}#getByEmail">Get files by email</a>
+                        <a class="dropdown-item" href="{{ path("faq") }}#send">{{ 'Send files' | trans({}, "messages", locale) }}</a>
+                        <a class="dropdown-item" href="{{ path("faq") }}#get">{{ 'Get files' | trans({}, "messages", locale) }}</a>
+                        <a class="dropdown-item" href="{{ path("faq") }}#find">{{ 'Find files in my location' | trans({}, "messages", locale) }}</a>
+                        <a class="dropdown-item" href="{{ path("faq") }}#getByEmail">{{ 'Get files by email' | trans({}, "messages", locale) }}</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path("contact_us") }}">Contact us</a>
+                    <a class="nav-link" href="{{ path("contact_us") }}">{{ 'Contact us' | trans({}, "messages", locale) }}</a>
                 </li>
             </ul>
         </div>
         <div class="my-2 my-lg-0 col-sm-3 text-right">
-            <a href="{{ path("index") }}"><i class="fa fa-long-arrow-alt-left"></i> Back</a>
+            <a href="{{ path("index") }}"><i class="fa fa-long-arrow-alt-left"></i> {{ 'Back' | trans({}, "messages", locale) }}</a>
         </div>
     </nav>
 </header>

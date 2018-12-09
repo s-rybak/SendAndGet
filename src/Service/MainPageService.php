@@ -14,14 +14,17 @@ use App\DTO\MainPageDTO;
 use App\Exceptions\EntityNotFoundException;
 use App\Repository\PageRepositoryInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class MainPageService implements MainPageServiceInterface
 {
     private $pageRepo;
+    private $translator;
 
-    public function __construct(PageRepositoryInterface $pageRepo)
+    public function __construct(PageRepositoryInterface $pageRepo,TranslatorInterface $translator)
     {
         $this->pageRepo = $pageRepo;
+        $this->translator = $translator;
     }
 
     public function getAboutUs(string $lang = 'en'): MainPageDTO
@@ -54,6 +57,18 @@ class MainPageService implements MainPageServiceInterface
         return $this->getBySlug('faq', $lang);
     }
 
+	public function getMainPageGet( string $lang = 'en' ): MainPageDTO {
+
+		return $this->getBySlug('get', $lang);
+
+	}
+
+	public function getMainPageSend( string $lang = 'en' ): MainPageDTO {
+
+		return $this->getBySlug('send', $lang);
+
+	}
+
     private function getBySlug(string $slug, string $lang = 'en'): MainPageDTO
     {
         $page = $this->pageRepo->getBySlug($slug, $lang);
@@ -63,23 +78,24 @@ class MainPageService implements MainPageServiceInterface
         }
 
         $page->setCurrentLocale($lang);
+	    $this->translator->setLocale($lang);
 
         return new MainPageDTO($page, [
-            new BreadcrumbsDTO('Main', 'index'),
+            new BreadcrumbsDTO($this->translator->trans('Home'), 'index'),
             new BreadcrumbsDTO($page->getTitle(), $slug),
         ]);
     }
 
     public function getCurrentLocale(): string
     {
-        $locale = $this->getSession()->get('locale');
+        $locale = $this->getSession()->get('_locale');
 
         return $locale ? $locale : 'en';
     }
 
     public function setCurrentLocale(string $locale): void
     {
-        $this->getSession()->set('locale', $locale);
+        $this->getSession()->set('_locale', $locale);
     }
 
     private function getSession(): Session

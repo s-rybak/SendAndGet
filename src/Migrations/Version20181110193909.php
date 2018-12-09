@@ -32,7 +32,9 @@ final class Version20181110193909 extends AbstractMigration
 						( 3,'contact_us' ),
 						( 4,'statistic' ),
 						( 5,'tos' ),
-						( 6,'api' )
+						( 6,'api' ),
+						( 7,'send' ),
+						( 8,'get' )
 						");
     }
 

@@ -208,3 +208,12 @@
     color: #ffffff;
     font-family: 'Montserrat', serif;
 }
+
+.page-main .content .terms-agree-text{
+    line-height: 1;
+    margin-top: 10px;
+}
+
+.simple-text.terms-agree-text .highlight{
+    background: #3243cf;
+}

@@ -2,6 +2,12 @@
 index:
     path: /
     controller: App\Controller\MainController::index
+send:
+    path: /
+    controller: App\Controller\MainController::index
+get:
+    path: /
+    controller: App\Controller\MainController::index
 about_us:
     path: /about_us
     controller: App\Controller\MainController::aboutAs

@@ -176,4 +176,11 @@ class User implements UserInterface, \Serializable
             $this->password
         ] = \unserialize($serialized, ['allowed_classes' => true]);
     }
+
+    public function getLocale():string
+    {
+
+    	return "ua";
+
+    }
 }

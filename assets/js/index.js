@@ -21,6 +21,7 @@ jQuery(function ($) {
     let $searchInput = $('#searchInput');
     let $buttonSearch = $('#buttonSearch');
     let $searchResults = $('#searchResults');
+    let timers = [0];
 
     let Uploader = new Files({},{},$);
     let SelectLoader = new TextLoader($selectFiles);
@@ -174,23 +175,18 @@ jQuery(function ($) {
 
         if(!res){
 
-            swal({
-                text: trans('Here yor id, you can copy it by clicking ctrl + c'),
-                content: "input",
-                button: {
-                    text: trans("Search!"),
-                    closeModal: false,
-                },
-                onOpen:()=>{
-                    $('.swal-content__input').val(this.href).focus();
-                }
-            })
+            openCopyPopup(
+                'Here yor id, you can copy it by clicking ctrl + c',
+                this.getAttribute('href')
+            );
 
         }else{
 
             swal(trans('Id copied'));
 
         }
+
+        input.remove();
 
     });
 
@@ -200,17 +196,10 @@ jQuery(function ($) {
 
         if(!res){
 
-            swal({
-                text: trans('Here yor link, you can copy it by clicking ctrl + c'),
-                content: "input",
-                button: {
-                    text: trans("Search!"),
-                    closeModal: false,
-                },
-                onOpen:()=>{
-                    $('.swal-content__input').val(this.href).focus();
-                }
-            })
+            openCopyPopup(
+                'Here yor link, you can copy it by clicking ctrl + c',
+                $downloadLink.val()
+            );
 
         }else{
 
@@ -246,23 +235,20 @@ jQuery(function ($) {
 
         if(!res){
 
-            swal({
-                text: trans('Here yor link, you can copy it by clicking ctrl + c'),
-                content: "input",
-                button: {
-                    text: trans("Search!"),
-                    closeModal: false,
-                },
-                onOpen:()=>{
-                    $('.swal-content__input').val(this.href).focus();
-                }
-            })
+            openCopyPopup(
+                this.classList.contains('direct-link') ?
+                'Here yor link, you can copy it by clicking ctrl + c' :
+                'Here yor id, you can copy it by clicking ctrl + c',
+                this.getAttribute('href')
+            );
 
         }else{
 
             swal(trans('Link copied'));
 
         }
+
+        input.remove();
 
     });
 
@@ -309,6 +295,47 @@ jQuery(function ($) {
             $sectionSend.hide();
 
         }, 1000);
+
+    }
+
+    function openCopyPopup(msg,val){
+
+        swal({
+            text: trans(msg),
+            content: {
+                element: "input",
+                attributes: {
+                    type: "text",
+                    value:val,
+                    class:"focus-copy"
+                },
+            },
+            button: {
+                text: trans("Close"),
+                closeModal: true,
+            }
+        });
+
+        hilightSwalInput();
+
+    }
+
+    function hilightSwalInput() {
+
+        clearTimeout(timers[0]);
+
+        timers[0] = setTimeout(function () {
+
+            let inp = $('.swal-content__input');
+
+            if(inp.length > 0){
+
+                inp.focus();
+                inp.get(0).select();
+
+            }
+
+        },500);
 
     }
 

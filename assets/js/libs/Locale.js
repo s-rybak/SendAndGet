@@ -21,7 +21,8 @@ module.exports = function(word){
             'Here yor link, you can copy it by clicking ctrl + c':"Ось ваша ссилка, ви можете скопіювати її натиснувши ctrl + c",
             'Search!':"Пошук",
             'Id copied':"Id скопійовано",
-            'Link copied':"Посилання скопійовано"
+            'Link copied':"Посилання скопійовано",
+            'Close':'Закрити'
         },
         de:{
 

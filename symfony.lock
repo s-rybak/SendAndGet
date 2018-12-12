@@ -116,6 +116,9 @@
     "knplabs/doctrine-behaviors": {
         "version": "1.6.0"
     },
+    "maennchen/zipstream-php": {
+        "version": "v0.5.2"
+    },
     "monolog/monolog": {
         "version": "1.23.0"
     },

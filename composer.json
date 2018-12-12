@@ -9,6 +9,7 @@
     "ext-iconv": "*",
     "friendsofsymfony/rest-bundle": "^2.4",
     "knplabs/doctrine-behaviors": "~1.1",
+    "maennchen/zipstream-php": "^0.5.2",
     "sensio/framework-extra-bundle": "^5.1",
     "symfony/apache-pack": "^1.0",
     "symfony/asset": "*",

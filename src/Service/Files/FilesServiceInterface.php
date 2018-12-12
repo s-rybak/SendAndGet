@@ -13,6 +13,7 @@ use App\DTO\FileBagSizeDTO;
 use App\Entity\ApiApp;
 use App\Entity\File;
 use Symfony\Component\HttpFoundation\FileBag;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * Provides File
@@ -38,7 +39,7 @@ interface FilesServiceInterface
 
     public function getQueryByHash(int $id, string $hash, int $page = 1, int $perpage = 10): iterable;
 
-    public function zipFiles(string $group_hash): string;
+    public function zipFiles(string $group_hash): StreamedResponse;
 
     public function getAll(int $page = 1, int $perpage = 10): iterable;
 

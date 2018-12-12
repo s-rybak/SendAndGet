@@ -13,6 +13,7 @@ use App\Exceptions\EntityNotFoundException;
 use App\Service\Files\FilesServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -62,12 +63,12 @@ class FileController extends AbstractController
         return $this->file($this->uploadDir.$file->getPath().$file->getName());
     }
 
-    public function getAllFilesByHash(string $hash): Response
+    public function getAllFilesByHash(string $hash): StreamedResponse
     {
         try {
-            $zip = $this->service->zipFiles($hash);
 
-            return $this->file($zip);
+            return $this->service->zipFiles($hash);
+
         } catch (EntityNotFoundException $e) {
             throw new NotFoundHttpException($e->getMessage());
         }

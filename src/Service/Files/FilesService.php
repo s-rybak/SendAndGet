@@ -16,6 +16,8 @@ use App\Exceptions\EntityNotFoundException;
 use App\Repository\FileRepositiryInterface;
 use App\Transformer\UploadedFileToFileTransformer;
 use Symfony\Component\HttpFoundation\FileBag;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use ZipStream\ZipStream;
 
 class FilesService implements FilesServiceInterface
 {
@@ -78,23 +80,29 @@ class FilesService implements FilesServiceInterface
         return $this->repositiry->getByHash($hash);
     }
 
-    public function zipFiles(string $group_hash): string
+    public function zipFiles(string $group_hash): StreamedResponse
     {
-        $files = $this->repositiry->getByGroupHash($group_hash);
+	    $files = $this->repositiry->getByGroupHash($group_hash);
 
-        if (null == $files && 0 === count($files)) {
-            throw new EntityNotFoundException("Group $group_hash not found");
-        }
+	    if (null == $files && 0 === count($files)) {
+		    throw new EntityNotFoundException("Group $group_hash not found");
+	    }
 
-        $zip = new \ZipArchive();
-        $zipName = $this->uploadDir.$files[0]->getPath().'all.zip';
-        $zip->open($zipName, \ZipArchive::CREATE);
-        foreach ($files as $f) {
-            $zip->addFromString($f->getName(), file_get_contents($this->uploadDir.$f->getPath().$f->getName()));
-        }
-        $zip->close();
+	    $response = new StreamedResponse(function() use($files,$group_hash)
+	    {
 
-        return $zipName;
+		    $zip  = new ZipStream($group_hash.'.zip');;
+
+		    foreach ($files as $f) {
+			    $zip->addFileFromPath($f->getName(), $this->uploadDir.$f->getPath().$f->getName());
+		    }
+
+		    $zip->finish();
+
+	    });
+
+
+        return $response;
     }
 
     public function getByAppId(int $id, int $page = 1, int $perpage = 10): iterable

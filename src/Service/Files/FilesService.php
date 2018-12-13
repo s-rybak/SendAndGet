@@ -82,25 +82,21 @@ class FilesService implements FilesServiceInterface
 
     public function zipFiles(string $group_hash): StreamedResponse
     {
-	    $files = $this->repositiry->getByGroupHash($group_hash);
+        $files = $this->repositiry->getByGroupHash($group_hash);
 
-	    if (null == $files && 0 === count($files)) {
-		    throw new EntityNotFoundException("Group $group_hash not found");
-	    }
+        if (null == $files && 0 === count($files)) {
+            throw new EntityNotFoundException("Group $group_hash not found");
+        }
 
-	    $response = new StreamedResponse(function() use($files,$group_hash)
-	    {
+        $response = new StreamedResponse(function () use ($files,$group_hash) {
+            $zip = new ZipStream($group_hash.'.zip');
 
-		    $zip  = new ZipStream($group_hash.'.zip');;
+            foreach ($files as $f) {
+                $zip->addFileFromPath($f->getName(), $this->uploadDir.$f->getPath().$f->getName());
+            }
 
-		    foreach ($files as $f) {
-			    $zip->addFileFromPath($f->getName(), $this->uploadDir.$f->getPath().$f->getName());
-		    }
-
-		    $zip->finish();
-
-	    });
-
+            $zip->finish();
+        });
 
         return $response;
     }

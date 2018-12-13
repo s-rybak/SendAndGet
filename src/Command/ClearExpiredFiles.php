@@ -35,7 +35,7 @@ class ClearExpiredFiles extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $limit = $input->getArgument('limit') ?? 100;
+        $limit = $input->getArgument('limit') ?? 1000;
 
         $output->writeln(\sprintf('Start clearing files (limit %d)', $limit));
 

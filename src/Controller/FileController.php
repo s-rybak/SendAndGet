@@ -66,9 +66,7 @@ class FileController extends AbstractController
     public function getAllFilesByHash(string $hash): StreamedResponse
     {
         try {
-
             return $this->service->zipFiles($hash);
-
         } catch (EntityNotFoundException $e) {
             throw new NotFoundHttpException($e->getMessage());
         }

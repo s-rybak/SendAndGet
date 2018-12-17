@@ -9,6 +9,7 @@
 
 namespace App\Service;
 
+use App\DTO\AppStatisticDTO;
 use App\DTO\SiteStatisticDTO;
 use App\Repository\ApiAppRepositoryInterface;
 use App\Repository\FileRepositiryInterface;
@@ -34,6 +35,17 @@ class SiteStatisticService implements SiteStatisticServiceIntervace
         $stat->setApiCalls($this->appApiRepo->getAppCallsCount());
         $stat->setFilesCount($this->filesRepo->length());
         $stat->setStorageUsed($this->filesRepo->getFilesSize());
+
+        return $stat;
+    }
+
+    public function getAppStistic(int $id): AppStatisticDTO
+    {
+        $stat = new AppStatisticDTO();
+
+        $stat->setApiCalls($this->appApiRepo->getAppCallsCount($id));
+        $stat->setStorageUsed($this->filesRepo->getFilesSize($id));
+        $stat->setFilesCount($this->filesRepo->getFilesCount($id));
 
         return $stat;
     }

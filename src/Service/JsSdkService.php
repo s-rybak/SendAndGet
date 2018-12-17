@@ -21,7 +21,8 @@ class JsSdkService implements JsSdkServiceInterface
             1000,
             '/api/files/list',
             '/api/files/query',
-            'api/files/delete'
+            '/api/files/delete',
+            '/api/app/stat'
         );
     }
 }

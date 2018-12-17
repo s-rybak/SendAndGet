@@ -31,5 +31,5 @@ interface ApiAppRepositoryInterface
 
     public function getByStatus(string $status, int $page = 1, int $perpage = 10): iterable;
 
-    public function getAppCallsCount(): int;
+    public function getAppCallsCount(int $id = 0): int;
 }

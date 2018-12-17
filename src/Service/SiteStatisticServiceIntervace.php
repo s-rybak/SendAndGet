@@ -9,9 +9,12 @@
 
 namespace App\Service;
 
+use App\DTO\AppStatisticDTO;
 use App\DTO\SiteStatisticDTO;
 
 interface SiteStatisticServiceIntervace
 {
     public function getDashboardStatistic(): SiteStatisticDTO;
+
+    public function getAppStistic(int $id): AppStatisticDTO;
 }

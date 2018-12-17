@@ -123,11 +123,31 @@ class FileRepository extends ServiceEntityRepository implements FileRepositiryIn
             ->execute();
     }
 
-    public function getFilesSize(): int
+    public function getFilesSize(int $id = 0): int
     {
         $qb = $this->createQueryBuilder('a');
+
+        if ($id > 0) {
+            $qb->where('a.app_id = :id')
+               ->setParameter('id', $id);
+        }
+
         $qb->select('SUM(a.size)');
 
         return intval($qb->getQuery()->getSingleScalarResult());
+    }
+
+    public function getFilesCount(int $id = 0): int
+    {
+        if ($id > 0) {
+            $qb = $this->createQueryBuilder('a');
+            $qb->where('a.app_id = :id');
+            $qb->select('COUNT(a)');
+            $qb->setParameter('id', $id);
+
+            return intval($qb->getQuery()->getSingleScalarResult());
+        }
+
+        return $this->length();
     }
 }

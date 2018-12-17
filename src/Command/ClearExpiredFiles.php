@@ -15,53 +15,52 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ClearExpiredFiles extends Command {
-	private $service;
+class ClearExpiredFiles extends Command
+{
+    private $service;
 
-	public function __construct( ?string $name = null, FilesServiceInterface $service ) {
-		parent::__construct( $name );
+    public function __construct(?string $name = null, FilesServiceInterface $service)
+    {
+        parent::__construct($name);
 
-		$this->service = $service;
-	}
+        $this->service = $service;
+    }
 
-	public function configure() {
-		$this->setName( 'app:clear:files:expired' )
-		     ->setDescription( 'Clear expire files. Hard delete on -10% file life time' )
-		     ->addArgument( 'limit', InputArgument::OPTIONAL, 'Limit records to clear' );
-	}
+    public function configure()
+    {
+        $this->setName('app:clear:files:expired')
+             ->setDescription('Clear expire files. Hard delete on -10% file life time')
+             ->addArgument('limit', InputArgument::OPTIONAL, 'Limit records to clear');
+    }
 
-	public function execute( InputInterface $input, OutputInterface $output ) {
-		$limit = $input->getArgument( 'limit' ) ?? 1000;
+    public function execute(InputInterface $input, OutputInterface $output)
+    {
+        $limit = $input->getArgument('limit') ?? 1000;
 
-		$output->writeln( \sprintf( 'Start clearing files (limit %d)', $limit ) );
+        $output->writeln(\sprintf('Start clearing files (limit %d)', $limit));
 
-		try {
+        try {
+            $files = $this->service->getDeletedExpired($limit);
+            $count = count($files);
 
+            $output->writeln(\sprintf('Find %d results', $count));
 
-			$files = $this->service->getDeletedExpired( $limit );
-			$count = count( $files );
+            if ($count > 0) {
+                $removed = 0;
 
-			$output->writeln( \sprintf( 'Find %d results', $count ) );
+                foreach ($files as $file) {
+                    if ($file->getTimeLeft() < -10) {
+                        ++$removed;
+                        $this->service->remove($file, false);
+                    }
+                }
 
-			if ( $count > 0 ) {
-				$removed = 0;
+                $output->writeln(sprintf('Removed: %d', $removed));
+            }
+        } catch (\Exception $e) {
+            $output->writeln("Error: {$e->getMessage()}");
+        }
 
-				foreach ( $files as $file ) {
-					if ( $file->getTimeLeft() < - 10 ) {
-						++ $removed;
-						$this->service->remove( $file, false );
-					}
-				}
-
-				$output->writeln( sprintf( 'Removed: %d', $removed ) );
-			}
-
-		} catch (\Exception $e) {
-
-			$output->writeln( "Error: {$e->getMessage()}" );
-
-		}
-
-		$output->writeln( 'Finish clearing' );
-	}
+        $output->writeln('Finish clearing');
+    }
 }

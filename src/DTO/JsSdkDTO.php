@@ -20,6 +20,7 @@ class JsSdkDTO
     private $delete_url;
     private $file_list;
     private $file_query;
+    private $statistic_url;
 
     public function __construct(
         string $api_key,
@@ -27,7 +28,8 @@ class JsSdkDTO
         int $max_files_count,
         string $file_list,
         string $file_query,
-        string $delete_url
+        string $delete_url,
+        string $statistic_url
     ) {
         $this->api_key = $api_key;
         $this->max_files_count = $max_files_count;
@@ -35,6 +37,7 @@ class JsSdkDTO
         $this->file_list = $file_list;
         $this->file_query = $file_query;
         $this->delete_url = $delete_url;
+        $this->statistic_url = $statistic_url;
     }
 
     /**
@@ -131,5 +134,21 @@ class JsSdkDTO
     public function setDeleteUrl($delete_url): void
     {
         $this->delete_url = $delete_url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatisticUrl(): string
+    {
+        return $this->statistic_url;
+    }
+
+    /**
+     * @param string $statistic_url
+     */
+    public function setStatisticUrl(string $statistic_url): void
+    {
+        $this->statistic_url = $statistic_url;
     }
 }

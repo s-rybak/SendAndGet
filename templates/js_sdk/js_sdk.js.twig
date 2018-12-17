@@ -17,6 +17,28 @@
             'X-API-KEY':Opt.api_key
         })
 
+
+        this.stat = function () {
+
+            return new Promise(function (resolve, rej) {
+
+                (new Request(Opt.statistic_url))
+                    .usePreset('sagSdk')
+                    .get()
+                    .then(function (resp) {
+                        resolve(resp.data);
+                    })
+                    .catch(rej);
+
+            });
+
+        }
+
+        /**
+         * Remove file
+         * @param hash
+         * @return {Promise<any>}
+         */
         this.remove = function (hash) {
 
             return new Promise(function (resolve, rej) {
@@ -612,7 +634,8 @@
         upload_url: "{{ app.uploadUrl }}",
         file_list: "{{ app.fileList }}",
         file_query: "{{ app.fileQuery }}",
-        delete_url: "{{ app.deleteUrl }}"
+        delete_url: "{{ app.deleteUrl }}",
+        statistic_url: "{{ app.statisticUrl }}"
     })
 
 })();

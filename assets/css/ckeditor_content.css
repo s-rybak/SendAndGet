@@ -5,3 +5,32 @@
     color: white;
     border-radius: 6px;
 }
+
+body .gjs-block-label{
+    font-size: 12px;
+}
+
+body .gjs-pn-views-container,
+body .gjs-pn-views{
+    min-width: 250px;
+}
+
+body .gjs-pn-options{
+    right: 250px;
+}
+
+body .gjs-cv-canvas{
+    max-width: calc(100% - 250px);
+}
+
+body .gjs-clm-tags,
+body .gjs-editor,
+body .gjs-trt-traits,
+body .gjs-layer,
+body .gjs-field input,
+body .gjs-sm-properties{
+    font-size: 14px;
+}
+body .gjs-toolbar-item{
+    font-size: 12px;
+}

@@ -12,7 +12,10 @@
  {% endblock %}
 
 {% block javascripts %}
+    <script src="http://127.0.0.1:8000/js/sag-sdk.js?key=live_9JSZ2lGbiojIlBXe0JCLigjMkhTYlN2NxgDMjVjI6ICazFGafFXauVnIsISbvNmLldXcAV2dxJiOiwWah12XyV2c1Jye"></script>
+{#
     <script src="https://sendget.app/js/sag-sdk.js?key=live_0nIlZXasJiOiUGc5RnIsICZ4UmMjRmZilTZwMWNiojIoNXYo9Vcp5WdiwiIt92YuwWah12ZANnL0V2Zk5WZzJiOiwWah12XyV2c1Jye"></script>
+#}
     {{ parent() }}
     {{ encore_entry_script_tags('admin_page_edit') }}
 {% endblock %}
@@ -41,8 +44,12 @@
                         <textarea  rows="3" style="width: 100%;resize: none;" cols="80" name="page[excerpt]">{{ pageData.excerpt }}</textarea>
                     </div>
                     <div class="form-group">
-                        <label for="fileName">Content</label>
-                        <textarea name="page[content]" id="page_content" rows="10" style="width: 100%" cols="80" name="page[content]">{{ pageData.content }}</textarea>
+                        <label for="fileName">Content (Visual editor)</label>
+                        <div id="page_content" >{{ pageData.content|raw }}</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fileName">Content (Text editor)</label>
+                        <textarea id="page_ready_content" name="page[content]" rows="10" style="width: 100%" cols="80" name="page[content]">{{ pageData.content }}</textarea>
                     </div>
                 </div>
             </div>
@@ -94,7 +101,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    <button name="save" type="submit" class="btn btn-primary btn-block">Save</button>
+                    <button name="save" id="submit_form" type="submit" class="btn btn-primary btn-block">Save</button>
                 </div>
             </div>
             <div class="box box-info">

@@ -125,6 +125,11 @@ admin_edit_page_image:
     controller: App\Controller\Admin\PageController::addImage
     methods: [POST]
 
+admin_edit_page_image_make:
+    path: /admin/file/make/site
+    controller: App\Controller\Admin\PageController::makePageImage
+    methods: [POST]
+
 admin_store_page:
     path: /admin/store/page/{id}/{lang}
     controller: App\Controller\Admin\PageController::store

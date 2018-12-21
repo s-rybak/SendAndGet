@@ -134,4 +134,26 @@ class PageController extends AbstractController
 
         return $this->json(['status' => 'success']);
     }
+
+    /**
+     * admin add image to page.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function makePageImage(Request $request): Response
+    {
+        $image = $request->get('image');
+
+        $image = $this->filesService->getByHash($image);
+
+        if (null === $image) {
+            throw new NotFoundHttpException("Image with hash $image not found");
+        }
+
+        $image->setStatus('site_file');
+
+        $this->filesService->save($image);
+
+        return $this->json(['status' => 'success']);
+    }
 }

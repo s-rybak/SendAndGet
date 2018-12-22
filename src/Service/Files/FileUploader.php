@@ -16,6 +16,7 @@ class FileUploader implements FileUploaderInterface
 {
     private $targetDirectory;
     private $appId;
+    private $userId;
     private $groupHash;
     private $fileLifeTime;
 
@@ -43,6 +44,8 @@ class FileUploader implements FileUploaderInterface
             $file->getSize(),
             $this->getAppId()
         );
+
+        $uploadedFile->setUserId($this->getUserId());
 
         return $uploadedFile;
     }
@@ -88,4 +91,17 @@ class FileUploader implements FileUploaderInterface
     {
         $this->fileLifeTime = $fileLifeTime;
     }
+
+	public function setUserId( int $user_id ): void {
+
+		$this->userId = $user_id;
+
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getUserId() {
+		return $this->userId;
+	}
 }

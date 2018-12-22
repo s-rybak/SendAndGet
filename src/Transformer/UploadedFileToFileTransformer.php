@@ -25,6 +25,7 @@ class UploadedFileToFileTransformer
         $file->setGroupHash($file_DTO->getGroupHash());
         $file->setLifeTime($file_DTO->getFileLifeTime());
         $file->setSize($file_DTO->getSize());
+        $file->setUserId($file_DTO->getUserId());
 
         return $file;
     }

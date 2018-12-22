@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  */
 interface FilesServiceInterface
 {
-    public function uploadFiles(int $appId, FileBag $files, string $group_hash): iterable;
+    public function uploadFiles(int $appId, FileBag $files, string $group_hash, int $user_id): iterable;
 
     public function saveFiles(array $files): iterable;
 
@@ -29,17 +29,21 @@ interface FilesServiceInterface
 
     public function remove(File $file, $soft = true);
 
-    public function uploadAndSaveFiles(int $appId, FileBag $files, string $group_hash): iterable;
+    public function uploadAndSaveFiles(int $appId, FileBag $files, string $group_hash,int $user_id): iterable;
 
     public function getById(int $id): ?File;
 
     public function getByHash(string $hash): ?File;
+
+    public function getByGroupHash(string $hash): iterable;
 
     public function getByAppId(int $id, int $page = 1, int $perpage = 10): iterable;
 
     public function getQueryByHash(int $id, string $hash, int $page = 1, int $perpage = 10): iterable;
 
     public function zipFiles(string $group_hash): StreamedResponse;
+
+    public function zipFilesPack(iterable $files, string $group_hash): StreamedResponse;
 
     public function getAll(int $page = 1, int $perpage = 10): iterable;
 

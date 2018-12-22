@@ -62,6 +62,22 @@ class AdminPageBuilder implements AdminPageBuilderInterface
         return $resource;
     }
 
+    public function getUsersResource(): AdminPageDTO
+    {
+        $resource = new AdminPageDTO();
+
+        $breadcrumbs = [
+            new BreadcrumbsDTO('Dashboard', 'admin_dashboard'),
+            new BreadcrumbsDTO('Users', 'admin_users'),
+        ];
+
+        $resource->setTitle('Users');
+        $resource->setDescription('All Users');
+        $resource->setBreadcrumbs($breadcrumbs);
+
+        return $resource;
+    }
+
     public function getEditAppApiResource(string $pageTitle): AdminPageDTO
     {
         $resource = new AdminPageDTO();

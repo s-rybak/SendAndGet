@@ -26,6 +26,7 @@ final class UploadedFileDTO
     private $groupHash;
     private $fileLifeTime;
     private $size;
+    private $userId;
 
     public function __construct(
         string $fileName,
@@ -45,6 +46,7 @@ final class UploadedFileDTO
         $this->groupHash = $groupHash;
         $this->fileLifeTime = $fileLifeTime;
         $this->size = $size;
+        $this->userId = 0;
     }
 
     /**
@@ -174,4 +176,19 @@ final class UploadedFileDTO
     {
         $this->size = $size;
     }
+
+	/**
+	 * @return int
+	 */
+	public function getUserId():int
+	{
+		return $this->userId;
+	}
+
+	/**
+	 * @param int $userId
+	 */
+	public function setUserId( int $userId ): void {
+		$this->userId = $userId;
+	}
 }

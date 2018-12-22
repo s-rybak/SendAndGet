@@ -44,6 +44,26 @@ class User implements UserInterface, \Serializable
      */
     private $isActive = true;
 
+	/**
+	 * @ORM\Column(type="string", length=100)
+	 */
+    private $ip;
+
+    /**
+	 * @ORM\Column(type="text")
+	 */
+    private $device;
+
+    /**
+	 * @ORM\Column(type="text")
+	 */
+    private $user_roles;
+
+    /**
+	 * @ORM\Column(type="string", length=100)
+	 */
+    private $status;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -113,7 +133,7 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        return ['ROLE_ADMIN'];
+        return $this->getUserRoles();
     }
 
     /**
@@ -181,4 +201,69 @@ class User implements UserInterface, \Serializable
     {
         return 'ua';
     }
+
+	/**
+	 * @return mixed
+	 */
+	public function getIp():string
+	{
+		return $this->ip;
+	}
+
+	/**
+	 * @param mixed $ip
+	 */
+	public function setIp(string $ip ): void {
+		$this->ip = $ip;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getDevice():string
+	{
+		return $this->device;
+	}
+
+	/**
+	 * @param mixed $device
+	 */
+	public function setDevice(string $device ): void {
+		$this->device = $device;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getUserRolesRaw():string {
+		return $this->user_roles;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getUserRoles():array {
+		return explode(",",$this->user_roles);
+	}
+
+	/**
+	 * @param array $user_roles
+	 */
+	public function setUserRoles(array $user_roles ): void {
+		$this->user_roles = implode(",",$user_roles);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getStatus():string {
+		return $this->status;
+	}
+
+	/**
+	 * @param string $status
+	 */
+	public function setStatus(string $status ): void {
+		$this->status = $status;
+	}
 }

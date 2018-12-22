@@ -9,16 +9,19 @@
 
 namespace App\Controller\Api;
 
+use App\Repository\UserRpositoryInterface;
 use App\Resource\ApiErrorResponceResource;
 use App\Resource\ApiSuccessResponceResource;
 use App\Service\AppApiServiceInterface;
 use App\Service\Files\FilesServiceInterface;
+use App\Service\User\UserServiceInterface;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use ZipStream\Exception;
 
 /**
  * Files api controller.
@@ -28,12 +31,19 @@ final class FilesController extends FOSRestController
     private $appApi;
     private $fileService;
     private $appService;
+    private $userService;
 
-    public function __construct(TokenStorageInterface $token, FilesServiceInterface $service, AppApiServiceInterface $appService)
+    public function __construct(
+    	TokenStorageInterface $token,
+	    FilesServiceInterface $service,
+	    AppApiServiceInterface $appService,
+	    UserServiceInterface $userService
+    )
     {
         $this->appApi = $token->getToken()->getUser();
         $this->fileService = $service;
         $this->appService = $appService;
+        $this->userService = $userService;
     }
 
     /**
@@ -121,7 +131,16 @@ final class FilesController extends FOSRestController
                 ->changeAppLimits($this->appApi, $request->files)
             );
 
-            $files = $this->fileService->uploadAndSaveFiles($this->appApi->getId(), $request->files, $hash);
+	        $user =  $this->userService->getCreateServiceUser($request);
+
+	        if($user->getStatus() !== "active"){
+
+		        throw new \Exception("You blocked. Please contact site administrator");
+
+            }
+
+            $files = $this->fileService->uploadAndSaveFiles($this->appApi->getId(), $request->files, $hash, $user->getId());
+
         } catch (\Exception $e) {
             return $this->view(
                 new ApiErrorResponceResource($e->getMessage()),

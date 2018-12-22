@@ -19,7 +19,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method FileUser[]    findAll()
  * @method FileUser[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class FileUserRepository extends ServiceEntityRepository
+class FileUserRepository extends ServiceEntityRepository implements FileUserRepositoryInterface
 {
     use RepositoryStandartFunctionsTrait;
 
@@ -27,4 +27,22 @@ class FileUserRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, FileUser::class);
     }
+
+	public function getByFileID( int $id, int $page = 1, int $perpage = 10 ):iterable {
+
+		return $this->findBy(['file_id'=>$id]);
+
+	}
+
+	public function getByUserID( int $id, int $page = 1, int $perpage = 10 ):iterable {
+
+		return $this->findBy(['user_id'=>$id]);
+
+	}
+
+	public function getByFileAndUserId(int $file_id,int $user_id): ?FileUser {
+
+		return $this->findOneBy(['file_id'=>$file_id,'user_id'=>$user_id]);
+
+	}
 }

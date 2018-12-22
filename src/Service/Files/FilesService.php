@@ -14,6 +14,7 @@ use App\Entity\File;
 use App\DTO\FileBagSizeDTO;
 use App\Exceptions\EntityNotFoundException;
 use App\Repository\FileRepositiryInterface;
+use App\Service\User\FileUserServiceIntervface;
 use App\Transformer\UploadedFileToFileTransformer;
 use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -26,6 +27,7 @@ class FilesService implements FilesServiceInterface
     private $repositiry;
     private $uploadDir;
     private $fileLifeTime;
+    private $fileUserService;
 
     public function __construct(
         FileUploaderInterface $file_uploader,
@@ -41,13 +43,14 @@ class FilesService implements FilesServiceInterface
         $this->fileLifeTime = $fileLifeTime;
     }
 
-    public function uploadFiles(int $appId, FileBag $files, string $group_hash): iterable
+    public function uploadFiles(int $appId, FileBag $files, string $group_hash, int $user_id): iterable
     {
         $filesArray = [];
 
         $this->uploader->setAppId($appId);
         $this->uploader->setGroupHash($group_hash);
         $this->uploader->setFileLifeTime($this->fileLifeTime);
+        $this->uploader->setUserId($user_id);
 
         foreach ($files as $file) {
             $filesArray[] = $this->transformer->getFile(
@@ -63,10 +66,10 @@ class FilesService implements FilesServiceInterface
         return $this->repositiry->saveMany($files);
     }
 
-    public function uploadAndSaveFiles(int $appId, FileBag $files, string $group_hash): iterable
+    public function uploadAndSaveFiles(int $appId, FileBag $files, string $group_hash, int $user_id): iterable
     {
         return $this->saveFiles(
-            $this->uploadFiles($appId, $files, $group_hash)
+            $this->uploadFiles($appId, $files, $group_hash,$user_id)
         );
     }
 
@@ -83,6 +86,26 @@ class FilesService implements FilesServiceInterface
     public function zipFiles(string $group_hash): StreamedResponse
     {
         $files = $this->repositiry->getByGroupHash($group_hash);
+
+        if (null == $files && 0 === count($files)) {
+            throw new EntityNotFoundException("Group $group_hash not found");
+        }
+
+        $response = new StreamedResponse(function () use ($files,$group_hash) {
+            $zip = new ZipStream($group_hash.'.zip');
+
+            foreach ($files as $f) {
+                $zip->addFileFromPath($f->getName(), $this->uploadDir.$f->getPath().$f->getName());
+            }
+
+            $zip->finish();
+        });
+
+        return $response;
+    }
+
+    public function zipFilesPack(iterable $files, string $group_hash): StreamedResponse
+    {
 
         if (null == $files && 0 === count($files)) {
             throw new EntityNotFoundException("Group $group_hash not found");
@@ -195,4 +218,10 @@ class FilesService implements FilesServiceInterface
 
         return $app->setStorage($app->getStorage() - $size->getSize());
     }
+
+	public function getByGroupHash( string $hash ): iterable {
+
+    	return $this->repositiry->getByGroupHash($hash);
+
+	}
 }

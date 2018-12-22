@@ -1,0 +1,81 @@
+{% extends "admin_layout.html.twig" %}
+
+{% block title %}Apps{% endblock %}
+
+{% block content %}
+    <a class="btn btn-app" href="#">
+        <i class="fa fa-plus"></i> Add
+    </a>
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Users</h3>
+
+            <div class="box-tools">
+               {# <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>#}
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <th style="width: 10px">#ID</th>
+                    <th>Username</th>
+                    <th>Status</th>
+                    <th>Contact Email</th>
+                    <th>Ip</th>
+                    <th>Role</th>
+                    <th style="width: 168px">Actions</th>
+                </tr>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.status }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.ip }}</td>
+                        <td>{{ user.userRolesRaw }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="#" class="btn btn-default">Edit</a>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Block</a></li>
+                                    <li><a href="#">Activate</a></li>
+                                    <li class="divider"></li>
+                                    {#<li><a href="#">Set limit</a></li>#}
+                                    <li><a href="#">Clear all files</a></li>
+                                    <li><a href="#">Block all files</a></li>
+                                    <li><a href="#">Unblock all files</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Delete (Clear all)</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                {% if currentPage > 1 %}
+                    <li><a href="{{ path('admin_users',{page:currentPage - 1}) }}">«</a></li>
+                {% endif %}
+                {% if users|length > 9 %}
+                    <li><a href="{{ path('admin_users',{page:currentPage + 1}) }}">»</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <!-- /.box-body -->
+    </div>
+{% endblock %}

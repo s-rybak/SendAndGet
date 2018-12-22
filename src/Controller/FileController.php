@@ -11,10 +11,14 @@ namespace App\Controller;
 
 use App\Exceptions\EntityNotFoundException;
 use App\Service\Files\FilesServiceInterface;
+use App\Service\User\FileUserServiceIntervface;
+use App\Service\User\UserServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use ZipStream\Exception;
 
 /**
  * File site controller
@@ -26,14 +30,18 @@ class FileController extends AbstractController
 {
     private $service;
     private $uploadDir;
+    private $fileUserService;
+    private $userService;
 
-    public function __construct(FilesServiceInterface $service, $uploadDir)
+    public function __construct(FilesServiceInterface $service, $uploadDir, FileUserServiceIntervface $uservice,UserServiceInterface $userService)
     {
         $this->service = $service;
         $this->uploadDir = $uploadDir;
+        $this->fileUserService = $uservice;
+        $this->userService = $userService;
     }
 
-    public function getFileByHash(string $hash): Response
+    public function getFileByHash(string $hash,Request $request): Response
     {
         $file = $this->service->getByHash($hash);
 
@@ -44,6 +52,16 @@ class FileController extends AbstractController
         if ('active' !== $file->getStatus()) {
             throw new NotFoundHttpException("File $hash was blocked for download");
         }
+
+        $user = $this->userService->getCreateServiceUser($request);
+
+	    if($user->getStatus() !== "active"){
+
+		    throw new NotFoundHttpException("You blocked. Please contact site administrator");
+
+	    }
+
+	    $this->fileUserService->addDownload($user,$file);
 
         return $this->file($this->uploadDir.$file->getPath().$file->getName());
     }
@@ -63,11 +81,23 @@ class FileController extends AbstractController
         return $this->file($this->uploadDir.$file->getPath().$file->getName());
     }
 
-    public function getAllFilesByHash(string $hash): StreamedResponse
+    public function getAllFilesByHash(string $hash, Request $request): StreamedResponse
     {
         try {
-            return $this->service->zipFiles($hash);
-        } catch (EntityNotFoundException $e) {
+
+	        $user = $this->userService->getCreateServiceUser($request);
+	        $files = $files = $this->service->getByGroupHash($hash);
+
+	        if($user->getStatus() !== "active"){
+
+		        throw new NotFoundHttpException("You blocked. Please contact site administrator");
+
+	        }
+
+	        $this->fileUserService->addDownloadMany($user,$files);
+
+            return $this->service->zipFilesPack($files,$hash);
+        } catch (NotFoundHttpException $e) {
             throw new NotFoundHttpException($e->getMessage());
         }
     }

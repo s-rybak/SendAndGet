@@ -34,6 +34,16 @@ class FileUser
     private $file_id;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $count;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
@@ -43,7 +53,15 @@ class FileUser
      */
     private $updated_at;
 
-    public function getId(): ?int
+    public function __construct() {
+
+    	$this->setCount(0);
+	    $this->updated_at = new \DateTime();
+	    $this->created_at = new \DateTime();
+
+    }
+
+	public function getId(): ?int
     {
         return $this->id;
     }
@@ -95,4 +113,32 @@ class FileUser
 
         return $this;
     }
+
+	/**
+	 * @return string
+	 */
+	public function getStatus():string {
+		return $this->status;
+	}
+
+	/**
+	 * @param mixed status
+	 */
+	public function setStatus(string $status ): void {
+		$this->status = $status;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getCount():int {
+		return $this->count;
+	}
+
+	/**
+	 * @param int $count
+	 */
+	public function setCount(int $count ): void {
+		$this->count = $count;
+	}
 }

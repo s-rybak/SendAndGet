@@ -56,6 +56,8 @@ class CreateUserCommand extends Command
         $user->setEmail($email);
         $user->setUsername($usernamae);
         $user->setPassword($pass);
+        $user->setStatus('active');
+        $user->setUserRoles(['ROLE_ADMIN']);
 
         try {
             $this->userRepo->save($user);

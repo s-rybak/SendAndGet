@@ -188,6 +188,13 @@ admin_edit_reports:
     path: /admin/report/{id}
     controller: App\Controller\AdminController::editReports
 
+#Admin users
+admin_users:
+    path: /admin/users/{page}/{status}
+    controller: App\Controller\Admin\UsersController::users
+    defaults:   { page: 1, status: 'all' }
+
+
 #Admin languages config
 admin_languages:
     path: /admin/languages

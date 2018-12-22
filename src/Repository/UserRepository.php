@@ -21,15 +21,58 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class UserRepository extends ServiceEntityRepository implements UserRpositoryInterface
 {
+	use RepositoryStandartFunctionsTrait;
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, User::class);
     }
 
-    public function save($user)
-    {
-        $em = $this->getEntityManager();
-        $em->persist($user);
-        $em->flush();
-    }
+	public function getCreateServiceUser( string $ip, string $device ):User {
+
+		$user = $this->getByDeviceAndIp($ip,$device);
+
+		if(null === $user){
+
+			$user = new User();
+
+			$user->setUserRoles(['ROLE_SERVICE_USER']);
+			$user->setUsername(uniqid("user_"));
+			$user->setPassword("");
+			$user->setEmail("");
+			$user->setIp($ip);
+			$user->setDevice($device);
+			$user->setStatus("active");
+
+			return $this->save($user);
+
+		}
+
+		return $user;
+
+	}
+
+	public function getByIp( string $ip, int $page = 1, int $perpage = 10 ): iterable {
+
+    	return $this->findBy(['ip'=>$ip],null, $perpage, ($page - 1) * $perpage);
+
+	}
+
+	public function getByDevice( string $device,int $page = 1, int $perpage = 10 ): iterable {
+
+		return $this->findBy(['device'=>$device],null, $perpage, ($page - 1) * $perpage);
+
+	}
+
+	public function getByDeviceAndIp( string $ip, string $device ): ?User {
+
+		return $this->findOneBy(['device'=>$device,'ip'=>$ip]);
+
+	}
+
+	public function getByStatus( string $status, int $page = 1, int $perpage = 10 ): iterable {
+
+		return $this->findBy(['status'=>$status],null, $perpage, ($page - 1) * $perpage);
+
+	}
 }

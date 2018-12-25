@@ -75,4 +75,18 @@ class UserRepository extends ServiceEntityRepository implements UserRpositoryInt
 		return $this->findBy(['status'=>$status],null, $perpage, ($page - 1) * $perpage);
 
 	}
+
+	public function setStatusByIp( string $ip, string $status ): void {
+
+		$this
+			->createQueryBuilder('f')
+			->update()
+			->set('f.status', ':status')
+			->where('f.ip = :ip')
+			->setParameter('ip', $ip)
+			->setParameter('status', $status)
+			->getQuery()
+			->execute();
+
+	}
 }

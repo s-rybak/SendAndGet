@@ -21,6 +21,8 @@ interface UserRpositoryInterface
 
     public function getByIp(string $ip,int $page = 1, int $perpage = 10):iterable;
 
+    public function setStatusByIp(string $ip, string $status):void;
+
     public function getByDevice(string $device,int $page = 1, int $perpage = 10):iterable;
 
     public function getByDeviceAndIp(string $ip, string $device): ?User;

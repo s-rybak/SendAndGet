@@ -51,4 +51,16 @@ class UserService implements UserServiceInterface {
 		return $this->repo->getByStatus( $status, $page, $perpage );
 
 	}
+
+	public function getByIp( string $ip , int $page = 1, int $perpage = 10): iterable {
+
+		return $this->repo->getByIp($ip,$page,$perpage);
+
+	}
+
+	public function setStatusByIp( string $ip, string $status ): void {
+
+		$this->repo->setStatusByIp($ip,$status);
+
+	}
 }

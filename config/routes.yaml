@@ -193,7 +193,31 @@ admin_users:
     path: /admin/users/{page}/{status}
     controller: App\Controller\Admin\UsersController::users
     defaults:   { page: 1, status: 'all' }
-
+admin_users_edit:
+    path: /admin/user/{id}/{page}
+    controller: App\Controller\Admin\UsersController::editUser
+    defaults:   { page: 1 }
+admin_store_user:
+    path: /admin/store/user/{id}
+    controller: App\Controller\Admin\UsersController::store
+    methods: [POST]
+    defaults:   { id: 0 }
+admin_change_user_status:
+    path: /admin/user/status/{id}/{status}
+    controller: App\Controller\Admin\UsersController::changeStatus
+    methods: [GET]
+admin_change_user_status_ip:
+    path: /admin/user/ip/status/{ip}/{status}
+    controller: App\Controller\Admin\UsersController::changeStatusByIp
+    methods: [GET]
+admin_change_user_files_status:
+    path: /admin/user/files/status/{id}/{status}
+    controller: App\Controller\Admin\UsersController::changeFileStatus
+    methods: [GET]
+admin_change_user_files_status_ip:
+    path: /admin/user/files/ip/status/{ip}/{status}
+    controller: App\Controller\Admin\UsersController::changeFileStatusByIp
+    methods: [GET]
 
 #Admin languages config
 admin_languages:

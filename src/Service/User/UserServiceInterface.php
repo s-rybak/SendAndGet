@@ -20,6 +20,10 @@ interface UserServiceInterface {
 
 	public function getById(int $id): ?User;
 
+	public function getByIp(string $ip, int $page = 1, int $perpage = 10): iterable;
+
+	public function setStatusByIp( string $ip, string $status ): void;
+
 	public function getAll(int $page, int $perpage = 10): iterable;
 
 	public function getCreateServiceUser(Request $request):User;

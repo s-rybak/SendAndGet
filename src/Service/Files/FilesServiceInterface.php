@@ -39,6 +39,8 @@ interface FilesServiceInterface
 
     public function getByAppId(int $id, int $page = 1, int $perpage = 10): iterable;
 
+    public function getByUserId(int $id, int $page = 1, int $perpage = 10): iterable;
+
     public function getQueryByHash(int $id, string $hash, int $page = 1, int $perpage = 10): iterable;
 
     public function zipFiles(string $group_hash): StreamedResponse;
@@ -60,4 +62,9 @@ interface FilesServiceInterface
     public function getFileBagSize(FileBag $flies): FileBagSizeDTO;
 
     public function changeAppLimits(ApiApp $app, FileBag $flies): ApiApp;
+
+	public function setStatusByUserId(int $id = 0, string $status): void;
+
+	public function setStatusByUserIdPack( array $ids, string $status ): void;
+
 }

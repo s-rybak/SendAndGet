@@ -11,13 +11,13 @@
             <h3 class="box-title">Users</h3>
 
             <div class="box-tools">
-               {# <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                {# <div class="input-group input-group-sm" style="width: 150px;">
+                     <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
 
-                    <div class="input-group-btn">
-                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                    </div>
-                </div>#}
+                     <div class="input-group-btn">
+                         <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                     </div>
+                 </div>#}
             </div>
         </div>
         <!-- /.box-header -->
@@ -43,21 +43,40 @@
                         <td>{{ user.userRolesRaw }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="#" class="btn btn-default">Edit</a>
+                                <a href="{{ path("admin_users_edit",{ id:user.id }) }}" class="btn btn-default">Edit</a>
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                     <span class="caret"></span>
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Block</a></li>
-                                    <li><a href="#">Activate</a></li>
+                                    <li><a href="{{ path('admin_change_user_status',{id:user.id, status:'blocked'}) }}">Block</a>
+                                    </li>
+                                    <li><a href="{{ path('admin_change_user_status',{id:user.id, status:'active'}) }}">Activate</a>
+                                    </li>
                                     <li class="divider"></li>
+                                    {% if user.ip is defined and user.ip %}
+                                        <li>
+                                            <a href="{{ path('admin_change_user_status_ip',{ip:user.ip, status:'blocked'}) }}">Block
+                                                by IP</a></li>
+                                        <li>
+                                            <a href="{{ path('admin_change_user_status_ip',{ip:user.ip, status:'active'}) }}">Activate
+                                                by IP</a></li>
+                                        <li class="divider"></li>
+                                    {% endif %}
                                     {#<li><a href="#">Set limit</a></li>#}
                                     <li><a href="#">Clear all files</a></li>
-                                    <li><a href="#">Block all files</a></li>
-                                    <li><a href="#">Unblock all files</a></li>
+                                    <li><a href="{{ path('admin_change_user_files_status',{id:user.id, status:'blocked'}) }}">Block all files</a></li>
+                                    <li><a href="{{ path('admin_change_user_files_status',{id:user.id, status:'active'}) }}">Unblock all files</a></li>
                                     <li class="divider"></li>
+                                    {% if user.ip is defined and user.ip %}
+                                        <li><a href="#">Clear all files by IP</a></li>
+                                        <li><a href="{{ path('admin_change_user_files_status_ip',{ip:user.ip, status:'blocked'}) }}">Block all files by IP</a></li>
+                                        <li><a href="{{ path('admin_change_user_files_status_ip',{ip:user.ip, status:'active'}) }}">Unblock all files by IP</a></li>
+                                        <li class="divider"></li>
+                                    {% endif %}
                                     <li><a href="#">Delete (Clear all)</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Delete (Clear all) by IP</a></li>
                                 </ul>
                             </div>
                         </td>

@@ -64,6 +64,7 @@ class User implements UserInterface, \Serializable
 	 */
     private $status;
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -212,9 +213,12 @@ class User implements UserInterface, \Serializable
 
 	/**
 	 * @param mixed $ip
+	 * @return User
 	 */
-	public function setIp(string $ip ): void {
+	public function setIp(string $ip ): User {
 		$this->ip = $ip;
+
+		return $this;
 	}
 
 	/**
@@ -227,9 +231,12 @@ class User implements UserInterface, \Serializable
 
 	/**
 	 * @param mixed $device
+	 * @return User
 	 */
-	public function setDevice(string $device ): void {
+	public function setDevice(string $device ): User {
 		$this->device = $device;
+
+		return $this;
 	}
 
 	/**
@@ -248,9 +255,12 @@ class User implements UserInterface, \Serializable
 
 	/**
 	 * @param array $user_roles
+	 * @return User
 	 */
-	public function setUserRoles(array $user_roles ): void {
+	public function setUserRoles(array $user_roles ): User {
 		$this->user_roles = implode(",",$user_roles);
+
+		return $this;
 	}
 
 	/**
@@ -262,8 +272,12 @@ class User implements UserInterface, \Serializable
 
 	/**
 	 * @param string $status
+	 *
+	 * @return User
 	 */
-	public function setStatus(string $status ): void {
+	public function setStatus(string $status ): User {
 		$this->status = $status;
+
+		return $this;
 	}
 }

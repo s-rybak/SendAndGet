@@ -129,6 +129,11 @@ class FilesService implements FilesServiceInterface
         return $this->repositiry->getByAppId($id, $page, $perpage);
     }
 
+    public function getByUserId(int $id, int $page = 1, int $perpage = 10): iterable
+    {
+        return $this->repositiry->getByUserId($id, $page, $perpage);
+    }
+
     public function getQueryByHash(int $id, string $hash, int $page = 1, int $perpage = 10): iterable
     {
         return $this->repositiry->getQueryByHash($id, $hash, $page, $perpage);
@@ -222,6 +227,18 @@ class FilesService implements FilesServiceInterface
 	public function getByGroupHash( string $hash ): iterable {
 
     	return $this->repositiry->getByGroupHash($hash);
+
+	}
+
+	public function setStatusByUserId( int $id = 0, string $status ): void {
+
+    	$this->repositiry->setStatusByUserId($id,$status);
+
+	}
+
+	public function setStatusByUserIdPack( array $ids, string $status ): void{
+
+    	$this->repositiry->setStatusByUserIdPack($ids,$status);
 
 	}
 }

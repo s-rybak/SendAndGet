@@ -72,6 +72,11 @@ class FileRepository extends ServiceEntityRepository implements FileRepositiryIn
         return $this->findBy(['app_id' => $id], null, $perpage, ($page - 1) * $perpage);
     }
 
+    public function getByUserId(int $id, int $page = 1, int $perpage = 10): iterable
+    {
+        return $this->findBy(['user_id' => $id], null, $perpage, ($page - 1) * $perpage);
+    }
+
     public function getQueryByHash(int $id, string $hash, int $page = 1, int $perpage = 10): iterable
     {
         $files = $this->findBy([
@@ -150,4 +155,35 @@ class FileRepository extends ServiceEntityRepository implements FileRepositiryIn
 
         return $this->length();
     }
+
+	public function setStatusByUserId( int $id = 0, string $status ): void {
+
+		$this
+			->createQueryBuilder('f')
+			->update()
+			->set('f.status', ':status')
+			->where('f.user_id = :user_id')
+			->setParameter('user_id', $id)
+			->setParameter('status', $status)
+			->getQuery()
+			->execute();
+
+	}
+
+	public function setStatusByUserIdPack( array $ids, string $status ): void {
+
+		$em = $this->getEntityManager();
+		$em->getConnection()->beginTransaction();
+
+		try {
+			foreach ($ids as $id) {
+				$this->setStatusByUserId($id,$status);
+			}
+			$em->getConnection()->commit();
+		} catch (\Exception $e) {
+			$em->getConnection()->rollBack();
+			throw $e;
+		}
+
+	}
 }

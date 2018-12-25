@@ -27,6 +27,8 @@ interface FileRepositiryInterface
 
     public function getByAppId(int $id, int $page = 1, int $perpage = 10): iterable;
 
+    public function getByUserId(int $id, int $page = 1, int $perpage = 10): iterable;
+
     public function getList(int $page, int $perpage = 10): iterable;
 
     public function getByGroupHash(string $group_hash): iterable;
@@ -42,4 +44,16 @@ interface FileRepositiryInterface
     public function getFilesSize(int $id = 0): int;
 
     public function getFilesCount(int $id = 0): int;
+
+    public function setStatusByUserId(int $id = 0, string $status): void;
+
+	/**
+	 * Set status bu user ids array
+	 * Used transaction because update with join
+	 * NOT SUPPORTED BY DOCTRINE
+	 *
+	 * @param array $ids
+	 * @param string $status
+	 */
+	public function setStatusByUserIdPack( array $ids, string $status ): void;
 }

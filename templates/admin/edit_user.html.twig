@@ -4,44 +4,41 @@
 
 {% block content %}
     <div class="row">
-        <form action="{{ path('admin_store_app',{id: app.id ?? 0}) }}" method="post">
+        <form action="{{ path('admin_store_user',{id: user.id ?? 0}) }}" method="post">
             {{ form_widget(form._token) }}
-            {% if app.id is defined and app.id is not null %}
-                <input type="hidden" name="api_app[id]" value="{{ app.id }}">
+            {% if user.id is defined and user.id is not null %}
+                <input type="hidden" name="user[id]" value="{{ user.id }}">
             {% endif %}
             <div class="col-md-8">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">App</h3>
+                        <h3 class="box-title">User</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="fileName">Site</label>
-                            <input type="text" value="{{ app.host }}" class="form-control" id="appHot"
-                                   name="api_app[host]" placeholder="Host">
+                            <label for="fileName">Name</label>
+                            <input type="text" value="{{ user.username }}" class="form-control" id="appHot"
+                                   name="user[username]" placeholder="Host">
                         </div>
                         <div class="form-group">
                             <label for="fileName">Contact Email</label>
-                            <input type="text" class="form-control" value="{{ app.contactEmail }}" id="contacEmail"
-                                   name="api_app[contact_email]" placeholder="Contact Email">
+                            <input type="text" class="form-control" value="{{ user.email ? user.email : "empty" }}"
+                                   id="contacEmail"
+                                   name="user[email]" placeholder="Contact Email">
                         </div>
                         <div class="form-group">
-                            <label for="fileName">Live key</label>
-                            <input type="text" class="form-control" value="{{ app.liveKey }}" id="liveKey"
-                                   name="api_app[live_key]" placeholder="Live key">
+                            <label for="fileName">Device</label>
+                            <input type="text" class="form-control" value="{{ user.device ? user.device : "empty" }}"
+                                   id="testKey"
+                                   name="user[device]" placeholder="Test key">
                         </div>
                         <div class="form-group">
-                            <label for="fileName">Test key</label>
-                            <input type="text" class="form-control" value="{{ app.testKey }}" id="testKey"
-                                   name="api_app[test_key]" placeholder="Test key">
+                            <label for="fileName">Password</label>
+                            <input placeholder="Please input new password" type="text" class="form-control"
+                                   name="new_password">
                         </div>
-                        <div class="form-group">
-                            <label for="fileName">App secret key</label>
-                            <input type="text" class="form-control" value="{{ app.secret }}" id="testKey"
-                                   name="api_app[secret]" placeholder="Test key">
-                        </div>
-                        {% if app.id is defined and app.id is not null %}
+                        {% if user.id is defined and user.id is not null %}
                             <div class="form-group">
 
                                 <label for="uploadType">Files list</label>
@@ -73,7 +70,8 @@
                                             </td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a href="{{ path("admin_edit_file",{id:file.id}) }}"  class="btn btn-default">Open</a>
+                                                    <a href="{{ path("admin_edit_file",{id:file.id}) }}"
+                                                       class="btn btn-default">Open</a>
                                                     <button type="button" class="btn btn-default dropdown-toggle"
                                                             data-toggle="dropdown">
                                                         <span class="caret"></span>
@@ -118,11 +116,13 @@
                                 <div class="box-footer clearfix">
                                     <ul class="pagination pagination-sm no-margin pull-right">
                                         {% if currentPage > 1 %}
-                                            <li><a href="{{ path('admin_edit_app',{id:app.id,page:currentPage - 1}) }}">«</a>
+                                            <li>
+                                                <a href="{{ path('admin_users_edit',{id:user.id,page:currentPage - 1}) }}">«</a>
                                             </li>
                                         {% endif %}
                                         {% if files|length > 9 %}
-                                            <li><a href="{{ path('admin_edit_app',{id:app.id,page:currentPage + 1}) }}">»</a>
+                                            <li>
+                                                <a href="{{ path('admin_users_edit',{id:user.id,page:currentPage + 1}) }}">»</a>
                                             </li>
                                         {% endif %}
                                     </ul>
@@ -143,46 +143,31 @@
                             <label for="inputStatus" class="col-sm-3 control-label">Status</label>
 
                             <div class="col-sm-9 pull-right">
-                                <select class="form-control" name="api_app[status]">
-                                    <option {{ app.status == "active" ? "selected" : "" }} value="active">Active
+                                <select class="form-control" name="user[status]">
+                                    <option {{ user.status == "active" ? "selected" : "" }} value="active">Active
                                     </option>
-                                    <option {{ app.status == "suspended" ? "selected" : "" }} value="suspended">
-                                        Suspended
-                                    </option>
-                                    <option {{ app.status == "deleted" ? "selected" : "" }} value="deleted">Deleted
+                                    <option {{ user.status == "blocked" ? "selected" : "" }} value="blocked">
+                                        Blocked
                                     </option>
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Storage</label>
+                            <label class="col-sm-3 control-label">Ip</label>
 
                             <div class="col-sm-9 pull-right">
-                                <input type="text" class="form-control pull-right" name="api_app[storage]" id="storage"
-                                       value="{{ app.storage }}">
+                                <input type="text" class="form-control pull-right" name="user[ip]"
+                                       value="{{ user.ip  ? user.ip : "0.0.0.0" }}">
                             </div>
                             <!-- /.input group -->
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Limits</label>
+                            <label class="col-sm-3 control-label">Role</label>
 
                             <div class="col-sm-9 pull-right">
-                                <input type="text" class="form-control pull-right" name="api_app[limits]" id="limits"
-                                       value="{{ app.limits }}">
-                            </div>
-                            <!-- /.input group -->
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Updated at</label>
-
-                            <div class="col-sm-9 pull-right">
-                                <div class="input-group date">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </div>
-                                    <input type="text" disabled class="form-control pull-right"
-                                           value="{{ app.updatedAt|date("m/d/Y") }}">
-                                </div>
+                                <input disabled type="text" class="form-control pull-right"
+                                       value="{{ user.userRoles|join(', ') }}">
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -190,43 +175,71 @@
                     <!-- /.box-body -->
                     <div class="box-footer clearfix">
                         <div class="btn-group" style="width: 100%;">
-                            <button type="submit" name="api_app[save]" class="btn btn-primary btn-flat"
+                            <button type="submit" name="user[save]" class="btn btn-primary btn-flat"
                                     style="width: calc(100% - 25px);">Save
                             </button>
-                            {% if app.id is defined and app.id is not null %}
+                            {% if user.id is defined and user.id is not null %}
                                 <button type="button" class="btn btn-primary btn-flat dropdown-toggle"
                                         data-toggle="dropdown">
                                     <span class="caret"></span>
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ path('admin_change_app_status',{id:app.id, status:'suspended'}) }}">Suspend</a>
+                                    <li><a href="{{ path('admin_change_user_status',{id:user.id, status:'blocked'}) }}">Block</a>
                                     </li>
-                                    <li><a href="{{ path('admin_change_app_status',{id:app.id, status:'active'}) }}">Activate</a>
+                                    <li><a href="{{ path('admin_change_user_status',{id:user.id, status:'active'}) }}">Activate</a>
                                     </li>
                                     <li class="divider"></li>
-                                    {#<li><a href="#">Create report</a></li>
-                                    <li class="divider"></li>#}
-                                    <li><a href="{{ path('admin_change_app_status',{id:app.id, status:'deleted'}) }}">Delete
-                                            ( soft )</a></li>
-                                    <li><a href="{{ path('admin_remove_app',{id:app.id}) }}">Delete ( forever )</a></li>
+                                    {% if user.ip is defined and user.ip %}
+                                        <li>
+                                            <a href="{{ path('admin_change_user_status_ip',{ip:user.ip, status:'blocked'}) }}">Block
+                                                by IP</a></li>
+                                        <li>
+                                            <a href="{{ path('admin_change_user_status_ip',{ip:user.ip, status:'active'}) }}">Activate
+                                                by IP</a></li>
+                                        <li class="divider"></li>
+                                    {% endif %}
+                                    {#<li><a href="#">Set limit</a></li>#}
+                                    <li><a href="#">Clear all files</a></li>
+                                    <li><a href="{{ path('admin_change_user_files_status',{id:user.id, status:'blocked'}) }}">Block all files</a></li>
+                                    <li><a href="{{ path('admin_change_user_files_status',{id:user.id, status:'active'}) }}">Unblock all files</a></li>
+                                    <li class="divider"></li>
+                                    {% if user.ip is defined and user.ip %}
+                                    <li><a href="#">Clear all files by IP</a></li>
+                                    <li><a href="{{ path('admin_change_user_files_status_ip',{ip:user.ip, status:'blocked'}) }}">Block all files by IP</a></li>
+                                    <li><a href="{{ path('admin_change_user_files_status_ip',{ip:user.ip, status:'active'}) }}">Unblock all files by IP</a></li>
+                                    <li class="divider"></li>
+                                    {% endif %}
+                                    <li><a href="#">Delete (Clear all)</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Delete (Clear all) by IP</a></li>
                                 </ul>
                             {% endif %}
                         </div>
                     </div>
                 </div>
-                {% if app.id is defined and app.id is not null %}
+                {% if user.id is defined and user.id is not null %}
                     <div class="text-center">
-                        <a href="{{ path('admin_change_app_status',{id:app.id, status:'suspended'}) }}"
+                        <a href="{{ path('admin_change_user_status',{id:user.id, status:'blocked'}) }}"
                            class="btn btn-app">
-                            <i class="fa fa-thumbs-o-down"></i> Suspend
+                            <i class="fa fa-thumbs-o-down"></i> Block
                         </a>
-                        <a href="{{ path('admin_regen_app_keys',{id:app.id}) }}" class="btn btn-app">
-                            <i class="fa fa-refresh"></i> Regenerate keys
+                        {% if user.ip is defined and user.ip %}
+                            <a href="{{ path('admin_change_user_status_ip',{ip:user.ip, status:'blocked'}) }}"
+                               class="btn btn-app">
+                                <i class="fa fa-thumbs-o-down"></i> Block by IP
+                            </a>
+                        {% endif %}
+                        <a href="{{ path('admin_change_user_status',{id:user.id, status:'active'}) }}"
+                           class="btn btn-app">
+                            <i class="fa fa-thumbs-o-up"></i>Activate
                         </a>
-                        <a href="{{ path('admin_clear_app_storage',{id:app.id}) }}" class="btn btn-app">
-                            <i class="fa  fa-trash"></i> Clear storage
-                        </a>
+                        {% if user.ip is defined and user.ip %}
+                            <a href="{{ path('admin_change_user_status_ip',{ip:user.ip, status:'active'}) }}"
+                               class="btn btn-app">
+                                <i class="fa fa-thumbs-o-up"></i>Activate by IP
+                            </a>
+                        {% endif %}
                     </div>
                 {% endif %}
             </div>

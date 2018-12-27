@@ -130,6 +130,46 @@
 
                             </div>
                         {% endif %}
+
+                        {% if user.id is defined and user.id is not null %}
+                            <div class="form-group">
+
+                                <label for="uploadType">Files list</label>
+                                <table class="table table-striped">
+                                    <tbody>
+                                    <tr>
+                                        <th style="width: 10px">#ID</th>
+                                        <th>File</th>
+                                        <th>Count</th>
+                                        <th>Status</th>
+                                    </tr>
+                                    {% for download in downloads %}
+                                        <tr>
+                                            <td>{{ download.id }}</td>
+                                            <td><a href="{{ path('admin_edit_file', {id:download.fileId}) }}">File#{{ download.fileId }}</a></td>
+                                            <td>{{ download.count }}</td>
+                                            <td>{{ download.status }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                <div class="box-footer clearfix">
+                                    <ul class="pagination pagination-sm no-margin pull-right">
+                                        {% if currentPage > 1 %}
+                                            <li>
+                                                <a href="{{ path('admin_users_edit',{id:user.id,page:currentPage - 1}) }}">«</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if downloads|length > 9 %}
+                                            <li>
+                                                <a href="{{ path('admin_users_edit',{id:user.id,page:currentPage + 1}) }}">»</a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -200,19 +240,21 @@
                                         <li class="divider"></li>
                                     {% endif %}
                                     {#<li><a href="#">Set limit</a></li>#}
-                                    <li><a href="#">Clear all files</a></li>
+                                    <li><a href="{{ path('admin_expire_user_files',{id:user.id}) }}">Clear all files</a></li>
                                     <li><a href="{{ path('admin_change_user_files_status',{id:user.id, status:'blocked'}) }}">Block all files</a></li>
                                     <li><a href="{{ path('admin_change_user_files_status',{id:user.id, status:'active'}) }}">Unblock all files</a></li>
                                     <li class="divider"></li>
                                     {% if user.ip is defined and user.ip %}
-                                    <li><a href="#">Clear all files by IP</a></li>
+                                    <li><a href="{{ path('admin_expire_user_files_ip',{ip:user.ip}) }}">Clear all files by IP</a></li>
                                     <li><a href="{{ path('admin_change_user_files_status_ip',{ip:user.ip, status:'blocked'}) }}">Block all files by IP</a></li>
                                     <li><a href="{{ path('admin_change_user_files_status_ip',{ip:user.ip, status:'active'}) }}">Unblock all files by IP</a></li>
                                     <li class="divider"></li>
                                     {% endif %}
-                                    <li><a href="#">Delete (Clear all)</a></li>
+                                    <li><a href="{{ path('admin_delete_user',{id:user.id}) }}">Delete (Clear all)</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#">Delete (Clear all) by IP</a></li>
+                                    {% if user.ip is defined and user.ip %}
+                                    <li><a href="{{ path('admin_delete_user_ip',{ip:user.ip}) }}">Delete (Clear all) by IP</a></li>
+                                    {% endif %}
                                 </ul>
                             {% endif %}
                         </div>

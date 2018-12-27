@@ -20,6 +20,10 @@ interface FileUserRepositoryInterface {
 
 	public function getById(int $id);
 
+	public function getList(int $page, int $perpage = 10): iterable;
+
+	public function getDownloaded(int $page, int $perpage = 10): iterable;
+
 	public function getByFileID(int $id, int $page = 1, int $perpage = 10): iterable;
 
 	public function getByUserID(int $id, int $page = 1, int $perpage = 10): iterable;

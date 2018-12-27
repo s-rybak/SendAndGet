@@ -3,16 +3,19 @@
 namespace App\Service\User;
 
 use App\Entity\User;
+use App\Repository\FileUserRepositoryInterface;
 use App\Repository\UserRpositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserService implements UserServiceInterface {
 
 	private $repo;
+	private $fileUserRepo;
 
-	public function __construct( UserRpositoryInterface $repository ) {
+	public function __construct( UserRpositoryInterface $repository, FileUserRepositoryInterface $fileUserRepo ) {
 
 		$this->repo = $repository;
+		$this->fileUserRepo = $fileUserRepo;
 
 	}
 
@@ -55,6 +58,12 @@ class UserService implements UserServiceInterface {
 	public function getByIp( string $ip , int $page = 1, int $perpage = 10): iterable {
 
 		return $this->repo->getByIp($ip,$page,$perpage);
+
+	}
+
+	public function getDownloads( int $page = 1, int $perpage = 10): iterable {
+
+		return $this->fileUserRepo->getDownloaded($page,$perpage);
 
 	}
 

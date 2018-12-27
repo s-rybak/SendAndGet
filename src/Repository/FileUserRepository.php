@@ -45,4 +45,10 @@ class FileUserRepository extends ServiceEntityRepository implements FileUserRepo
 		return $this->findOneBy(['file_id'=>$file_id,'user_id'=>$user_id]);
 
 	}
+
+	public function getDownloaded(int $page, int $perpage = 10): iterable {
+
+		return $this->findBy(['status'=>"downloaded"], null, $perpage, ($page - 1) * $perpage);
+
+	}
 }

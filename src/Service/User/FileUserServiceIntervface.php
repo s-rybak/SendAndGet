@@ -12,5 +12,9 @@ interface FileUserServiceIntervface {
 
 	public function addDownloadMany(User $user, array $files):iterable;
 
+	public function getByUserId(int $id, int $page = 1, int $perpage = 10):iterable;
+
+	public function getByFileId(int $id, int $page = 1, int $perpage = 10):iterable;
+
 
 }

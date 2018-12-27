@@ -13,6 +13,7 @@ use App\Builder\AdminPageBuilderInterface;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Service\Files\FilesServiceInterface;
+use App\Service\User\FileUserServiceIntervface;
 use App\Service\User\UserServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,15 +29,18 @@ class UsersController extends AbstractController
     private $pageService;
     private $userService;
     private $filesService;
+    private $fileUserService;
 
     public function __construct(
         AdminPageBuilderInterface $pageService,
 		UserServiceInterface $userService,
-		FilesServiceInterface $filesService
+		FilesServiceInterface $filesService,
+		FileUserServiceIntervface $fileUserService
     ) {
         $this->pageService = $pageService;
         $this->userService = $userService;
         $this->filesService = $filesService;
+        $this->fileUserService = $fileUserService;
     }
 
     /**
@@ -84,6 +88,7 @@ class UsersController extends AbstractController
 			'form' => $form->createView(),
 			'user' => $user,
 			'files' => $this->filesService->getByUserId($id,$page),
+			'downloads' => $this->fileUserService->getByUserId($id,$page),
 			'currentPage' => $page,
 		]);
 	}
@@ -210,6 +215,144 @@ class UsersController extends AbstractController
 		return $this->redirect(
 			$request->headers->get('referer')
 		);
+	}
+
+	/**
+	 * admin change expire files by user.
+	 *
+	 * @param int  $id
+	 * @param Request $request
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function expireFileByUID(int $id, Request $request): Response
+	{
+
+		$this->filesService->expireByUser($id);
+
+		return $this->redirect(
+			$request->headers->get('referer')
+		);
+	}
+
+	/**
+	 * admin change expire files by user ip.
+	 *
+	 * @param string  $ip
+	 * @param Request $request
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function expireFileByIp(string $ip, Request $request): Response
+	{
+
+		$users = $this->userService->getByIp($ip,1,999999999);
+
+		if(count($users) > 0){
+
+			$ips = [];
+
+			foreach ($users as $ip){
+
+				$ips[] = $ip->getId();
+
+			}
+
+			$this->filesService->expireByUserIds($ips);
+
+		}
+
+
+		return $this->redirect(
+			$request->headers->get('referer')
+		);
+
+	}
+
+	/**
+	 * admin delete all user data.
+	 *
+	 * @param int  $id
+	 * @param Request $request
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function delete(int $id, Request $request): Response
+	{
+
+		$page = 1;
+
+		while($files = $this->filesService->getByUserId($id,$page,100000)){
+
+			$this->filesService->removeMany($files,false);
+			$page++;
+
+		};
+
+		$user = $this->userService->getById($id);
+
+		if(null !== $user){
+
+			$this->userService->remove($user);
+
+		}
+
+		return $this->redirectToRoute('admin_users');
+	}
+
+	/**
+	 * admin delete all user data by ip.
+	 *
+	 * @param string  $ip
+	 * @param Request $request
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function deleteByIp(string $ip, Request $request): Response
+	{
+
+		$page = 1;
+
+		while ($users = $this->userService->getByIp($ip,$page,100000)){
+
+			foreach ($users as $user){
+
+				$fp = 1;
+
+				while($files = $this->filesService->getByUserId($user->getId(),$fp,100000)){
+
+					$this->filesService->removeMany($files,false);
+					$fp++;
+
+				};
+
+				$this->userService->remove($user);
+
+			}
+
+			$page++;
+
+		}
+
+		return $this->redirectToRoute('admin_users');
+	}
+
+	/**
+	 * admin all downloads
+	 *
+	 * @param int  $page
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function downloads(int $page): Response
+	{
+
+		return $this->render('admin/downloads.html.twig', [
+			'page' => $this->pageService->getDownloadsResource(),
+			'downloads' => $this->userService->getDownloads($page),
+			'currentPage' => $page,
+		]);
+
 	}
 
 }

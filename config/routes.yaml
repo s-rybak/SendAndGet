@@ -84,6 +84,7 @@ admin_files:
 admin_edit_file:
     path: /admin/file/{id}
     controller: App\Controller\Admin\FilesController::editFile
+    defaults:   { page: 1 }
 
 admin_store_file:
     path: /admin/file/store/{id}
@@ -218,6 +219,27 @@ admin_change_user_files_status_ip:
     path: /admin/user/files/ip/status/{ip}/{status}
     controller: App\Controller\Admin\UsersController::changeFileStatusByIp
     methods: [GET]
+admin_expire_user_files:
+    path: /admin/user/files/expire/{id}
+    controller: App\Controller\Admin\UsersController::expireFileByUID
+    methods: [GET]
+admin_expire_user_files_ip:
+    path: /admin/user/ip/files/expire/{ip}
+    controller: App\Controller\Admin\UsersController::expireFileByIp
+    methods: [GET]
+admin_delete_user:
+    path: /admin/delete/user/{id}
+    controller: App\Controller\Admin\UsersController::delete
+    methods: [GET]
+admin_delete_user_ip:
+    path: /admin/delete/user/ip/{ip}
+    controller: App\Controller\Admin\UsersController::deleteByIp
+    methods: [GET]
+admin_downloads:
+    path: /admin/downloads/{page}
+    controller: App\Controller\Admin\UsersController::downloads
+    methods: [GET]
+    defaults:   { page: 1 }
 
 #Admin languages config
 admin_languages:

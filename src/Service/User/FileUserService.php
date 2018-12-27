@@ -57,4 +57,18 @@ class FileUserService implements FileUserServiceIntervface {
 		return $fileUser;
 
 	}
+
+
+	public function getByUserId( int $id, int $page = 1, int $perpage = 10 ): iterable {
+
+		return $this->fileUserRepo->getByUserID($id,$page,$perpage);
+
+	}
+
+	public function getByFileId( int $id, int $page = 1, int $perpage = 10 ): iterable {
+
+		return $this->fileUserRepo->getByFileID($id,$page,$perpage);
+
+	}
+
 }

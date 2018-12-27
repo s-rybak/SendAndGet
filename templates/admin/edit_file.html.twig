@@ -41,6 +41,53 @@
                             Go to app (#{{file.appId}}) page
                         </a>
                     </div>
+                    {% if file.userId is defined and file.userId %}
+                    <div class="form-group">
+                        <label for="uploadType">User</label><br>
+                        <a class="btn btn-primary" href="{{ path('admin_users_edit', {id:file.userId}) }}" target="_blank">
+                            Go to user (#{{file.userId}}) page
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% if file.id is defined and file.id is not null %}
+                        <div class="form-group">
+
+                            <label for="uploadType">File downloads</label>
+                            <table class="table table-striped">
+                                <tbody>
+                                <tr>
+                                    <th style="width: 10px">#ID</th>
+                                    <th>User</th>
+                                    <th>Count</th>
+                                    <th>Status</th>
+                                </tr>
+                                {% for download in downloads %}
+                                    <tr>
+                                        <td>{{ download.id }}</td>
+                                        <td><a href="{{ path('admin_users_edit', {id:download.userId}) }}">User#{{ download.userId }}</a></td>
+                                        <td>{{ download.count }}</td>
+                                        <td>{{ download.status }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="box-footer clearfix">
+                                <ul class="pagination pagination-sm no-margin pull-right">
+                                    {% if currentPage > 1 %}
+                                        <li>
+                                            <a href="{{ path('admin_edit_file',{id:user.id,page:currentPage - 1}) }}">«</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if downloads|length > 9 %}
+                                        <li>
+                                            <a href="{{ path('admin_users_edit',{id:user.id,page:currentPage + 1}) }}">»</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

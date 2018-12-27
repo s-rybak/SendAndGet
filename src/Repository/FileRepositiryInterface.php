@@ -41,6 +41,10 @@ interface FileRepositiryInterface
 
     public function expireAppFiles(int $appId): void;
 
+    public function expireByUser(int $user_id): void;
+
+    public function expireByUserIds(array $user_ids): void;
+
     public function getFilesSize(int $id = 0): int;
 
     public function getFilesCount(int $id = 0): int;

@@ -13,6 +13,7 @@ use App\Builder\AdminPageBuilderInterface;
 use App\Entity\File;
 use App\Form\FileFormType;
 use App\Service\Files\FilesServiceInterface;
+use App\Service\User\FileUserServiceIntervface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,15 +28,18 @@ class FilesController extends AbstractController
     private $pageBuilder;
     private $entitysService;
     private $uploadDir;
+    private $fileUserService;
 
     public function __construct(
         AdminPageBuilderInterface $pageBuilder,
         FilesServiceInterface $entitysService,
+        FileUserServiceIntervface $fileUserService,
         $uploadDir
     ) {
         $this->pageBuilder = $pageBuilder;
         $this->entitysService = $entitysService;
         $this->uploadDir = $uploadDir;
+        $this->fileUserService = $fileUserService;
     }
 
     /**
@@ -58,11 +62,12 @@ class FilesController extends AbstractController
      * admin edit file page.
      *
      * @param int     $id
+     * @param int     $page
      * @param Request $request
      *
      * @return Response
      */
-    public function editFile(int $id, Request $request): Response
+    public function editFile(int $id, int $page, Request $request): Response
     {
         $file = $this->entitysService->getById($id);
 
@@ -76,7 +81,9 @@ class FilesController extends AbstractController
         return $this->render('admin/edit_file.html.twig', [
             'page' => $this->pageBuilder->getEditFilesResource($file->getName()),
             'file' => $file,
+            'downloads' => $this->fileUserService->getByFileId($file->getId(),$page),
             'form' => $form->createView(),
+            'currentPage' => $page,
         ]);
     }
 

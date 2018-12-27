@@ -29,6 +29,8 @@ interface FilesServiceInterface
 
     public function remove(File $file, $soft = true);
 
+    public function removeMany(iterable $files, $soft = true);
+
     public function uploadAndSaveFiles(int $appId, FileBag $files, string $group_hash,int $user_id): iterable;
 
     public function getById(int $id): ?File;
@@ -54,6 +56,10 @@ interface FilesServiceInterface
     public function expire(File $file);
 
     public function expireAppFiles(int $appId);
+
+    public function expireByUser(int $user_id): void;
+
+    public function expireByUserIds(array $user_ids): void;
 
     public function getExpired(int $limit): iterable;
 

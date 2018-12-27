@@ -128,6 +128,36 @@ class FileRepository extends ServiceEntityRepository implements FileRepositiryIn
             ->execute();
     }
 
+    public function expireByUser(int $user_id): void
+    {
+        $this
+            ->createQueryBuilder('f')
+            ->update()
+            ->set('f.deletes_in', ':date')
+            ->set('f.status', ':status')
+            ->where('f.user_id = :id')
+            ->setParameter('id', $user_id)
+            ->setParameter('date', new \DateTime())
+	        ->setParameter('status', "deleted")
+            ->getQuery()
+            ->execute();
+    }
+
+    public function expireByUserIds(array $user_ids): void
+    {
+        $this
+            ->createQueryBuilder('f')
+            ->update()
+            ->set('f.deletes_in', ':date')
+            ->set('f.status', ':status')
+            ->where('f.user_id IN (:ids)')
+            ->setParameter('ids', $user_ids)
+            ->setParameter('date', new \DateTime())
+            ->setParameter('status', "deleted")
+            ->getQuery()
+            ->execute();
+    }
+
     public function getFilesSize(int $id = 0): int
     {
         $qb = $this->createQueryBuilder('a');
@@ -172,18 +202,15 @@ class FileRepository extends ServiceEntityRepository implements FileRepositiryIn
 
 	public function setStatusByUserIdPack( array $ids, string $status ): void {
 
-		$em = $this->getEntityManager();
-		$em->getConnection()->beginTransaction();
-
-		try {
-			foreach ($ids as $id) {
-				$this->setStatusByUserId($id,$status);
-			}
-			$em->getConnection()->commit();
-		} catch (\Exception $e) {
-			$em->getConnection()->rollBack();
-			throw $e;
-		}
+		$this
+			->createQueryBuilder('f')
+			->update()
+			->set('f.status', ':status')
+			->where('f.user_id IN (:user_ids)')
+			->setParameter('user_ids', $ids)
+			->setParameter('status', $status)
+			->getQuery()
+			->execute();
 
 	}
 }

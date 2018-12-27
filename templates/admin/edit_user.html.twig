@@ -41,7 +41,7 @@
                         {% if user.id is defined and user.id is not null %}
                             <div class="form-group">
 
-                                <label for="uploadType">Files list</label>
+                                <label for="uploadType">Uploaded Files list</label>
                                 <table class="table table-striped">
                                     <tbody>
                                     <tr>
@@ -57,6 +57,7 @@
                                             <td>{{ file.id }}</td>
                                             <td>{{ file.name }}</td>
                                             <td>{{ file.status }}</td>
+                                            <td>{{ file.size }}</td>
                                             <td>
                                                 {% if file.status is defined and file.status != "site_file" %}
                                                     <div class="progress progress-xs progress-striped active">
@@ -134,7 +135,7 @@
                         {% if user.id is defined and user.id is not null %}
                             <div class="form-group">
 
-                                <label for="uploadType">Files list</label>
+                                <label for="uploadType">Downloaded Files list</label>
                                 <table class="table table-striped">
                                     <tbody>
                                     <tr>

@@ -177,18 +177,19 @@ final class UploadedFileDTO
         $this->size = $size;
     }
 
-	/**
-	 * @return int
-	 */
-	public function getUserId():int
-	{
-		return $this->userId;
-	}
+    /**
+     * @return int
+     */
+    public function getUserId(): int
+    {
+        return $this->userId;
+    }
 
-	/**
-	 * @param int $userId
-	 */
-	public function setUserId( int $userId ): void {
-		$this->userId = $userId;
-	}
+    /**
+     * @param int $userId
+     */
+    public function setUserId(int $userId): void
+    {
+        $this->userId = $userId;
+    }
 }

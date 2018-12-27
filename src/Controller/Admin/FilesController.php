@@ -81,7 +81,7 @@ class FilesController extends AbstractController
         return $this->render('admin/edit_file.html.twig', [
             'page' => $this->pageBuilder->getEditFilesResource($file->getName()),
             'file' => $file,
-            'downloads' => $this->fileUserService->getByFileId($file->getId(),$page),
+            'downloads' => $this->fileUserService->getByFileId($file->getId(), $page),
             'form' => $form->createView(),
             'currentPage' => $page,
         ]);

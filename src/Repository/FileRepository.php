@@ -138,7 +138,7 @@ class FileRepository extends ServiceEntityRepository implements FileRepositiryIn
             ->where('f.user_id = :id')
             ->setParameter('id', $user_id)
             ->setParameter('date', new \DateTime())
-	        ->setParameter('status', "deleted")
+            ->setParameter('status', 'deleted')
             ->getQuery()
             ->execute();
     }
@@ -153,7 +153,7 @@ class FileRepository extends ServiceEntityRepository implements FileRepositiryIn
             ->where('f.user_id IN (:ids)')
             ->setParameter('ids', $user_ids)
             ->setParameter('date', new \DateTime())
-            ->setParameter('status', "deleted")
+            ->setParameter('status', 'deleted')
             ->getQuery()
             ->execute();
     }
@@ -186,31 +186,29 @@ class FileRepository extends ServiceEntityRepository implements FileRepositiryIn
         return $this->length();
     }
 
-	public function setStatusByUserId( int $id = 0, string $status ): void {
+    public function setStatusByUserId(int $id = 0, string $status): void
+    {
+        $this
+            ->createQueryBuilder('f')
+            ->update()
+            ->set('f.status', ':status')
+            ->where('f.user_id = :user_id')
+            ->setParameter('user_id', $id)
+            ->setParameter('status', $status)
+            ->getQuery()
+            ->execute();
+    }
 
-		$this
-			->createQueryBuilder('f')
-			->update()
-			->set('f.status', ':status')
-			->where('f.user_id = :user_id')
-			->setParameter('user_id', $id)
-			->setParameter('status', $status)
-			->getQuery()
-			->execute();
-
-	}
-
-	public function setStatusByUserIdPack( array $ids, string $status ): void {
-
-		$this
-			->createQueryBuilder('f')
-			->update()
-			->set('f.status', ':status')
-			->where('f.user_id IN (:user_ids)')
-			->setParameter('user_ids', $ids)
-			->setParameter('status', $status)
-			->getQuery()
-			->execute();
-
-	}
+    public function setStatusByUserIdPack(array $ids, string $status): void
+    {
+        $this
+            ->createQueryBuilder('f')
+            ->update()
+            ->set('f.status', ':status')
+            ->where('f.user_id IN (:user_ids)')
+            ->setParameter('user_ids', $ids)
+            ->setParameter('status', $status)
+            ->getQuery()
+            ->execute();
+    }
 }

@@ -44,26 +44,25 @@ class User implements UserInterface, \Serializable
      */
     private $isActive = true;
 
-	/**
-	 * @ORM\Column(type="string", length=100)
-	 */
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
     private $ip;
 
     /**
-	 * @ORM\Column(type="text")
-	 */
+     * @ORM\Column(type="text")
+     */
     private $device;
 
     /**
-	 * @ORM\Column(type="text")
-	 */
+     * @ORM\Column(type="text")
+     */
     private $user_roles;
 
     /**
-	 * @ORM\Column(type="string", length=100)
-	 */
+     * @ORM\Column(type="string", length=100)
+     */
     private $status;
-
 
     public function getId(): ?int
     {
@@ -203,81 +202,91 @@ class User implements UserInterface, \Serializable
         return 'ua';
     }
 
-	/**
-	 * @return mixed
-	 */
-	public function getIp():string
-	{
-		return $this->ip;
-	}
+    /**
+     * @return mixed
+     */
+    public function getIp(): string
+    {
+        return $this->ip;
+    }
 
-	/**
-	 * @param mixed $ip
-	 * @return User
-	 */
-	public function setIp(string $ip ): User {
-		$this->ip = $ip;
+    /**
+     * @param mixed $ip
+     *
+     * @return User
+     */
+    public function setIp(string $ip): User
+    {
+        $this->ip = $ip;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getDevice():string
-	{
-		return $this->device;
-	}
+    /**
+     * @return mixed
+     */
+    public function getDevice(): string
+    {
+        return $this->device;
+    }
 
-	/**
-	 * @param mixed $device
-	 * @return User
-	 */
-	public function setDevice(string $device ): User {
-		$this->device = $device;
+    /**
+     * @param mixed $device
+     *
+     * @return User
+     */
+    public function setDevice(string $device): User
+    {
+        $this->device = $device;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getUserRolesRaw():string {
-		return $this->user_roles;
-	}
+    /**
+     * @return mixed
+     */
+    public function getUserRolesRaw(): string
+    {
+        return $this->user_roles;
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getUserRoles():array {
-		return explode(",",$this->user_roles);
-	}
+    /**
+     * @return mixed
+     */
+    public function getUserRoles(): array
+    {
+        return explode(',', $this->user_roles);
+    }
 
-	/**
-	 * @param array $user_roles
-	 * @return User
-	 */
-	public function setUserRoles(array $user_roles ): User {
-		$this->user_roles = implode(",",$user_roles);
+    /**
+     * @param array $user_roles
+     *
+     * @return User
+     */
+    public function setUserRoles(array $user_roles): User
+    {
+        $this->user_roles = implode(',', $user_roles);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getStatus():string {
-		return $this->status;
-	}
+    /**
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
 
-	/**
-	 * @param string $status
-	 *
-	 * @return User
-	 */
-	public function setStatus(string $status ): User {
-		$this->status = $status;
+    /**
+     * @param string $status
+     *
+     * @return User
+     */
+    public function setStatus(string $status): User
+    {
+        $this->status = $status;
 
-		return $this;
-	}
+        return $this;
+    }
 }

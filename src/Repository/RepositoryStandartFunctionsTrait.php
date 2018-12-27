@@ -53,22 +53,22 @@ trait RepositoryStandartFunctionsTrait
         return intval($qb->getQuery()->getSingleScalarResult());
     }
 
-	public function saveMany(array $entities): array
-	{
-		$em = $this->getEntityManager();
-		$em->getConnection()->beginTransaction();
+    public function saveMany(array $entities): array
+    {
+        $em = $this->getEntityManager();
+        $em->getConnection()->beginTransaction();
 
-		try {
-			foreach ($entities as $entity) {
-				$em->persist($entity);
-				$em->flush();
-			}
-			$em->getConnection()->commit();
-		} catch (\Exception $e) {
-			$em->getConnection()->rollBack();
-			throw $e;
-		}
+        try {
+            foreach ($entities as $entity) {
+                $em->persist($entity);
+                $em->flush();
+            }
+            $em->getConnection()->commit();
+        } catch (\Exception $e) {
+            $em->getConnection()->rollBack();
+            throw $e;
+        }
 
-		return $entities;
-	}
+        return $entities;
+    }
 }

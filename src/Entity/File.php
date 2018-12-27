@@ -87,9 +87,9 @@ class File
      */
     private $life_time;
 
-	/**
-	 * @ORM\Column(type="integer")
-	 */
+    /**
+     * @ORM\Column(type="integer")
+     */
     private $user_id;
 
     /**
@@ -335,18 +335,19 @@ class File
         return $this;
     }
 
-	/**
-	 * @return int
-	 */
-	public function getUserId():int
-	{
-		return $this->user_id;
-	}
+    /**
+     * @return int
+     */
+    public function getUserId(): int
+    {
+        return $this->user_id;
+    }
 
-	/**
-	 * @param mixed $user_id
-	 */
-	public function setUserId(int $user_id ): void {
-		$this->user_id = $user_id;
-	}
+    /**
+     * @param mixed $user_id
+     */
+    public function setUserId(int $user_id): void
+    {
+        $this->user_id = $user_id;
+    }
 }

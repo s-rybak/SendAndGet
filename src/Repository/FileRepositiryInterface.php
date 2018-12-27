@@ -51,13 +51,13 @@ interface FileRepositiryInterface
 
     public function setStatusByUserId(int $id = 0, string $status): void;
 
-	/**
-	 * Set status bu user ids array
-	 * Used transaction because update with join
-	 * NOT SUPPORTED BY DOCTRINE
-	 *
-	 * @param array $ids
-	 * @param string $status
-	 */
-	public function setStatusByUserIdPack( array $ids, string $status ): void;
+    /**
+     * Set status bu user ids array
+     * Used transaction because update with join
+     * NOT SUPPORTED BY DOCTRINE.
+     *
+     * @param array  $ids
+     * @param string $status
+     */
+    public function setStatusByUserIdPack(array $ids, string $status): void;
 }

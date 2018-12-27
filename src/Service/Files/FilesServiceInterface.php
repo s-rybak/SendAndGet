@@ -31,7 +31,7 @@ interface FilesServiceInterface
 
     public function removeMany(iterable $files, $soft = true);
 
-    public function uploadAndSaveFiles(int $appId, FileBag $files, string $group_hash,int $user_id): iterable;
+    public function uploadAndSaveFiles(int $appId, FileBag $files, string $group_hash, int $user_id): iterable;
 
     public function getById(int $id): ?File;
 
@@ -69,8 +69,7 @@ interface FilesServiceInterface
 
     public function changeAppLimits(ApiApp $app, FileBag $flies): ApiApp;
 
-	public function setStatusByUserId(int $id = 0, string $status): void;
+    public function setStatusByUserId(int $id = 0, string $status): void;
 
-	public function setStatusByUserIdPack( array $ids, string $status ): void;
-
+    public function setStatusByUserIdPack(array $ids, string $status): void;
 }

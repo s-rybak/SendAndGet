@@ -102,13 +102,12 @@ class AdminPageBuilder implements AdminPageBuilderInterface
             new BreadcrumbsDTO('Dashboard', 'admin_dashboard'),
         ];
 
-        $resource->setTitle("Downloads");
+        $resource->setTitle('Downloads');
         $resource->setDescription('All site downloads');
         $resource->setBreadcrumbs($breadcrumbs);
 
         return $resource;
     }
-
 
     public function getEditAppApiResource(string $pageTitle): AdminPageDTO
     {

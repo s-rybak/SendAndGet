@@ -28,27 +28,23 @@ class FileUserRepository extends ServiceEntityRepository implements FileUserRepo
         parent::__construct($registry, FileUser::class);
     }
 
-	public function getByFileID( int $id, int $page = 1, int $perpage = 10 ):iterable {
+    public function getByFileID(int $id, int $page = 1, int $perpage = 10): iterable
+    {
+        return $this->findBy(['file_id' => $id]);
+    }
 
-		return $this->findBy(['file_id'=>$id]);
+    public function getByUserID(int $id, int $page = 1, int $perpage = 10): iterable
+    {
+        return $this->findBy(['user_id' => $id]);
+    }
 
-	}
+    public function getByFileAndUserId(int $file_id, int $user_id): ?FileUser
+    {
+        return $this->findOneBy(['file_id' => $file_id, 'user_id' => $user_id]);
+    }
 
-	public function getByUserID( int $id, int $page = 1, int $perpage = 10 ):iterable {
-
-		return $this->findBy(['user_id'=>$id]);
-
-	}
-
-	public function getByFileAndUserId(int $file_id,int $user_id): ?FileUser {
-
-		return $this->findOneBy(['file_id'=>$file_id,'user_id'=>$user_id]);
-
-	}
-
-	public function getDownloaded(int $page, int $perpage = 10): iterable {
-
-		return $this->findBy(['status'=>"downloaded"], null, $perpage, ($page - 1) * $perpage);
-
-	}
+    public function getDownloaded(int $page, int $perpage = 10): iterable
+    {
+        return $this->findBy(['status' => 'downloaded'], null, $perpage, ($page - 1) * $perpage);
+    }
 }

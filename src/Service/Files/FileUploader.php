@@ -92,16 +92,16 @@ class FileUploader implements FileUploaderInterface
         $this->fileLifeTime = $fileLifeTime;
     }
 
-	public function setUserId( int $user_id ): void {
+    public function setUserId(int $user_id): void
+    {
+        $this->userId = $user_id;
+    }
 
-		$this->userId = $user_id;
-
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getUserId() {
-		return $this->userId;
-	}
+    /**
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
 }

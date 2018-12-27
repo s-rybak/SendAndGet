@@ -12,23 +12,24 @@ namespace App\Exceptions;
 /**
  * Exception throws when
  * files remove process throws errors.
- *
  */
 class FilesRemoveExceptionsPack extends \DomainException
 {
-	private $errors = [];
+    private $errors = [];
 
-	/**
-	 * @return array
-	 */
-	public function getErrors(): array {
-		return $this->errors;
-	}
+    /**
+     * @return array
+     */
+    public function getErrors(): array
+    {
+        return $this->errors;
+    }
 
-	/**
-	 * @param array $errors
-	 */
-	public function setErrors( array $errors ): void {
-		$this->errors = $errors;
-	}
+    /**
+     * @param array $errors
+     */
+    public function setErrors(array $errors): void
+    {
+        $this->errors = $errors;
+    }
 }

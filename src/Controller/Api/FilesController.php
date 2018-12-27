@@ -9,7 +9,6 @@
 
 namespace App\Controller\Api;
 
-use App\Repository\UserRpositoryInterface;
 use App\Resource\ApiErrorResponceResource;
 use App\Resource\ApiSuccessResponceResource;
 use App\Service\AppApiServiceInterface;
@@ -21,7 +20,6 @@ use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use ZipStream\Exception;
 
 /**
  * Files api controller.
@@ -34,12 +32,11 @@ final class FilesController extends FOSRestController
     private $userService;
 
     public function __construct(
-    	TokenStorageInterface $token,
-	    FilesServiceInterface $service,
-	    AppApiServiceInterface $appService,
-	    UserServiceInterface $userService
-    )
-    {
+        TokenStorageInterface $token,
+        FilesServiceInterface $service,
+        AppApiServiceInterface $appService,
+        UserServiceInterface $userService
+    ) {
         $this->appApi = $token->getToken()->getUser();
         $this->fileService = $service;
         $this->appService = $appService;
@@ -131,16 +128,13 @@ final class FilesController extends FOSRestController
                 ->changeAppLimits($this->appApi, $request->files)
             );
 
-	        $user =  $this->userService->getCreateServiceUser($request);
+            $user = $this->userService->getCreateServiceUser($request);
 
-	        if($user->getStatus() !== "active"){
-
-		        throw new \Exception("You blocked. Please contact site administrator");
-
+            if ('active' !== $user->getStatus()) {
+                throw new \Exception('You blocked. Please contact site administrator');
             }
 
             $files = $this->fileService->uploadAndSaveFiles($this->appApi->getId(), $request->files, $hash, $user->getId());
-
         } catch (\Exception $e) {
             return $this->view(
                 new ApiErrorResponceResource($e->getMessage()),
